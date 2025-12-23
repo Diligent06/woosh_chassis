@@ -1,0 +1,1806 @@
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.arch armv7e-m
+   3              		.fpu fpv5-d16
+   4              		.eabi_attribute 28, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"motorevo.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	motorevo_rec
+  19              		.section	.bss.motorevo_rec,"aw",%nobits
+  20              		.align	2
+  23              	motorevo_rec:
+  24 0000 00000000 		.space	32
+  24      00000000 
+  24      00000000 
+  24      00000000 
+  24      00000000 
+  25              		.global	motorevo_state
+  26              		.section	.bss.motorevo_state,"aw",%nobits
+  27              		.align	2
+  30              	motorevo_state:
+  31 0000 00000000 		.space	80
+  31      00000000 
+  31      00000000 
+  31      00000000 
+  31      00000000 
+  32              		.global	motorevo_sed_buf
+  33              		.section	.bss.motorevo_sed_buf,"aw",%nobits
+  34              		.align	2
+  37              	motorevo_sed_buf:
+  38 0000 00000000 		.space	8
+  38      00000000 
+  39              		.global	motorevo_reset_buf
+  40              		.section	.data.motorevo_reset_buf,"aw"
+  41              		.align	2
+  44              	motorevo_reset_buf:
+  45 0000 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\375"
+  45      FFFFFFFD 
+  46              		.global	motorevo_activate_buf
+  47              		.section	.data.motorevo_activate_buf,"aw"
+  48              		.align	2
+  51              	motorevo_activate_buf:
+  52 0000 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\374"
+  52      FFFFFFFC 
+  53              		.global	motorevo_set_zero_buf
+  54              		.section	.data.motorevo_set_zero_buf,"aw"
+  55              		.align	2
+  58              	motorevo_set_zero_buf:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 2
+
+
+  59 0000 FFFFFFFF 		.ascii	"\377\377\377\377\377\377\377\376"
+  59      FFFFFFFE 
+  60              		.global	motorevo_id
+  61              		.section	.data.motorevo_id,"aw"
+  62              		.align	2
+  65              	motorevo_id:
+  66 0000 05060708 		.ascii	"\005\006\007\010"
+  67              		.global	pos_range
+  68              		.section	.data.pos_range,"aw"
+  69              		.align	2
+  72              	pos_range:
+  73 0000 000048C1 		.word	-1052246016
+  74 0004 00004841 		.word	1095237632
+  75              		.global	vel_range
+  76              		.section	.data.vel_range,"aw"
+  77              		.align	2
+  80              	vel_range:
+  81 0000 0000F0C1 		.word	-1041235968
+  82 0004 0000F041 		.word	1106247680
+  83              		.global	tor_range
+  84              		.section	.data.tor_range,"aw"
+  85              		.align	2
+  88              	tor_range:
+  89 0000 000048C2 		.word	-1035468800
+  90 0004 00004842 		.word	1112014848
+  91              		.global	pos_kp_range
+  92              		.section	.data.pos_kp_range,"aw"
+  93              		.align	2
+  96              	pos_kp_range:
+  97 0000 00000000 		.word	0
+  98 0004 00007A43 		.word	1132068864
+  99              		.global	pos_kd_range
+ 100              		.section	.data.pos_kd_range,"aw"
+ 101              		.align	2
+ 104              	pos_kd_range:
+ 105 0000 00000000 		.word	0
+ 106 0004 00004842 		.word	1112014848
+ 107              		.global	vel_kp_range
+ 108              		.section	.data.vel_kp_range,"aw"
+ 109              		.align	2
+ 112              	vel_kp_range:
+ 113 0000 00000000 		.word	0
+ 114 0004 00007A43 		.word	1132068864
+ 115              		.global	vel_kd_range
+ 116              		.section	.data.vel_kd_range,"aw"
+ 117              		.align	2
+ 120              	vel_kd_range:
+ 121 0000 00000000 		.word	0
+ 122 0004 00004842 		.word	1112014848
+ 123              		.global	vel_ki_range
+ 124              		.section	.data.vel_ki_range,"aw"
+ 125              		.align	2
+ 128              	vel_ki_range:
+ 129 0000 00000000 		.word	0
+ 130 0004 CDCC4C3D 		.word	1028443341
+ 131              		.global	motorevo_pos_cmd
+ 132              		.section	.bss.motorevo_pos_cmd,"aw",%nobits
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 3
+
+
+ 133              		.align	2
+ 136              	motorevo_pos_cmd:
+ 137 0000 00000000 		.space	16
+ 137      00000000 
+ 137      00000000 
+ 137      00000000 
+ 138              		.global	motorevo_vel_cmd
+ 139              		.section	.bss.motorevo_vel_cmd,"aw",%nobits
+ 140              		.align	2
+ 143              	motorevo_vel_cmd:
+ 144 0000 00000000 		.space	16
+ 144      00000000 
+ 144      00000000 
+ 144      00000000 
+ 145              		.global	pos_min
+ 146              		.section	.bss.pos_min,"aw",%nobits
+ 147              		.align	2
+ 150              	pos_min:
+ 151 0000 00000000 		.space	16
+ 151      00000000 
+ 151      00000000 
+ 151      00000000 
+ 152              		.global	pos_max
+ 153              		.section	.bss.pos_max,"aw",%nobits
+ 154              		.align	2
+ 157              	pos_max:
+ 158 0000 00000000 		.space	16
+ 158      00000000 
+ 158      00000000 
+ 158      00000000 
+ 159              		.global	pos_front
+ 160              		.section	.bss.pos_front,"aw",%nobits
+ 161              		.align	2
+ 164              	pos_front:
+ 165 0000 00000000 		.space	16
+ 165      00000000 
+ 165      00000000 
+ 165      00000000 
+ 166              		.global	motorevo_pos_kp
+ 167              		.section	.data.motorevo_pos_kp,"aw"
+ 168              		.align	2
+ 171              	motorevo_pos_kp:
+ 172 0000 00007041 		.word	1097859072
+ 173              		.global	motorevo_pos_kd
+ 174              		.section	.data.motorevo_pos_kd,"aw"
+ 175              		.align	2
+ 178              	motorevo_pos_kd:
+ 179 0000 00009040 		.word	1083179008
+ 180              		.global	motorevo_vel_kp
+ 181              		.section	.data.motorevo_vel_kp,"aw"
+ 182              		.align	2
+ 185              	motorevo_vel_kp:
+ 186 0000 00004842 		.word	1112014848
+ 187              		.global	motorevo_vel_kd
+ 188              		.section	.bss.motorevo_vel_kd,"aw",%nobits
+ 189              		.align	2
+ 192              	motorevo_vel_kd:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 4
+
+
+ 193 0000 00000000 		.space	4
+ 194              		.global	motorevo_vel_ki
+ 195              		.section	.data.motorevo_vel_ki,"aw"
+ 196              		.align	2
+ 199              	motorevo_vel_ki:
+ 200 0000 6F12833A 		.word	981668463
+ 201              		.global	pos_kp_command
+ 202              		.section	.bss.pos_kp_command,"aw",%nobits
+ 205              	pos_kp_command:
+ 206 0000 00       		.space	1
+ 207              		.global	pos_kd_command
+ 208              		.section	.bss.pos_kd_command,"aw",%nobits
+ 211              	pos_kd_command:
+ 212 0000 00       		.space	1
+ 213              		.global	vel_kp_command
+ 214              		.section	.bss.vel_kp_command,"aw",%nobits
+ 217              	vel_kp_command:
+ 218 0000 00       		.space	1
+ 219              		.global	vel_ki_command
+ 220              		.section	.bss.vel_ki_command,"aw",%nobits
+ 223              	vel_ki_command:
+ 224 0000 00       		.space	1
+ 225              		.global	vel_kd_command
+ 226              		.section	.bss.vel_kd_command,"aw",%nobits
+ 229              	vel_kd_command:
+ 230 0000 00       		.space	1
+ 231              		.section	.text.map_u8_to_float,"ax",%progbits
+ 232              		.align	1
+ 233              		.global	map_u8_to_float
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 238              	map_u8_to_float:
+ 239              	.LFB144:
+ 240              		.file 1 "User/Src/motorevo.c"
+   1:User/Src/motorevo.c **** #include "motorevo.h"
+   2:User/Src/motorevo.c **** #include "string.h"
+   3:User/Src/motorevo.c **** 
+   4:User/Src/motorevo.c **** 
+   5:User/Src/motorevo.c **** struct Receive_servo motorevo_rec[4];
+   6:User/Src/motorevo.c **** struct Motor_state motorevo_state[4];
+   7:User/Src/motorevo.c **** 
+   8:User/Src/motorevo.c **** u8 motorevo_sed_buf[8] = {0};
+   9:User/Src/motorevo.c **** 
+  10:User/Src/motorevo.c **** u8 motorevo_reset_buf[8] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfd};
+  11:User/Src/motorevo.c **** u8 motorevo_activate_buf[8] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfc};
+  12:User/Src/motorevo.c **** u8 motorevo_set_zero_buf[8] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe};
+  13:User/Src/motorevo.c **** 
+  14:User/Src/motorevo.c **** 
+  15:User/Src/motorevo.c **** u8 motorevo_id[4] = {0x05, 0x06, 0x07, 0x08};
+  16:User/Src/motorevo.c **** 
+  17:User/Src/motorevo.c **** float pos_range[2] = {-12.5, 12.5};
+  18:User/Src/motorevo.c **** float vel_range[2] = {-30.0, 30.0};
+  19:User/Src/motorevo.c **** float tor_range[2] = {-50.0, 50.0};
+  20:User/Src/motorevo.c **** float pos_kp_range[2] = {0.0, 250.0};
+  21:User/Src/motorevo.c **** float pos_kd_range[2] = {0.0, 50.0};
+  22:User/Src/motorevo.c **** float vel_kp_range[2] = {0.0, 250.0};
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 5
+
+
+  23:User/Src/motorevo.c **** float vel_kd_range[2] = {0.0, 50.0};
+  24:User/Src/motorevo.c **** float vel_ki_range[2] = {0.0, 0.05};
+  25:User/Src/motorevo.c **** 
+  26:User/Src/motorevo.c **** float motorevo_pos_cmd[4] = {0};
+  27:User/Src/motorevo.c **** float motorevo_vel_cmd[4] = {0};
+  28:User/Src/motorevo.c **** 
+  29:User/Src/motorevo.c **** float pos_min[4] = {0};
+  30:User/Src/motorevo.c **** float pos_max[4] = {0};
+  31:User/Src/motorevo.c **** float pos_front[4] = {0};
+  32:User/Src/motorevo.c **** 
+  33:User/Src/motorevo.c **** 
+  34:User/Src/motorevo.c **** float motorevo_pos_kp = 15.0;
+  35:User/Src/motorevo.c **** float motorevo_pos_kd = 4.5;
+  36:User/Src/motorevo.c **** float motorevo_vel_kp = 50.0;
+  37:User/Src/motorevo.c **** float motorevo_vel_kd = 0.0;
+  38:User/Src/motorevo.c **** float motorevo_vel_ki = 0.001;
+  39:User/Src/motorevo.c **** 
+  40:User/Src/motorevo.c **** u8 pos_kp_command;
+  41:User/Src/motorevo.c **** u8 pos_kd_command;
+  42:User/Src/motorevo.c **** u8 vel_kp_command;
+  43:User/Src/motorevo.c **** u8 vel_ki_command;
+  44:User/Src/motorevo.c **** u8 vel_kd_command;
+  45:User/Src/motorevo.c **** 
+  46:User/Src/motorevo.c **** float map_u8_to_float(u8 x, float range_min, float range_max){
+ 241              		.loc 1 46 62
+ 242              		.cfi_startproc
+ 243              		@ args = 0, pretend = 0, frame = 16
+ 244              		@ frame_needed = 1, uses_anonymous_args = 0
+ 245              		@ link register save eliminated.
+ 246 0000 80B4     		push	{r7}
+ 247              	.LCFI0:
+ 248              		.cfi_def_cfa_offset 4
+ 249              		.cfi_offset 7, -4
+ 250 0002 85B0     		sub	sp, sp, #20
+ 251              	.LCFI1:
+ 252              		.cfi_def_cfa_offset 24
+ 253 0004 00AF     		add	r7, sp, #0
+ 254              	.LCFI2:
+ 255              		.cfi_def_cfa_register 7
+ 256 0006 0346     		mov	r3, r0
+ 257 0008 87ED020A 		vstr.32	s0, [r7, #8]
+ 258 000c C7ED010A 		vstr.32	s1, [r7, #4]
+ 259 0010 FB73     		strb	r3, [r7, #15]
+  47:User/Src/motorevo.c ****   return (float)x * (range_max - range_min) / 255.0 + range_min;
+ 260              		.loc 1 47 10
+ 261 0012 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 262 0014 07EE903A 		vmov	s15, r3	@ int
+ 263 0018 B8EE677A 		vcvt.f32.u32	s14, s15
+ 264              		.loc 1 47 32
+ 265 001c D7ED016A 		vldr.32	s13, [r7, #4]
+ 266 0020 D7ED027A 		vldr.32	s15, [r7, #8]
+ 267 0024 76EEE77A 		vsub.f32	s15, s13, s15
+ 268              		.loc 1 47 19
+ 269 0028 67EE277A 		vmul.f32	s15, s14, s15
+ 270 002c B7EEE77A 		vcvt.f64.f32	d7, s15
+ 271              		.loc 1 47 45
+ 272 0030 9FED095B 		vldr.64	d5, .L3
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 6
+
+
+ 273 0034 87EE056B 		vdiv.f64	d6, d7, d5
+ 274              		.loc 1 47 53
+ 275 0038 D7ED027A 		vldr.32	s15, [r7, #8]
+ 276 003c B7EEE77A 		vcvt.f64.f32	d7, s15
+ 277 0040 36EE077B 		vadd.f64	d7, d6, d7
+ 278 0044 F7EEC77B 		vcvt.f32.f64	s15, d7
+  48:User/Src/motorevo.c **** }
+ 279              		.loc 1 48 1
+ 280 0048 B0EE670A 		vmov.f32	s0, s15
+ 281 004c 1437     		adds	r7, r7, #20
+ 282              	.LCFI3:
+ 283              		.cfi_def_cfa_offset 4
+ 284 004e BD46     		mov	sp, r7
+ 285              	.LCFI4:
+ 286              		.cfi_def_cfa_register 13
+ 287              		@ sp needed
+ 288 0050 5DF8047B 		ldr	r7, [sp], #4
+ 289              	.LCFI5:
+ 290              		.cfi_restore 7
+ 291              		.cfi_def_cfa_offset 0
+ 292 0054 7047     		bx	lr
+ 293              	.L4:
+ 294 0056 00BF     		.align	3
+ 295              	.L3:
+ 296 0058 00000000 		.word	0
+ 297 005c 00E06F40 		.word	1081073664
+ 298              		.cfi_endproc
+ 299              	.LFE144:
+ 301              		.section	.text.map_u16_to_float,"ax",%progbits
+ 302              		.align	1
+ 303              		.global	map_u16_to_float
+ 304              		.syntax unified
+ 305              		.thumb
+ 306              		.thumb_func
+ 308              	map_u16_to_float:
+ 309              	.LFB145:
+  49:User/Src/motorevo.c **** float map_u16_to_float(u16 x, float range_min, float range_max){
+ 310              		.loc 1 49 64
+ 311              		.cfi_startproc
+ 312              		@ args = 0, pretend = 0, frame = 16
+ 313              		@ frame_needed = 1, uses_anonymous_args = 0
+ 314              		@ link register save eliminated.
+ 315 0000 80B4     		push	{r7}
+ 316              	.LCFI6:
+ 317              		.cfi_def_cfa_offset 4
+ 318              		.cfi_offset 7, -4
+ 319 0002 85B0     		sub	sp, sp, #20
+ 320              	.LCFI7:
+ 321              		.cfi_def_cfa_offset 24
+ 322 0004 00AF     		add	r7, sp, #0
+ 323              	.LCFI8:
+ 324              		.cfi_def_cfa_register 7
+ 325 0006 0346     		mov	r3, r0
+ 326 0008 87ED020A 		vstr.32	s0, [r7, #8]
+ 327 000c C7ED010A 		vstr.32	s1, [r7, #4]
+ 328 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+  50:User/Src/motorevo.c ****   return (float)x * (range_max - range_min) / 65535.0 + range_min;
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 7
+
+
+ 329              		.loc 1 50 10
+ 330 0012 FB89     		ldrh	r3, [r7, #14]
+ 331 0014 07EE903A 		vmov	s15, r3	@ int
+ 332 0018 B8EE677A 		vcvt.f32.u32	s14, s15
+ 333              		.loc 1 50 32
+ 334 001c D7ED016A 		vldr.32	s13, [r7, #4]
+ 335 0020 D7ED027A 		vldr.32	s15, [r7, #8]
+ 336 0024 76EEE77A 		vsub.f32	s15, s13, s15
+ 337              		.loc 1 50 19
+ 338 0028 67EE277A 		vmul.f32	s15, s14, s15
+ 339 002c B7EEE77A 		vcvt.f64.f32	d7, s15
+ 340              		.loc 1 50 45
+ 341 0030 9FED095B 		vldr.64	d5, .L7
+ 342 0034 87EE056B 		vdiv.f64	d6, d7, d5
+ 343              		.loc 1 50 55
+ 344 0038 D7ED027A 		vldr.32	s15, [r7, #8]
+ 345 003c B7EEE77A 		vcvt.f64.f32	d7, s15
+ 346 0040 36EE077B 		vadd.f64	d7, d6, d7
+ 347 0044 F7EEC77B 		vcvt.f32.f64	s15, d7
+  51:User/Src/motorevo.c **** }
+ 348              		.loc 1 51 1
+ 349 0048 B0EE670A 		vmov.f32	s0, s15
+ 350 004c 1437     		adds	r7, r7, #20
+ 351              	.LCFI9:
+ 352              		.cfi_def_cfa_offset 4
+ 353 004e BD46     		mov	sp, r7
+ 354              	.LCFI10:
+ 355              		.cfi_def_cfa_register 13
+ 356              		@ sp needed
+ 357 0050 5DF8047B 		ldr	r7, [sp], #4
+ 358              	.LCFI11:
+ 359              		.cfi_restore 7
+ 360              		.cfi_def_cfa_offset 0
+ 361 0054 7047     		bx	lr
+ 362              	.L8:
+ 363 0056 00BF     		.align	3
+ 364              	.L7:
+ 365 0058 00000000 		.word	0
+ 366 005c E0FFEF40 		.word	1089470432
+ 367              		.cfi_endproc
+ 368              	.LFE145:
+ 370              		.section	.text.map_u12_to_float,"ax",%progbits
+ 371              		.align	1
+ 372              		.global	map_u12_to_float
+ 373              		.syntax unified
+ 374              		.thumb
+ 375              		.thumb_func
+ 377              	map_u12_to_float:
+ 378              	.LFB146:
+  52:User/Src/motorevo.c **** 
+  53:User/Src/motorevo.c **** float map_u12_to_float(u16 x, float range_min, float range_max){
+ 379              		.loc 1 53 64
+ 380              		.cfi_startproc
+ 381              		@ args = 0, pretend = 0, frame = 16
+ 382              		@ frame_needed = 1, uses_anonymous_args = 0
+ 383              		@ link register save eliminated.
+ 384 0000 80B4     		push	{r7}
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 8
+
+
+ 385              	.LCFI12:
+ 386              		.cfi_def_cfa_offset 4
+ 387              		.cfi_offset 7, -4
+ 388 0002 85B0     		sub	sp, sp, #20
+ 389              	.LCFI13:
+ 390              		.cfi_def_cfa_offset 24
+ 391 0004 00AF     		add	r7, sp, #0
+ 392              	.LCFI14:
+ 393              		.cfi_def_cfa_register 7
+ 394 0006 0346     		mov	r3, r0
+ 395 0008 87ED020A 		vstr.32	s0, [r7, #8]
+ 396 000c C7ED010A 		vstr.32	s1, [r7, #4]
+ 397 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+  54:User/Src/motorevo.c ****   return (float)x * (range_max - range_min) / 4095.0 + range_min;
+ 398              		.loc 1 54 10
+ 399 0012 FB89     		ldrh	r3, [r7, #14]
+ 400 0014 07EE903A 		vmov	s15, r3	@ int
+ 401 0018 B8EE677A 		vcvt.f32.u32	s14, s15
+ 402              		.loc 1 54 32
+ 403 001c D7ED016A 		vldr.32	s13, [r7, #4]
+ 404 0020 D7ED027A 		vldr.32	s15, [r7, #8]
+ 405 0024 76EEE77A 		vsub.f32	s15, s13, s15
+ 406              		.loc 1 54 19
+ 407 0028 67EE277A 		vmul.f32	s15, s14, s15
+ 408 002c B7EEE77A 		vcvt.f64.f32	d7, s15
+ 409              		.loc 1 54 45
+ 410 0030 9FED095B 		vldr.64	d5, .L11
+ 411 0034 87EE056B 		vdiv.f64	d6, d7, d5
+ 412              		.loc 1 54 54
+ 413 0038 D7ED027A 		vldr.32	s15, [r7, #8]
+ 414 003c B7EEE77A 		vcvt.f64.f32	d7, s15
+ 415 0040 36EE077B 		vadd.f64	d7, d6, d7
+ 416 0044 F7EEC77B 		vcvt.f32.f64	s15, d7
+  55:User/Src/motorevo.c **** }
+ 417              		.loc 1 55 1
+ 418 0048 B0EE670A 		vmov.f32	s0, s15
+ 419 004c 1437     		adds	r7, r7, #20
+ 420              	.LCFI15:
+ 421              		.cfi_def_cfa_offset 4
+ 422 004e BD46     		mov	sp, r7
+ 423              	.LCFI16:
+ 424              		.cfi_def_cfa_register 13
+ 425              		@ sp needed
+ 426 0050 5DF8047B 		ldr	r7, [sp], #4
+ 427              	.LCFI17:
+ 428              		.cfi_restore 7
+ 429              		.cfi_def_cfa_offset 0
+ 430 0054 7047     		bx	lr
+ 431              	.L12:
+ 432 0056 00BF     		.align	3
+ 433              	.L11:
+ 434 0058 00000000 		.word	0
+ 435 005c 00FEAF40 		.word	1085275648
+ 436              		.cfi_endproc
+ 437              	.LFE146:
+ 439              		.section	.text.map_float_to_u8,"ax",%progbits
+ 440              		.align	1
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 9
+
+
+ 441              		.global	map_float_to_u8
+ 442              		.syntax unified
+ 443              		.thumb
+ 444              		.thumb_func
+ 446              	map_float_to_u8:
+ 447              	.LFB147:
+  56:User/Src/motorevo.c **** 
+  57:User/Src/motorevo.c **** u8 map_float_to_u8(float x, float range_min, float range_max){
+ 448              		.loc 1 57 62
+ 449              		.cfi_startproc
+ 450              		@ args = 0, pretend = 0, frame = 16
+ 451              		@ frame_needed = 1, uses_anonymous_args = 0
+ 452              		@ link register save eliminated.
+ 453 0000 80B4     		push	{r7}
+ 454              	.LCFI18:
+ 455              		.cfi_def_cfa_offset 4
+ 456              		.cfi_offset 7, -4
+ 457 0002 85B0     		sub	sp, sp, #20
+ 458              	.LCFI19:
+ 459              		.cfi_def_cfa_offset 24
+ 460 0004 00AF     		add	r7, sp, #0
+ 461              	.LCFI20:
+ 462              		.cfi_def_cfa_register 7
+ 463 0006 87ED030A 		vstr.32	s0, [r7, #12]
+ 464 000a C7ED020A 		vstr.32	s1, [r7, #8]
+ 465 000e 87ED011A 		vstr.32	s2, [r7, #4]
+  58:User/Src/motorevo.c ****   if(x < range_min) return 0;
+ 466              		.loc 1 58 5
+ 467 0012 97ED037A 		vldr.32	s14, [r7, #12]
+ 468 0016 D7ED027A 		vldr.32	s15, [r7, #8]
+ 469 001a B4EEE77A 		vcmpe.f32	s14, s15
+ 470 001e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 471 0022 01D5     		bpl	.L21
+ 472              		.loc 1 58 28 discriminator 1
+ 473 0024 0023     		movs	r3, #0
+ 474 0026 26E0     		b	.L16
+ 475              	.L21:
+  59:User/Src/motorevo.c ****   else if(x > range_max) return 255;
+ 476              		.loc 1 59 10
+ 477 0028 97ED037A 		vldr.32	s14, [r7, #12]
+ 478 002c D7ED017A 		vldr.32	s15, [r7, #4]
+ 479 0030 B4EEE77A 		vcmpe.f32	s14, s15
+ 480 0034 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 481 0038 01DD     		ble	.L22
+ 482              		.loc 1 59 33 discriminator 1
+ 483 003a FF23     		movs	r3, #255
+ 484 003c 1BE0     		b	.L16
+ 485              	.L22:
+  60:User/Src/motorevo.c **** 
+  61:User/Src/motorevo.c ****   return (u8)((x - range_min) * 255.0 / (range_max - range_min));
+ 486              		.loc 1 61 18
+ 487 003e 97ED037A 		vldr.32	s14, [r7, #12]
+ 488 0042 D7ED027A 		vldr.32	s15, [r7, #8]
+ 489 0046 77EE677A 		vsub.f32	s15, s14, s15
+ 490 004a B7EEE77A 		vcvt.f64.f32	d7, s15
+ 491              		.loc 1 61 31
+ 492 004e 9FED0E6B 		vldr.64	d6, .L23
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 10
+
+
+ 493 0052 27EE065B 		vmul.f64	d5, d7, d6
+ 494              		.loc 1 61 52
+ 495 0056 97ED017A 		vldr.32	s14, [r7, #4]
+ 496 005a D7ED027A 		vldr.32	s15, [r7, #8]
+ 497 005e 77EE677A 		vsub.f32	s15, s14, s15
+ 498 0062 B7EEE76A 		vcvt.f64.f32	d6, s15
+ 499              		.loc 1 61 39
+ 500 0066 85EE067B 		vdiv.f64	d7, d5, d6
+ 501              		.loc 1 61 10
+ 502 006a FCEEC77B 		vcvt.u32.f64	s15, d7
+ 503 006e C7ED007A 		vstr.32	s15, [r7]	@ int
+ 504 0072 3B78     		ldrb	r3, [r7]
+ 505 0074 DBB2     		uxtb	r3, r3
+ 506              	.L16:
+  62:User/Src/motorevo.c **** }
+ 507              		.loc 1 62 1
+ 508 0076 1846     		mov	r0, r3
+ 509 0078 1437     		adds	r7, r7, #20
+ 510              	.LCFI21:
+ 511              		.cfi_def_cfa_offset 4
+ 512 007a BD46     		mov	sp, r7
+ 513              	.LCFI22:
+ 514              		.cfi_def_cfa_register 13
+ 515              		@ sp needed
+ 516 007c 5DF8047B 		ldr	r7, [sp], #4
+ 517              	.LCFI23:
+ 518              		.cfi_restore 7
+ 519              		.cfi_def_cfa_offset 0
+ 520 0080 7047     		bx	lr
+ 521              	.L24:
+ 522 0082 00BFAFF3 		.align	3
+ 522      0080
+ 523              	.L23:
+ 524 0088 00000000 		.word	0
+ 525 008c 00E06F40 		.word	1081073664
+ 526              		.cfi_endproc
+ 527              	.LFE147:
+ 529              		.section	.text.map_float_to_u16,"ax",%progbits
+ 530              		.align	1
+ 531              		.global	map_float_to_u16
+ 532              		.syntax unified
+ 533              		.thumb
+ 534              		.thumb_func
+ 536              	map_float_to_u16:
+ 537              	.LFB148:
+  63:User/Src/motorevo.c **** 
+  64:User/Src/motorevo.c **** u16 map_float_to_u16(float x, float range_min, float range_max){
+ 538              		.loc 1 64 64
+ 539              		.cfi_startproc
+ 540              		@ args = 0, pretend = 0, frame = 16
+ 541              		@ frame_needed = 1, uses_anonymous_args = 0
+ 542              		@ link register save eliminated.
+ 543 0000 80B4     		push	{r7}
+ 544              	.LCFI24:
+ 545              		.cfi_def_cfa_offset 4
+ 546              		.cfi_offset 7, -4
+ 547 0002 85B0     		sub	sp, sp, #20
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 11
+
+
+ 548              	.LCFI25:
+ 549              		.cfi_def_cfa_offset 24
+ 550 0004 00AF     		add	r7, sp, #0
+ 551              	.LCFI26:
+ 552              		.cfi_def_cfa_register 7
+ 553 0006 87ED030A 		vstr.32	s0, [r7, #12]
+ 554 000a C7ED020A 		vstr.32	s1, [r7, #8]
+ 555 000e 87ED011A 		vstr.32	s2, [r7, #4]
+  65:User/Src/motorevo.c ****   if(x < range_min) return 0;
+ 556              		.loc 1 65 5
+ 557 0012 97ED037A 		vldr.32	s14, [r7, #12]
+ 558 0016 D7ED027A 		vldr.32	s15, [r7, #8]
+ 559 001a B4EEE77A 		vcmpe.f32	s14, s15
+ 560 001e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 561 0022 01D5     		bpl	.L33
+ 562              		.loc 1 65 28 discriminator 1
+ 563 0024 0023     		movs	r3, #0
+ 564 0026 26E0     		b	.L28
+ 565              	.L33:
+  66:User/Src/motorevo.c ****   else if(x > range_max) return 65535;
+ 566              		.loc 1 66 10
+ 567 0028 97ED037A 		vldr.32	s14, [r7, #12]
+ 568 002c D7ED017A 		vldr.32	s15, [r7, #4]
+ 569 0030 B4EEE77A 		vcmpe.f32	s14, s15
+ 570 0034 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 571 0038 02DD     		ble	.L34
+ 572              		.loc 1 66 33 discriminator 1
+ 573 003a 4FF6FF73 		movw	r3, #65535
+ 574 003e 1AE0     		b	.L28
+ 575              	.L34:
+  67:User/Src/motorevo.c **** 
+  68:User/Src/motorevo.c ****   return (u16)((x - range_min) * 65535.0 / (range_max - range_min));
+ 576              		.loc 1 68 19
+ 577 0040 97ED037A 		vldr.32	s14, [r7, #12]
+ 578 0044 D7ED027A 		vldr.32	s15, [r7, #8]
+ 579 0048 77EE677A 		vsub.f32	s15, s14, s15
+ 580 004c B7EEE77A 		vcvt.f64.f32	d7, s15
+ 581              		.loc 1 68 32
+ 582 0050 9FED0D6B 		vldr.64	d6, .L35
+ 583 0054 27EE065B 		vmul.f64	d5, d7, d6
+ 584              		.loc 1 68 55
+ 585 0058 97ED017A 		vldr.32	s14, [r7, #4]
+ 586 005c D7ED027A 		vldr.32	s15, [r7, #8]
+ 587 0060 77EE677A 		vsub.f32	s15, s14, s15
+ 588 0064 B7EEE76A 		vcvt.f64.f32	d6, s15
+ 589              		.loc 1 68 42
+ 590 0068 85EE067B 		vdiv.f64	d7, d5, d6
+ 591              		.loc 1 68 10
+ 592 006c FCEEC77B 		vcvt.u32.f64	s15, d7
+ 593 0070 17EE903A 		vmov	r3, s15	@ int
+ 594 0074 9BB2     		uxth	r3, r3
+ 595              	.L28:
+  69:User/Src/motorevo.c **** }
+ 596              		.loc 1 69 1
+ 597 0076 1846     		mov	r0, r3
+ 598 0078 1437     		adds	r7, r7, #20
+ 599              	.LCFI27:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 12
+
+
+ 600              		.cfi_def_cfa_offset 4
+ 601 007a BD46     		mov	sp, r7
+ 602              	.LCFI28:
+ 603              		.cfi_def_cfa_register 13
+ 604              		@ sp needed
+ 605 007c 5DF8047B 		ldr	r7, [sp], #4
+ 606              	.LCFI29:
+ 607              		.cfi_restore 7
+ 608              		.cfi_def_cfa_offset 0
+ 609 0080 7047     		bx	lr
+ 610              	.L36:
+ 611 0082 00BFAFF3 		.align	3
+ 611      0080
+ 612              	.L35:
+ 613 0088 00000000 		.word	0
+ 614 008c E0FFEF40 		.word	1089470432
+ 615              		.cfi_endproc
+ 616              	.LFE148:
+ 618              		.section	.text.Motorevo_init,"ax",%progbits
+ 619              		.align	1
+ 620              		.global	Motorevo_init
+ 621              		.syntax unified
+ 622              		.thumb
+ 623              		.thumb_func
+ 625              	Motorevo_init:
+ 626              	.LFB149:
+  70:User/Src/motorevo.c **** 
+  71:User/Src/motorevo.c **** 
+  72:User/Src/motorevo.c **** void Motorevo_init(){
+ 627              		.loc 1 72 21
+ 628              		.cfi_startproc
+ 629              		@ args = 0, pretend = 0, frame = 0
+ 630              		@ frame_needed = 1, uses_anonymous_args = 0
+ 631 0000 80B5     		push	{r7, lr}
+ 632              	.LCFI30:
+ 633              		.cfi_def_cfa_offset 8
+ 634              		.cfi_offset 7, -8
+ 635              		.cfi_offset 14, -4
+ 636 0002 00AF     		add	r7, sp, #0
+ 637              	.LCFI31:
+ 638              		.cfi_def_cfa_register 7
+  73:User/Src/motorevo.c ****   pos_kp_command = map_float_to_u8(motorevo_pos_kp, pos_kp_range[MIN_range], pos_kp_range[MAX_range
+ 639              		.loc 1 73 20
+ 640 0004 3F4B     		ldr	r3, .L38
+ 641 0006 D3ED007A 		vldr.32	s15, [r3]
+ 642 000a 3F4B     		ldr	r3, .L38+4
+ 643 000c 93ED007A 		vldr.32	s14, [r3]
+ 644 0010 3D4B     		ldr	r3, .L38+4
+ 645 0012 D3ED016A 		vldr.32	s13, [r3, #4]
+ 646 0016 B0EE661A 		vmov.f32	s2, s13
+ 647 001a F0EE470A 		vmov.f32	s1, s14
+ 648 001e B0EE670A 		vmov.f32	s0, s15
+ 649 0022 FFF7FEFF 		bl	map_float_to_u8
+ 650 0026 0346     		mov	r3, r0
+ 651 0028 1A46     		mov	r2, r3
+ 652              		.loc 1 73 18
+ 653 002a 384B     		ldr	r3, .L38+8
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 13
+
+
+ 654 002c 1A70     		strb	r2, [r3]
+  74:User/Src/motorevo.c ****   pos_kd_command = map_float_to_u8(motorevo_pos_kd, pos_kd_range[MIN_range], pos_kd_range[MAX_range
+ 655              		.loc 1 74 20
+ 656 002e 384B     		ldr	r3, .L38+12
+ 657 0030 D3ED007A 		vldr.32	s15, [r3]
+ 658 0034 374B     		ldr	r3, .L38+16
+ 659 0036 93ED007A 		vldr.32	s14, [r3]
+ 660 003a 364B     		ldr	r3, .L38+16
+ 661 003c D3ED016A 		vldr.32	s13, [r3, #4]
+ 662 0040 B0EE661A 		vmov.f32	s2, s13
+ 663 0044 F0EE470A 		vmov.f32	s1, s14
+ 664 0048 B0EE670A 		vmov.f32	s0, s15
+ 665 004c FFF7FEFF 		bl	map_float_to_u8
+ 666 0050 0346     		mov	r3, r0
+ 667 0052 1A46     		mov	r2, r3
+ 668              		.loc 1 74 18
+ 669 0054 304B     		ldr	r3, .L38+20
+ 670 0056 1A70     		strb	r2, [r3]
+  75:User/Src/motorevo.c ****   vel_kp_command = map_float_to_u8(motorevo_vel_kp, vel_kp_range[MIN_range], vel_kp_range[MAX_range
+ 671              		.loc 1 75 20
+ 672 0058 304B     		ldr	r3, .L38+24
+ 673 005a D3ED007A 		vldr.32	s15, [r3]
+ 674 005e 304B     		ldr	r3, .L38+28
+ 675 0060 93ED007A 		vldr.32	s14, [r3]
+ 676 0064 2E4B     		ldr	r3, .L38+28
+ 677 0066 D3ED016A 		vldr.32	s13, [r3, #4]
+ 678 006a B0EE661A 		vmov.f32	s2, s13
+ 679 006e F0EE470A 		vmov.f32	s1, s14
+ 680 0072 B0EE670A 		vmov.f32	s0, s15
+ 681 0076 FFF7FEFF 		bl	map_float_to_u8
+ 682 007a 0346     		mov	r3, r0
+ 683 007c 1A46     		mov	r2, r3
+ 684              		.loc 1 75 18
+ 685 007e 294B     		ldr	r3, .L38+32
+ 686 0080 1A70     		strb	r2, [r3]
+  76:User/Src/motorevo.c ****   vel_kd_command = map_float_to_u8(motorevo_vel_kd, vel_kd_range[MIN_range], vel_kd_range[MAX_range
+ 687              		.loc 1 76 20
+ 688 0082 294B     		ldr	r3, .L38+36
+ 689 0084 D3ED007A 		vldr.32	s15, [r3]
+ 690 0088 284B     		ldr	r3, .L38+40
+ 691 008a 93ED007A 		vldr.32	s14, [r3]
+ 692 008e 274B     		ldr	r3, .L38+40
+ 693 0090 D3ED016A 		vldr.32	s13, [r3, #4]
+ 694 0094 B0EE661A 		vmov.f32	s2, s13
+ 695 0098 F0EE470A 		vmov.f32	s1, s14
+ 696 009c B0EE670A 		vmov.f32	s0, s15
+ 697 00a0 FFF7FEFF 		bl	map_float_to_u8
+ 698 00a4 0346     		mov	r3, r0
+ 699 00a6 1A46     		mov	r2, r3
+ 700              		.loc 1 76 18
+ 701 00a8 214B     		ldr	r3, .L38+44
+ 702 00aa 1A70     		strb	r2, [r3]
+  77:User/Src/motorevo.c ****   vel_ki_command = map_float_to_u8(motorevo_vel_ki, vel_ki_range[MIN_range], vel_ki_range[MAX_range
+ 703              		.loc 1 77 20
+ 704 00ac 214B     		ldr	r3, .L38+48
+ 705 00ae D3ED007A 		vldr.32	s15, [r3]
+ 706 00b2 214B     		ldr	r3, .L38+52
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 14
+
+
+ 707 00b4 93ED007A 		vldr.32	s14, [r3]
+ 708 00b8 1F4B     		ldr	r3, .L38+52
+ 709 00ba D3ED016A 		vldr.32	s13, [r3, #4]
+ 710 00be B0EE661A 		vmov.f32	s2, s13
+ 711 00c2 F0EE470A 		vmov.f32	s1, s14
+ 712 00c6 B0EE670A 		vmov.f32	s0, s15
+ 713 00ca FFF7FEFF 		bl	map_float_to_u8
+ 714 00ce 0346     		mov	r3, r0
+ 715 00d0 1A46     		mov	r2, r3
+ 716              		.loc 1 77 18
+ 717 00d2 1A4B     		ldr	r3, .L38+56
+ 718 00d4 1A70     		strb	r2, [r3]
+  78:User/Src/motorevo.c ****   motorevo_sed_buf[3] = pos_kp_command;
+ 719              		.loc 1 78 23
+ 720 00d6 0D4B     		ldr	r3, .L38+8
+ 721 00d8 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 722 00da 194B     		ldr	r3, .L38+60
+ 723 00dc DA70     		strb	r2, [r3, #3]
+  79:User/Src/motorevo.c ****   motorevo_sed_buf[4] = pos_kd_command;
+ 724              		.loc 1 79 23
+ 725 00de 0E4B     		ldr	r3, .L38+20
+ 726 00e0 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 727 00e2 174B     		ldr	r3, .L38+60
+ 728 00e4 1A71     		strb	r2, [r3, #4]
+  80:User/Src/motorevo.c ****   motorevo_sed_buf[5] = vel_kp_command;
+ 729              		.loc 1 80 23
+ 730 00e6 0F4B     		ldr	r3, .L38+32
+ 731 00e8 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 732 00ea 154B     		ldr	r3, .L38+60
+ 733 00ec 5A71     		strb	r2, [r3, #5]
+  81:User/Src/motorevo.c ****   motorevo_sed_buf[6] = vel_kd_command;
+ 734              		.loc 1 81 23
+ 735 00ee 104B     		ldr	r3, .L38+44
+ 736 00f0 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 737 00f2 134B     		ldr	r3, .L38+60
+ 738 00f4 9A71     		strb	r2, [r3, #6]
+  82:User/Src/motorevo.c ****   motorevo_sed_buf[7] = vel_ki_command;
+ 739              		.loc 1 82 23
+ 740 00f6 114B     		ldr	r3, .L38+56
+ 741 00f8 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 742 00fa 114B     		ldr	r3, .L38+60
+ 743 00fc DA71     		strb	r2, [r3, #7]
+  83:User/Src/motorevo.c **** }
+ 744              		.loc 1 83 1
+ 745 00fe 00BF     		nop
+ 746 0100 80BD     		pop	{r7, pc}
+ 747              	.L39:
+ 748 0102 00BF     		.align	2
+ 749              	.L38:
+ 750 0104 00000000 		.word	motorevo_pos_kp
+ 751 0108 00000000 		.word	pos_kp_range
+ 752 010c 00000000 		.word	pos_kp_command
+ 753 0110 00000000 		.word	motorevo_pos_kd
+ 754 0114 00000000 		.word	pos_kd_range
+ 755 0118 00000000 		.word	pos_kd_command
+ 756 011c 00000000 		.word	motorevo_vel_kp
+ 757 0120 00000000 		.word	vel_kp_range
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 15
+
+
+ 758 0124 00000000 		.word	vel_kp_command
+ 759 0128 00000000 		.word	motorevo_vel_kd
+ 760 012c 00000000 		.word	vel_kd_range
+ 761 0130 00000000 		.word	vel_kd_command
+ 762 0134 00000000 		.word	motorevo_vel_ki
+ 763 0138 00000000 		.word	vel_ki_range
+ 764 013c 00000000 		.word	vel_ki_command
+ 765 0140 00000000 		.word	motorevo_sed_buf
+ 766              		.cfi_endproc
+ 767              	.LFE149:
+ 769              		.section	.text.Motorevo_CAN_Send,"ax",%progbits
+ 770              		.align	1
+ 771              		.global	Motorevo_CAN_Send
+ 772              		.syntax unified
+ 773              		.thumb
+ 774              		.thumb_func
+ 776              	Motorevo_CAN_Send:
+ 777              	.LFB150:
+  84:User/Src/motorevo.c **** 
+  85:User/Src/motorevo.c **** void Motorevo_CAN_Send(u16 can_id, u8* buf){
+ 778              		.loc 1 85 44
+ 779              		.cfi_startproc
+ 780              		@ args = 0, pretend = 0, frame = 8
+ 781              		@ frame_needed = 1, uses_anonymous_args = 0
+ 782 0000 80B5     		push	{r7, lr}
+ 783              	.LCFI32:
+ 784              		.cfi_def_cfa_offset 8
+ 785              		.cfi_offset 7, -8
+ 786              		.cfi_offset 14, -4
+ 787 0002 82B0     		sub	sp, sp, #8
+ 788              	.LCFI33:
+ 789              		.cfi_def_cfa_offset 16
+ 790 0004 00AF     		add	r7, sp, #0
+ 791              	.LCFI34:
+ 792              		.cfi_def_cfa_register 7
+ 793 0006 0346     		mov	r3, r0
+ 794 0008 3960     		str	r1, [r7]
+ 795 000a FB80     		strh	r3, [r7, #6]	@ movhi
+  86:User/Src/motorevo.c ****   txHeader.Identifier = can_id;
+ 796              		.loc 1 86 23
+ 797 000c FB88     		ldrh	r3, [r7, #6]
+ 798 000e 054A     		ldr	r2, .L41
+ 799 0010 1360     		str	r3, [r2]
+  87:User/Src/motorevo.c **** 	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &txHeader, buf);
+ 800              		.loc 1 87 2
+ 801 0012 3A68     		ldr	r2, [r7]
+ 802 0014 0349     		ldr	r1, .L41
+ 803 0016 0448     		ldr	r0, .L41+4
+ 804 0018 FFF7FEFF 		bl	HAL_FDCAN_AddMessageToTxFifoQ
+  88:User/Src/motorevo.c **** }
+ 805              		.loc 1 88 1
+ 806 001c 00BF     		nop
+ 807 001e 0837     		adds	r7, r7, #8
+ 808              	.LCFI35:
+ 809              		.cfi_def_cfa_offset 8
+ 810 0020 BD46     		mov	sp, r7
+ 811              	.LCFI36:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 16
+
+
+ 812              		.cfi_def_cfa_register 13
+ 813              		@ sp needed
+ 814 0022 80BD     		pop	{r7, pc}
+ 815              	.L42:
+ 816              		.align	2
+ 817              	.L41:
+ 818 0024 00000000 		.word	txHeader
+ 819 0028 00000000 		.word	hfdcan1
+ 820              		.cfi_endproc
+ 821              	.LFE150:
+ 823              		.section	.text.Motorevo_SetPos,"ax",%progbits
+ 824              		.align	1
+ 825              		.global	Motorevo_SetPos
+ 826              		.syntax unified
+ 827              		.thumb
+ 828              		.thumb_func
+ 830              	Motorevo_SetPos:
+ 831              	.LFB151:
+  89:User/Src/motorevo.c **** 
+  90:User/Src/motorevo.c **** void Motorevo_SetPos(u8 can_id, float pos, float vel){
+ 832              		.loc 1 90 54
+ 833              		.cfi_startproc
+ 834              		@ args = 0, pretend = 0, frame = 24
+ 835              		@ frame_needed = 1, uses_anonymous_args = 0
+ 836 0000 80B5     		push	{r7, lr}
+ 837              	.LCFI37:
+ 838              		.cfi_def_cfa_offset 8
+ 839              		.cfi_offset 7, -8
+ 840              		.cfi_offset 14, -4
+ 841 0002 86B0     		sub	sp, sp, #24
+ 842              	.LCFI38:
+ 843              		.cfi_def_cfa_offset 32
+ 844 0004 00AF     		add	r7, sp, #0
+ 845              	.LCFI39:
+ 846              		.cfi_def_cfa_register 7
+ 847 0006 0346     		mov	r3, r0
+ 848 0008 87ED020A 		vstr.32	s0, [r7, #8]
+ 849 000c C7ED010A 		vstr.32	s1, [r7, #4]
+ 850 0010 FB73     		strb	r3, [r7, #15]
+  91:User/Src/motorevo.c ****   u16 pos_command = map_float_to_u16(pos, pos_range[MIN_range], pos_range[MAX_range]);
+ 851              		.loc 1 91 21
+ 852 0012 1B4B     		ldr	r3, .L44
+ 853 0014 D3ED007A 		vldr.32	s15, [r3]
+ 854 0018 194B     		ldr	r3, .L44
+ 855 001a 93ED017A 		vldr.32	s14, [r3, #4]
+ 856 001e B0EE471A 		vmov.f32	s2, s14
+ 857 0022 F0EE670A 		vmov.f32	s1, s15
+ 858 0026 97ED020A 		vldr.32	s0, [r7, #8]
+ 859 002a FFF7FEFF 		bl	map_float_to_u16
+ 860 002e 0346     		mov	r3, r0
+ 861 0030 FB82     		strh	r3, [r7, #22]	@ movhi
+  92:User/Src/motorevo.c ****   u8 vel_command = map_float_to_u8(vel, vel_range[MIN_range], vel_range[MAX_range]);
+ 862              		.loc 1 92 20
+ 863 0032 144B     		ldr	r3, .L44+4
+ 864 0034 D3ED007A 		vldr.32	s15, [r3]
+ 865 0038 124B     		ldr	r3, .L44+4
+ 866 003a 93ED017A 		vldr.32	s14, [r3, #4]
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 17
+
+
+ 867 003e B0EE471A 		vmov.f32	s2, s14
+ 868 0042 F0EE670A 		vmov.f32	s1, s15
+ 869 0046 97ED010A 		vldr.32	s0, [r7, #4]
+ 870 004a FFF7FEFF 		bl	map_float_to_u8
+ 871 004e 0346     		mov	r3, r0
+ 872 0050 7B75     		strb	r3, [r7, #21]
+  93:User/Src/motorevo.c ****   motorevo_sed_buf[0] = pos_command >> 8;
+ 873              		.loc 1 93 23
+ 874 0052 FB8A     		ldrh	r3, [r7, #22]
+ 875 0054 1B0A     		lsrs	r3, r3, #8
+ 876 0056 9BB2     		uxth	r3, r3
+ 877 0058 DAB2     		uxtb	r2, r3
+ 878 005a 0B4B     		ldr	r3, .L44+8
+ 879 005c 1A70     		strb	r2, [r3]
+  94:User/Src/motorevo.c ****   motorevo_sed_buf[1] = pos_command & 0xFF;
+ 880              		.loc 1 94 23
+ 881 005e FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 882 0060 DAB2     		uxtb	r2, r3
+ 883 0062 094B     		ldr	r3, .L44+8
+ 884 0064 5A70     		strb	r2, [r3, #1]
+  95:User/Src/motorevo.c ****   motorevo_sed_buf[2] = vel_command;
+ 885              		.loc 1 95 23
+ 886 0066 084A     		ldr	r2, .L44+8
+ 887 0068 7B7D     		ldrb	r3, [r7, #21]
+ 888 006a 9370     		strb	r3, [r2, #2]
+  96:User/Src/motorevo.c ****   Motorevo_CAN_Send(can_id, motorevo_sed_buf);
+ 889              		.loc 1 96 3
+ 890 006c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 891 006e 9BB2     		uxth	r3, r3
+ 892 0070 0549     		ldr	r1, .L44+8
+ 893 0072 1846     		mov	r0, r3
+ 894 0074 FFF7FEFF 		bl	Motorevo_CAN_Send
+  97:User/Src/motorevo.c **** }
+ 895              		.loc 1 97 1
+ 896 0078 00BF     		nop
+ 897 007a 1837     		adds	r7, r7, #24
+ 898              	.LCFI40:
+ 899              		.cfi_def_cfa_offset 8
+ 900 007c BD46     		mov	sp, r7
+ 901              	.LCFI41:
+ 902              		.cfi_def_cfa_register 13
+ 903              		@ sp needed
+ 904 007e 80BD     		pop	{r7, pc}
+ 905              	.L45:
+ 906              		.align	2
+ 907              	.L44:
+ 908 0080 00000000 		.word	pos_range
+ 909 0084 00000000 		.word	vel_range
+ 910 0088 00000000 		.word	motorevo_sed_buf
+ 911              		.cfi_endproc
+ 912              	.LFE151:
+ 914              		.section	.text.Motorevo_Update,"ax",%progbits
+ 915              		.align	1
+ 916              		.global	Motorevo_Update
+ 917              		.syntax unified
+ 918              		.thumb
+ 919              		.thumb_func
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 18
+
+
+ 921              	Motorevo_Update:
+ 922              	.LFB152:
+  98:User/Src/motorevo.c **** void Motorevo_Update(){
+ 923              		.loc 1 98 23
+ 924              		.cfi_startproc
+ 925              		@ args = 0, pretend = 0, frame = 8
+ 926              		@ frame_needed = 1, uses_anonymous_args = 0
+ 927 0000 80B5     		push	{r7, lr}
+ 928              	.LCFI42:
+ 929              		.cfi_def_cfa_offset 8
+ 930              		.cfi_offset 7, -8
+ 931              		.cfi_offset 14, -4
+ 932 0002 82B0     		sub	sp, sp, #8
+ 933              	.LCFI43:
+ 934              		.cfi_def_cfa_offset 16
+ 935 0004 00AF     		add	r7, sp, #0
+ 936              	.LCFI44:
+ 937              		.cfi_def_cfa_register 7
+ 938              	.LBB2:
+  99:User/Src/motorevo.c ****   for(u8 i = 0; i < sizeof(motorevo_id); i++){
+ 939              		.loc 1 99 10
+ 940 0006 0023     		movs	r3, #0
+ 941 0008 FB71     		strb	r3, [r7, #7]
+ 942              		.loc 1 99 3
+ 943 000a 18E0     		b	.L47
+ 944              	.L48:
+ 100:User/Src/motorevo.c ****     Motorevo_SetPos(motorevo_id[i], motorevo_pos_cmd[i], motorevo_vel_cmd[i]);
+ 945              		.loc 1 100 5 discriminator 3
+ 946 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 947 000e 104A     		ldr	r2, .L49
+ 948 0010 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 949 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 950 0014 0F49     		ldr	r1, .L49+4
+ 951 0016 9B00     		lsls	r3, r3, #2
+ 952 0018 0B44     		add	r3, r3, r1
+ 953 001a D3ED007A 		vldr.32	s15, [r3]
+ 954 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 955 0020 0D49     		ldr	r1, .L49+8
+ 956 0022 9B00     		lsls	r3, r3, #2
+ 957 0024 0B44     		add	r3, r3, r1
+ 958 0026 93ED007A 		vldr.32	s14, [r3]
+ 959 002a F0EE470A 		vmov.f32	s1, s14
+ 960 002e B0EE670A 		vmov.f32	s0, s15
+ 961 0032 1046     		mov	r0, r2
+ 962 0034 FFF7FEFF 		bl	Motorevo_SetPos
+  99:User/Src/motorevo.c ****   for(u8 i = 0; i < sizeof(motorevo_id); i++){
+ 963              		.loc 1 99 43 discriminator 3
+ 964 0038 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 965 003a 0133     		adds	r3, r3, #1
+ 966 003c FB71     		strb	r3, [r7, #7]
+ 967              	.L47:
+  99:User/Src/motorevo.c ****   for(u8 i = 0; i < sizeof(motorevo_id); i++){
+ 968              		.loc 1 99 3 discriminator 1
+ 969 003e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 970 0040 032B     		cmp	r3, #3
+ 971 0042 E3D9     		bls	.L48
+ 972              	.LBE2:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 19
+
+
+ 101:User/Src/motorevo.c ****   }
+ 102:User/Src/motorevo.c **** }
+ 973              		.loc 1 102 1
+ 974 0044 00BF     		nop
+ 975 0046 00BF     		nop
+ 976 0048 0837     		adds	r7, r7, #8
+ 977              	.LCFI45:
+ 978              		.cfi_def_cfa_offset 8
+ 979 004a BD46     		mov	sp, r7
+ 980              	.LCFI46:
+ 981              		.cfi_def_cfa_register 13
+ 982              		@ sp needed
+ 983 004c 80BD     		pop	{r7, pc}
+ 984              	.L50:
+ 985 004e 00BF     		.align	2
+ 986              	.L49:
+ 987 0050 00000000 		.word	motorevo_id
+ 988 0054 00000000 		.word	motorevo_pos_cmd
+ 989 0058 00000000 		.word	motorevo_vel_cmd
+ 990              		.cfi_endproc
+ 991              	.LFE152:
+ 993              		.section	.text.Motorevo_SetPos_cmd,"ax",%progbits
+ 994              		.align	1
+ 995              		.global	Motorevo_SetPos_cmd
+ 996              		.syntax unified
+ 997              		.thumb
+ 998              		.thumb_func
+ 1000              	Motorevo_SetPos_cmd:
+ 1001              	.LFB153:
+ 103:User/Src/motorevo.c **** 
+ 104:User/Src/motorevo.c **** void Motorevo_SetPos_cmd(u8 can_id, float pose, float velo){
+ 1002              		.loc 1 104 60
+ 1003              		.cfi_startproc
+ 1004              		@ args = 0, pretend = 0, frame = 16
+ 1005              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1006              		@ link register save eliminated.
+ 1007 0000 80B4     		push	{r7}
+ 1008              	.LCFI47:
+ 1009              		.cfi_def_cfa_offset 4
+ 1010              		.cfi_offset 7, -4
+ 1011 0002 85B0     		sub	sp, sp, #20
+ 1012              	.LCFI48:
+ 1013              		.cfi_def_cfa_offset 24
+ 1014 0004 00AF     		add	r7, sp, #0
+ 1015              	.LCFI49:
+ 1016              		.cfi_def_cfa_register 7
+ 1017 0006 0346     		mov	r3, r0
+ 1018 0008 87ED020A 		vstr.32	s0, [r7, #8]
+ 1019 000c C7ED010A 		vstr.32	s1, [r7, #4]
+ 1020 0010 FB73     		strb	r3, [r7, #15]
+ 105:User/Src/motorevo.c ****   motorevo_pos_cmd[can_id - 0x05] = pose;
+ 1021              		.loc 1 105 27
+ 1022 0012 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1023 0014 053B     		subs	r3, r3, #5
+ 1024              		.loc 1 105 35
+ 1025 0016 094A     		ldr	r2, .L52
+ 1026 0018 9B00     		lsls	r3, r3, #2
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 20
+
+
+ 1027 001a 1344     		add	r3, r3, r2
+ 1028 001c BA68     		ldr	r2, [r7, #8]	@ float
+ 1029 001e 1A60     		str	r2, [r3]	@ float
+ 106:User/Src/motorevo.c ****   motorevo_vel_cmd[can_id - 0x05] = velo;
+ 1030              		.loc 1 106 27
+ 1031 0020 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1032 0022 053B     		subs	r3, r3, #5
+ 1033              		.loc 1 106 35
+ 1034 0024 064A     		ldr	r2, .L52+4
+ 1035 0026 9B00     		lsls	r3, r3, #2
+ 1036 0028 1344     		add	r3, r3, r2
+ 1037 002a 7A68     		ldr	r2, [r7, #4]	@ float
+ 1038 002c 1A60     		str	r2, [r3]	@ float
+ 107:User/Src/motorevo.c **** }
+ 1039              		.loc 1 107 1
+ 1040 002e 00BF     		nop
+ 1041 0030 1437     		adds	r7, r7, #20
+ 1042              	.LCFI50:
+ 1043              		.cfi_def_cfa_offset 4
+ 1044 0032 BD46     		mov	sp, r7
+ 1045              	.LCFI51:
+ 1046              		.cfi_def_cfa_register 13
+ 1047              		@ sp needed
+ 1048 0034 5DF8047B 		ldr	r7, [sp], #4
+ 1049              	.LCFI52:
+ 1050              		.cfi_restore 7
+ 1051              		.cfi_def_cfa_offset 0
+ 1052 0038 7047     		bx	lr
+ 1053              	.L53:
+ 1054 003a 00BF     		.align	2
+ 1055              	.L52:
+ 1056 003c 00000000 		.word	motorevo_pos_cmd
+ 1057 0040 00000000 		.word	motorevo_vel_cmd
+ 1058              		.cfi_endproc
+ 1059              	.LFE153:
+ 1061              		.section	.text.Motorevo_Update_State,"ax",%progbits
+ 1062              		.align	1
+ 1063              		.global	Motorevo_Update_State
+ 1064              		.syntax unified
+ 1065              		.thumb
+ 1066              		.thumb_func
+ 1068              	Motorevo_Update_State:
+ 1069              	.LFB154:
+ 108:User/Src/motorevo.c **** 
+ 109:User/Src/motorevo.c **** void Motorevo_Update_State(){
+ 1070              		.loc 1 109 29
+ 1071              		.cfi_startproc
+ 1072              		@ args = 0, pretend = 0, frame = 8
+ 1073              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1074 0000 90B5     		push	{r4, r7, lr}
+ 1075              	.LCFI53:
+ 1076              		.cfi_def_cfa_offset 12
+ 1077              		.cfi_offset 4, -12
+ 1078              		.cfi_offset 7, -8
+ 1079              		.cfi_offset 14, -4
+ 1080 0002 83B0     		sub	sp, sp, #12
+ 1081              	.LCFI54:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 21
+
+
+ 1082              		.cfi_def_cfa_offset 24
+ 1083 0004 00AF     		add	r7, sp, #0
+ 1084              	.LCFI55:
+ 1085              		.cfi_def_cfa_register 7
+ 1086              	.LBB3:
+ 110:User/Src/motorevo.c ****   for(u8 i = 0; i < sizeof(motorevo_id); i++){
+ 1087              		.loc 1 110 10
+ 1088 0006 0023     		movs	r3, #0
+ 1089 0008 FB71     		strb	r3, [r7, #7]
+ 1090              		.loc 1 110 3
+ 1091 000a ADE0     		b	.L55
+ 1092              	.L56:
+ 111:User/Src/motorevo.c ****     motorevo_state[i].error = motorevo_rec[i].error;
+ 1093              		.loc 1 111 46 discriminator 3
+ 1094 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1095              		.loc 1 111 22 discriminator 3
+ 1096 000e FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 1097              		.loc 1 111 46 discriminator 3
+ 1098 0010 5A49     		ldr	r1, .L57
+ 1099 0012 DB00     		lsls	r3, r3, #3
+ 1100 0014 0B44     		add	r3, r3, r1
+ 1101 0016 9879     		ldrb	r0, [r3, #6]	@ zero_extendqisi2
+ 1102              		.loc 1 111 29 discriminator 3
+ 1103 0018 5949     		ldr	r1, .L57+4
+ 1104 001a 1346     		mov	r3, r2
+ 1105 001c 9B00     		lsls	r3, r3, #2
+ 1106 001e 1344     		add	r3, r3, r2
+ 1107 0020 9B00     		lsls	r3, r3, #2
+ 1108 0022 0B44     		add	r3, r3, r1
+ 1109 0024 1033     		adds	r3, r3, #16
+ 1110 0026 0246     		mov	r2, r0
+ 1111 0028 1A70     		strb	r2, [r3]
+ 112:User/Src/motorevo.c ****     motorevo_state[i].temp = motorevo_rec[i].temp;
+ 1112              		.loc 1 112 45 discriminator 3
+ 1113 002a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1114              		.loc 1 112 22 discriminator 3
+ 1115 002c FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 1116              		.loc 1 112 45 discriminator 3
+ 1117 002e 5349     		ldr	r1, .L57
+ 1118 0030 DB00     		lsls	r3, r3, #3
+ 1119 0032 0B44     		add	r3, r3, r1
+ 1120 0034 D879     		ldrb	r0, [r3, #7]	@ zero_extendqisi2
+ 1121              		.loc 1 112 28 discriminator 3
+ 1122 0036 5249     		ldr	r1, .L57+4
+ 1123 0038 1346     		mov	r3, r2
+ 1124 003a 9B00     		lsls	r3, r3, #2
+ 1125 003c 1344     		add	r3, r3, r2
+ 1126 003e 9B00     		lsls	r3, r3, #2
+ 1127 0040 0B44     		add	r3, r3, r1
+ 1128 0042 1133     		adds	r3, r3, #17
+ 1129 0044 0246     		mov	r2, r0
+ 1130 0046 1A70     		strb	r2, [r3]
+ 113:User/Src/motorevo.c ****     motorevo_state[i].status = motorevo_rec[i].status;
+ 1131              		.loc 1 113 47 discriminator 3
+ 1132 0048 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1133              		.loc 1 113 22 discriminator 3
+ 1134 004a FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 22
+
+
+ 1135              		.loc 1 113 47 discriminator 3
+ 1136 004c 4B49     		ldr	r1, .L57
+ 1137 004e 11F83300 		ldrb	r0, [r1, r3, lsl #3]	@ zero_extendqisi2
+ 1138              		.loc 1 113 30 discriminator 3
+ 1139 0052 4B49     		ldr	r1, .L57+4
+ 1140 0054 1346     		mov	r3, r2
+ 1141 0056 9B00     		lsls	r3, r3, #2
+ 1142 0058 1344     		add	r3, r3, r2
+ 1143 005a 9B00     		lsls	r3, r3, #2
+ 1144 005c 0B44     		add	r3, r3, r1
+ 1145 005e 0246     		mov	r2, r0
+ 1146 0060 1A70     		strb	r2, [r3]
+ 114:User/Src/motorevo.c ****     motorevo_state[i].pos = map_u16_to_float((u16)motorevo_rec[i].pos_h << 8 | motorevo_rec[i].pos_
+ 1147              		.loc 1 114 66 discriminator 3
+ 1148 0062 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1149 0064 454A     		ldr	r2, .L57
+ 1150 0066 DB00     		lsls	r3, r3, #3
+ 1151 0068 1344     		add	r3, r3, r2
+ 1152 006a 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 1153              		.loc 1 114 73 discriminator 3
+ 1154 006c 1B02     		lsls	r3, r3, #8
+ 1155              		.loc 1 114 78 discriminator 3
+ 1156 006e 1AB2     		sxth	r2, r3
+ 1157              		.loc 1 114 95 discriminator 3
+ 1158 0070 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1159 0072 4249     		ldr	r1, .L57
+ 1160 0074 DB00     		lsls	r3, r3, #3
+ 1161 0076 0B44     		add	r3, r3, r1
+ 1162 0078 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1163 007a 1BB2     		sxth	r3, r3
+ 1164              		.loc 1 114 78 discriminator 3
+ 1165 007c 1343     		orrs	r3, r3, r2
+ 1166 007e 1BB2     		sxth	r3, r3
+ 1167              		.loc 1 114 29 discriminator 3
+ 1168 0080 9BB2     		uxth	r3, r3
+ 1169 0082 404A     		ldr	r2, .L57+8
+ 1170 0084 D2ED007A 		vldr.32	s15, [r2]
+ 1171 0088 3E4A     		ldr	r2, .L57+8
+ 1172 008a 92ED017A 		vldr.32	s14, [r2, #4]
+ 1173              		.loc 1 114 22 discriminator 3
+ 1174 008e FC79     		ldrb	r4, [r7, #7]	@ zero_extendqisi2
+ 1175              		.loc 1 114 29 discriminator 3
+ 1176 0090 F0EE470A 		vmov.f32	s1, s14
+ 1177 0094 B0EE670A 		vmov.f32	s0, s15
+ 1178 0098 1846     		mov	r0, r3
+ 1179 009a FFF7FEFF 		bl	map_u16_to_float
+ 1180 009e F0EE407A 		vmov.f32	s15, s0
+ 1181              		.loc 1 114 27 discriminator 3
+ 1182 00a2 374A     		ldr	r2, .L57+4
+ 1183 00a4 2346     		mov	r3, r4
+ 1184 00a6 9B00     		lsls	r3, r3, #2
+ 1185 00a8 2344     		add	r3, r3, r4
+ 1186 00aa 9B00     		lsls	r3, r3, #2
+ 1187 00ac 1344     		add	r3, r3, r2
+ 1188 00ae 0433     		adds	r3, r3, #4
+ 1189 00b0 C3ED007A 		vstr.32	s15, [r3]
+ 115:User/Src/motorevo.c ****     motorevo_state[i].vec = map_u12_to_float((u16)motorevo_rec[i].vec_h << 4 | motorevo_rec[i].vec_
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 23
+
+
+ 1190              		.loc 1 115 66 discriminator 3
+ 1191 00b4 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1192 00b6 314A     		ldr	r2, .L57
+ 1193 00b8 DB00     		lsls	r3, r3, #3
+ 1194 00ba 1344     		add	r3, r3, r2
+ 1195 00bc DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 1196              		.loc 1 115 73 discriminator 3
+ 1197 00be 1B01     		lsls	r3, r3, #4
+ 1198              		.loc 1 115 78 discriminator 3
+ 1199 00c0 1AB2     		sxth	r2, r3
+ 1200              		.loc 1 115 95 discriminator 3
+ 1201 00c2 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1202 00c4 2D49     		ldr	r1, .L57
+ 1203 00c6 DB00     		lsls	r3, r3, #3
+ 1204 00c8 0B44     		add	r3, r3, r1
+ 1205 00ca 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 1206              		.loc 1 115 78 discriminator 3
+ 1207 00cc 1B09     		lsrs	r3, r3, #4
+ 1208 00ce DBB2     		uxtb	r3, r3
+ 1209 00d0 1BB2     		sxth	r3, r3
+ 1210 00d2 1343     		orrs	r3, r3, r2
+ 1211 00d4 1BB2     		sxth	r3, r3
+ 1212              		.loc 1 115 29 discriminator 3
+ 1213 00d6 9BB2     		uxth	r3, r3
+ 1214 00d8 2B4A     		ldr	r2, .L57+12
+ 1215 00da D2ED007A 		vldr.32	s15, [r2]
+ 1216 00de 2A4A     		ldr	r2, .L57+12
+ 1217 00e0 92ED017A 		vldr.32	s14, [r2, #4]
+ 1218              		.loc 1 115 22 discriminator 3
+ 1219 00e4 FC79     		ldrb	r4, [r7, #7]	@ zero_extendqisi2
+ 1220              		.loc 1 115 29 discriminator 3
+ 1221 00e6 F0EE470A 		vmov.f32	s1, s14
+ 1222 00ea B0EE670A 		vmov.f32	s0, s15
+ 1223 00ee 1846     		mov	r0, r3
+ 1224 00f0 FFF7FEFF 		bl	map_u12_to_float
+ 1225 00f4 F0EE407A 		vmov.f32	s15, s0
+ 1226              		.loc 1 115 27 discriminator 3
+ 1227 00f8 214A     		ldr	r2, .L57+4
+ 1228 00fa 2346     		mov	r3, r4
+ 1229 00fc 9B00     		lsls	r3, r3, #2
+ 1230 00fe 2344     		add	r3, r3, r4
+ 1231 0100 9B00     		lsls	r3, r3, #2
+ 1232 0102 1344     		add	r3, r3, r2
+ 1233 0104 0833     		adds	r3, r3, #8
+ 1234 0106 C3ED007A 		vstr.32	s15, [r3]
+ 116:User/Src/motorevo.c ****     motorevo_state[i].tor = map_u12_to_float((u16)(motorevo_rec[i].vec_l_tor_h & 0x0F) << 8 | motor
+ 1235              		.loc 1 116 67 discriminator 3
+ 1236 010a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1237 010c 1B4A     		ldr	r2, .L57
+ 1238 010e DB00     		lsls	r3, r3, #3
+ 1239 0110 1344     		add	r3, r3, r2
+ 1240 0112 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 1241              		.loc 1 116 88 discriminator 3
+ 1242 0114 1B02     		lsls	r3, r3, #8
+ 1243 0116 1BB2     		sxth	r3, r3
+ 1244 0118 03F47063 		and	r3, r3, #3840
+ 1245 011c 1AB2     		sxth	r2, r3
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 24
+
+
+ 1246              		.loc 1 116 110 discriminator 3
+ 1247 011e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1248 0120 1649     		ldr	r1, .L57
+ 1249 0122 DB00     		lsls	r3, r3, #3
+ 1250 0124 0B44     		add	r3, r3, r1
+ 1251 0126 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 1252 0128 1BB2     		sxth	r3, r3
+ 1253              		.loc 1 116 93 discriminator 3
+ 1254 012a 1343     		orrs	r3, r3, r2
+ 1255 012c 1BB2     		sxth	r3, r3
+ 1256              		.loc 1 116 29 discriminator 3
+ 1257 012e 9BB2     		uxth	r3, r3
+ 1258 0130 164A     		ldr	r2, .L57+16
+ 1259 0132 D2ED007A 		vldr.32	s15, [r2]
+ 1260 0136 154A     		ldr	r2, .L57+16
+ 1261 0138 92ED017A 		vldr.32	s14, [r2, #4]
+ 1262              		.loc 1 116 22 discriminator 3
+ 1263 013c FC79     		ldrb	r4, [r7, #7]	@ zero_extendqisi2
+ 1264              		.loc 1 116 29 discriminator 3
+ 1265 013e F0EE470A 		vmov.f32	s1, s14
+ 1266 0142 B0EE670A 		vmov.f32	s0, s15
+ 1267 0146 1846     		mov	r0, r3
+ 1268 0148 FFF7FEFF 		bl	map_u12_to_float
+ 1269 014c F0EE407A 		vmov.f32	s15, s0
+ 1270              		.loc 1 116 27 discriminator 3
+ 1271 0150 0B4A     		ldr	r2, .L57+4
+ 1272 0152 2346     		mov	r3, r4
+ 1273 0154 9B00     		lsls	r3, r3, #2
+ 1274 0156 2344     		add	r3, r3, r4
+ 1275 0158 9B00     		lsls	r3, r3, #2
+ 1276 015a 1344     		add	r3, r3, r2
+ 1277 015c 0C33     		adds	r3, r3, #12
+ 1278 015e C3ED007A 		vstr.32	s15, [r3]
+ 110:User/Src/motorevo.c ****     motorevo_state[i].error = motorevo_rec[i].error;
+ 1279              		.loc 1 110 43 discriminator 3
+ 1280 0162 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1281 0164 0133     		adds	r3, r3, #1
+ 1282 0166 FB71     		strb	r3, [r7, #7]
+ 1283              	.L55:
+ 110:User/Src/motorevo.c ****     motorevo_state[i].error = motorevo_rec[i].error;
+ 1284              		.loc 1 110 3 discriminator 1
+ 1285 0168 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1286 016a 032B     		cmp	r3, #3
+ 1287 016c 7FF64EAF 		bls	.L56
+ 1288              	.LBE3:
+ 117:User/Src/motorevo.c **** 
+ 118:User/Src/motorevo.c ****   }
+ 119:User/Src/motorevo.c **** }
+ 1289              		.loc 1 119 1
+ 1290 0170 00BF     		nop
+ 1291 0172 00BF     		nop
+ 1292 0174 0C37     		adds	r7, r7, #12
+ 1293              	.LCFI56:
+ 1294              		.cfi_def_cfa_offset 12
+ 1295 0176 BD46     		mov	sp, r7
+ 1296              	.LCFI57:
+ 1297              		.cfi_def_cfa_register 13
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 25
+
+
+ 1298              		@ sp needed
+ 1299 0178 90BD     		pop	{r4, r7, pc}
+ 1300              	.L58:
+ 1301 017a 00BF     		.align	2
+ 1302              	.L57:
+ 1303 017c 00000000 		.word	motorevo_rec
+ 1304 0180 00000000 		.word	motorevo_state
+ 1305 0184 00000000 		.word	pos_range
+ 1306 0188 00000000 		.word	vel_range
+ 1307 018c 00000000 		.word	tor_range
+ 1308              		.cfi_endproc
+ 1309              	.LFE154:
+ 1311              		.section	.text.Motorevo_Reset,"ax",%progbits
+ 1312              		.align	1
+ 1313              		.global	Motorevo_Reset
+ 1314              		.syntax unified
+ 1315              		.thumb
+ 1316              		.thumb_func
+ 1318              	Motorevo_Reset:
+ 1319              	.LFB155:
+ 120:User/Src/motorevo.c **** 
+ 121:User/Src/motorevo.c **** void Motorevo_Reset(u8 can_id){
+ 1320              		.loc 1 121 31
+ 1321              		.cfi_startproc
+ 1322              		@ args = 0, pretend = 0, frame = 8
+ 1323              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1324 0000 80B5     		push	{r7, lr}
+ 1325              	.LCFI58:
+ 1326              		.cfi_def_cfa_offset 8
+ 1327              		.cfi_offset 7, -8
+ 1328              		.cfi_offset 14, -4
+ 1329 0002 82B0     		sub	sp, sp, #8
+ 1330              	.LCFI59:
+ 1331              		.cfi_def_cfa_offset 16
+ 1332 0004 00AF     		add	r7, sp, #0
+ 1333              	.LCFI60:
+ 1334              		.cfi_def_cfa_register 7
+ 1335 0006 0346     		mov	r3, r0
+ 1336 0008 FB71     		strb	r3, [r7, #7]
+ 122:User/Src/motorevo.c ****   Motorevo_CAN_Send(can_id, motorevo_reset_buf);
+ 1337              		.loc 1 122 3
+ 1338 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1339 000c 9BB2     		uxth	r3, r3
+ 1340 000e 0449     		ldr	r1, .L60
+ 1341 0010 1846     		mov	r0, r3
+ 1342 0012 FFF7FEFF 		bl	Motorevo_CAN_Send
+ 123:User/Src/motorevo.c **** }
+ 1343              		.loc 1 123 1
+ 1344 0016 00BF     		nop
+ 1345 0018 0837     		adds	r7, r7, #8
+ 1346              	.LCFI61:
+ 1347              		.cfi_def_cfa_offset 8
+ 1348 001a BD46     		mov	sp, r7
+ 1349              	.LCFI62:
+ 1350              		.cfi_def_cfa_register 13
+ 1351              		@ sp needed
+ 1352 001c 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 26
+
+
+ 1353              	.L61:
+ 1354 001e 00BF     		.align	2
+ 1355              	.L60:
+ 1356 0020 00000000 		.word	motorevo_reset_buf
+ 1357              		.cfi_endproc
+ 1358              	.LFE155:
+ 1360              		.section	.text.Motorevo_Activate,"ax",%progbits
+ 1361              		.align	1
+ 1362              		.global	Motorevo_Activate
+ 1363              		.syntax unified
+ 1364              		.thumb
+ 1365              		.thumb_func
+ 1367              	Motorevo_Activate:
+ 1368              	.LFB156:
+ 124:User/Src/motorevo.c **** void Motorevo_Activate(u8 can_id){
+ 1369              		.loc 1 124 34
+ 1370              		.cfi_startproc
+ 1371              		@ args = 0, pretend = 0, frame = 8
+ 1372              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1373 0000 80B5     		push	{r7, lr}
+ 1374              	.LCFI63:
+ 1375              		.cfi_def_cfa_offset 8
+ 1376              		.cfi_offset 7, -8
+ 1377              		.cfi_offset 14, -4
+ 1378 0002 82B0     		sub	sp, sp, #8
+ 1379              	.LCFI64:
+ 1380              		.cfi_def_cfa_offset 16
+ 1381 0004 00AF     		add	r7, sp, #0
+ 1382              	.LCFI65:
+ 1383              		.cfi_def_cfa_register 7
+ 1384 0006 0346     		mov	r3, r0
+ 1385 0008 FB71     		strb	r3, [r7, #7]
+ 125:User/Src/motorevo.c ****   Motorevo_CAN_Send(can_id, motorevo_activate_buf);
+ 1386              		.loc 1 125 3
+ 1387 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1388 000c 9BB2     		uxth	r3, r3
+ 1389 000e 0449     		ldr	r1, .L63
+ 1390 0010 1846     		mov	r0, r3
+ 1391 0012 FFF7FEFF 		bl	Motorevo_CAN_Send
+ 126:User/Src/motorevo.c **** }
+ 1392              		.loc 1 126 1
+ 1393 0016 00BF     		nop
+ 1394 0018 0837     		adds	r7, r7, #8
+ 1395              	.LCFI66:
+ 1396              		.cfi_def_cfa_offset 8
+ 1397 001a BD46     		mov	sp, r7
+ 1398              	.LCFI67:
+ 1399              		.cfi_def_cfa_register 13
+ 1400              		@ sp needed
+ 1401 001c 80BD     		pop	{r7, pc}
+ 1402              	.L64:
+ 1403 001e 00BF     		.align	2
+ 1404              	.L63:
+ 1405 0020 00000000 		.word	motorevo_activate_buf
+ 1406              		.cfi_endproc
+ 1407              	.LFE156:
+ 1409              		.section	.text.Motorevo_SetZero,"ax",%progbits
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 27
+
+
+ 1410              		.align	1
+ 1411              		.global	Motorevo_SetZero
+ 1412              		.syntax unified
+ 1413              		.thumb
+ 1414              		.thumb_func
+ 1416              	Motorevo_SetZero:
+ 1417              	.LFB157:
+ 127:User/Src/motorevo.c **** 
+ 128:User/Src/motorevo.c **** void Motorevo_SetZero(u8 can_id){
+ 1418              		.loc 1 128 33
+ 1419              		.cfi_startproc
+ 1420              		@ args = 0, pretend = 0, frame = 8
+ 1421              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1422 0000 80B5     		push	{r7, lr}
+ 1423              	.LCFI68:
+ 1424              		.cfi_def_cfa_offset 8
+ 1425              		.cfi_offset 7, -8
+ 1426              		.cfi_offset 14, -4
+ 1427 0002 82B0     		sub	sp, sp, #8
+ 1428              	.LCFI69:
+ 1429              		.cfi_def_cfa_offset 16
+ 1430 0004 00AF     		add	r7, sp, #0
+ 1431              	.LCFI70:
+ 1432              		.cfi_def_cfa_register 7
+ 1433 0006 0346     		mov	r3, r0
+ 1434 0008 FB71     		strb	r3, [r7, #7]
+ 129:User/Src/motorevo.c ****   Motorevo_CAN_Send(can_id, motorevo_set_zero_buf);
+ 1435              		.loc 1 129 3
+ 1436 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1437 000c 9BB2     		uxth	r3, r3
+ 1438 000e 0449     		ldr	r1, .L66
+ 1439 0010 1846     		mov	r0, r3
+ 1440 0012 FFF7FEFF 		bl	Motorevo_CAN_Send
+ 130:User/Src/motorevo.c **** }
+ 1441              		.loc 1 130 1
+ 1442 0016 00BF     		nop
+ 1443 0018 0837     		adds	r7, r7, #8
+ 1444              	.LCFI71:
+ 1445              		.cfi_def_cfa_offset 8
+ 1446 001a BD46     		mov	sp, r7
+ 1447              	.LCFI72:
+ 1448              		.cfi_def_cfa_register 13
+ 1449              		@ sp needed
+ 1450 001c 80BD     		pop	{r7, pc}
+ 1451              	.L67:
+ 1452 001e 00BF     		.align	2
+ 1453              	.L66:
+ 1454 0020 00000000 		.word	motorevo_set_zero_buf
+ 1455              		.cfi_endproc
+ 1456              	.LFE157:
+ 1458              		.section	.text.Motorevo_Query,"ax",%progbits
+ 1459              		.align	1
+ 1460              		.global	Motorevo_Query
+ 1461              		.syntax unified
+ 1462              		.thumb
+ 1463              		.thumb_func
+ 1465              	Motorevo_Query:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 28
+
+
+ 1466              	.LFB158:
+ 131:User/Src/motorevo.c **** 
+ 132:User/Src/motorevo.c **** void Motorevo_Query(u8 can_id){
+ 1467              		.loc 1 132 31
+ 1468              		.cfi_startproc
+ 1469              		@ args = 0, pretend = 0, frame = 8
+ 1470              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1471 0000 80B5     		push	{r7, lr}
+ 1472              	.LCFI73:
+ 1473              		.cfi_def_cfa_offset 8
+ 1474              		.cfi_offset 7, -8
+ 1475              		.cfi_offset 14, -4
+ 1476 0002 82B0     		sub	sp, sp, #8
+ 1477              	.LCFI74:
+ 1478              		.cfi_def_cfa_offset 16
+ 1479 0004 00AF     		add	r7, sp, #0
+ 1480              	.LCFI75:
+ 1481              		.cfi_def_cfa_register 7
+ 1482 0006 0346     		mov	r3, r0
+ 1483 0008 FB71     		strb	r3, [r7, #7]
+ 133:User/Src/motorevo.c ****   memset(motorevo_sed_buf, 0, sizeof(motorevo_sed_buf));
+ 1484              		.loc 1 133 3
+ 1485 000a 0822     		movs	r2, #8
+ 1486 000c 0021     		movs	r1, #0
+ 1487 000e 0648     		ldr	r0, .L69
+ 1488 0010 FFF7FEFF 		bl	memset
+ 134:User/Src/motorevo.c ****   Motorevo_CAN_Send(can_id, motorevo_sed_buf);
+ 1489              		.loc 1 134 3
+ 1490 0014 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1491 0016 9BB2     		uxth	r3, r3
+ 1492 0018 0349     		ldr	r1, .L69
+ 1493 001a 1846     		mov	r0, r3
+ 1494 001c FFF7FEFF 		bl	Motorevo_CAN_Send
+ 135:User/Src/motorevo.c **** }
+ 1495              		.loc 1 135 1
+ 1496 0020 00BF     		nop
+ 1497 0022 0837     		adds	r7, r7, #8
+ 1498              	.LCFI76:
+ 1499              		.cfi_def_cfa_offset 8
+ 1500 0024 BD46     		mov	sp, r7
+ 1501              	.LCFI77:
+ 1502              		.cfi_def_cfa_register 13
+ 1503              		@ sp needed
+ 1504 0026 80BD     		pop	{r7, pc}
+ 1505              	.L70:
+ 1506              		.align	2
+ 1507              	.L69:
+ 1508 0028 00000000 		.word	motorevo_sed_buf
+ 1509              		.cfi_endproc
+ 1510              	.LFE158:
+ 1512              		.text
+ 1513              	.Letext0:
+ 1514              		.file 2 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1515              		.file 3 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1516              		.file 4 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h"
+ 1517              		.file 5 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h"
+ 1518              		.file 6 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 29
+
+
+ 1519              		.file 7 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h"
+ 1520              		.file 8 "Core/Inc/fdcan.h"
+ 1521              		.file 9 "User/Inc/common.h"
+ 1522              		.file 10 "User/Inc/motorevo.h"
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 30
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 motorevo.c
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:23     .bss.motorevo_rec:00000000 motorevo_rec
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:20     .bss.motorevo_rec:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:30     .bss.motorevo_state:00000000 motorevo_state
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:27     .bss.motorevo_state:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:37     .bss.motorevo_sed_buf:00000000 motorevo_sed_buf
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:34     .bss.motorevo_sed_buf:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:44     .data.motorevo_reset_buf:00000000 motorevo_reset_buf
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:41     .data.motorevo_reset_buf:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:51     .data.motorevo_activate_buf:00000000 motorevo_activate_buf
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:48     .data.motorevo_activate_buf:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:58     .data.motorevo_set_zero_buf:00000000 motorevo_set_zero_buf
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:55     .data.motorevo_set_zero_buf:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:65     .data.motorevo_id:00000000 motorevo_id
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:62     .data.motorevo_id:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:72     .data.pos_range:00000000 pos_range
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:69     .data.pos_range:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:80     .data.vel_range:00000000 vel_range
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:77     .data.vel_range:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:88     .data.tor_range:00000000 tor_range
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:85     .data.tor_range:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:96     .data.pos_kp_range:00000000 pos_kp_range
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:93     .data.pos_kp_range:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:104    .data.pos_kd_range:00000000 pos_kd_range
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:101    .data.pos_kd_range:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:112    .data.vel_kp_range:00000000 vel_kp_range
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:109    .data.vel_kp_range:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:120    .data.vel_kd_range:00000000 vel_kd_range
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:117    .data.vel_kd_range:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:128    .data.vel_ki_range:00000000 vel_ki_range
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:125    .data.vel_ki_range:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:136    .bss.motorevo_pos_cmd:00000000 motorevo_pos_cmd
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:133    .bss.motorevo_pos_cmd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:143    .bss.motorevo_vel_cmd:00000000 motorevo_vel_cmd
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:140    .bss.motorevo_vel_cmd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:150    .bss.pos_min:00000000 pos_min
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:147    .bss.pos_min:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:157    .bss.pos_max:00000000 pos_max
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:154    .bss.pos_max:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:164    .bss.pos_front:00000000 pos_front
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:161    .bss.pos_front:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:171    .data.motorevo_pos_kp:00000000 motorevo_pos_kp
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:168    .data.motorevo_pos_kp:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:178    .data.motorevo_pos_kd:00000000 motorevo_pos_kd
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:175    .data.motorevo_pos_kd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:185    .data.motorevo_vel_kp:00000000 motorevo_vel_kp
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:182    .data.motorevo_vel_kp:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:192    .bss.motorevo_vel_kd:00000000 motorevo_vel_kd
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:189    .bss.motorevo_vel_kd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:199    .data.motorevo_vel_ki:00000000 motorevo_vel_ki
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:196    .data.motorevo_vel_ki:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:205    .bss.pos_kp_command:00000000 pos_kp_command
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:206    .bss.pos_kp_command:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:211    .bss.pos_kd_command:00000000 pos_kd_command
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:212    .bss.pos_kd_command:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:217    .bss.vel_kp_command:00000000 vel_kp_command
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s 			page 31
+
+
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:218    .bss.vel_kp_command:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:223    .bss.vel_ki_command:00000000 vel_ki_command
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:224    .bss.vel_ki_command:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:229    .bss.vel_kd_command:00000000 vel_kd_command
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:230    .bss.vel_kd_command:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:232    .text.map_u8_to_float:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:238    .text.map_u8_to_float:00000000 map_u8_to_float
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:296    .text.map_u8_to_float:00000058 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:302    .text.map_u16_to_float:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:308    .text.map_u16_to_float:00000000 map_u16_to_float
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:365    .text.map_u16_to_float:00000058 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:371    .text.map_u12_to_float:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:377    .text.map_u12_to_float:00000000 map_u12_to_float
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:434    .text.map_u12_to_float:00000058 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:440    .text.map_float_to_u8:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:446    .text.map_float_to_u8:00000000 map_float_to_u8
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:524    .text.map_float_to_u8:00000088 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:530    .text.map_float_to_u16:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:536    .text.map_float_to_u16:00000000 map_float_to_u16
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:613    .text.map_float_to_u16:00000088 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:619    .text.Motorevo_init:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:625    .text.Motorevo_init:00000000 Motorevo_init
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:750    .text.Motorevo_init:00000104 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:770    .text.Motorevo_CAN_Send:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:776    .text.Motorevo_CAN_Send:00000000 Motorevo_CAN_Send
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:818    .text.Motorevo_CAN_Send:00000024 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:824    .text.Motorevo_SetPos:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:830    .text.Motorevo_SetPos:00000000 Motorevo_SetPos
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:908    .text.Motorevo_SetPos:00000080 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:915    .text.Motorevo_Update:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:921    .text.Motorevo_Update:00000000 Motorevo_Update
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:987    .text.Motorevo_Update:00000050 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:994    .text.Motorevo_SetPos_cmd:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1000   .text.Motorevo_SetPos_cmd:00000000 Motorevo_SetPos_cmd
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1056   .text.Motorevo_SetPos_cmd:0000003c $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1062   .text.Motorevo_Update_State:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1068   .text.Motorevo_Update_State:00000000 Motorevo_Update_State
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1303   .text.Motorevo_Update_State:0000017c $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1312   .text.Motorevo_Reset:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1318   .text.Motorevo_Reset:00000000 Motorevo_Reset
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1356   .text.Motorevo_Reset:00000020 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1361   .text.Motorevo_Activate:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1367   .text.Motorevo_Activate:00000000 Motorevo_Activate
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1405   .text.Motorevo_Activate:00000020 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1410   .text.Motorevo_SetZero:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1416   .text.Motorevo_SetZero:00000000 Motorevo_SetZero
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1454   .text.Motorevo_SetZero:00000020 $d
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1459   .text.Motorevo_Query:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1465   .text.Motorevo_Query:00000000 Motorevo_Query
+C:\Users\Su\AppData\Local\Temp\ccAuQ5fu.s:1508   .text.Motorevo_Query:00000028 $d
+
+UNDEFINED SYMBOLS
+HAL_FDCAN_AddMessageToTxFifoQ
+txHeader
+hfdcan1
+memset

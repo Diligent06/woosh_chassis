@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "*.c": "c",
+    "fdcan.h": "c",
+    "string.h": "c",
+    "hollysys.h": "c",
+    "common.h": "c"
+  }
+}

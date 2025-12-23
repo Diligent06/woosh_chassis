@@ -1,0 +1,660 @@
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.arch armv7e-m
+   3              		.fpu fpv5-d16
+   4              		.eabi_attribute 28, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"chassis.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	steer_motor_id
+  19              		.section	.data.steer_motor_id,"aw"
+  20              		.align	2
+  23              	steer_motor_id:
+  24 0000 05060708 		.ascii	"\005\006\007\010"
+  25              		.global	drive_motor_id
+  26              		.section	.data.drive_motor_id,"aw"
+  27              		.align	2
+  30              	drive_motor_id:
+  31 0000 01020304 		.ascii	"\001\002\003\004"
+  32              		.global	drive_motor_spd_cmd
+  33              		.section	.bss.drive_motor_spd_cmd,"aw",%nobits
+  34              		.align	2
+  37              	drive_motor_spd_cmd:
+  38 0000 00000000 		.space	16
+  38      00000000 
+  38      00000000 
+  38      00000000 
+  39              		.global	steer_motor_pos_cmd
+  40              		.section	.bss.steer_motor_pos_cmd,"aw",%nobits
+  41              		.align	2
+  44              	steer_motor_pos_cmd:
+  45 0000 00000000 		.space	16
+  45      00000000 
+  45      00000000 
+  45      00000000 
+  46              		.global	steer_motor_pos_max
+  47              		.section	.data.steer_motor_pos_max,"aw"
+  48              		.align	2
+  51              	steer_motor_pos_max:
+  52 0000 CF084F3D 		.word	1028589775
+  53 0004 DF70DF3C 		.word	1021276383
+  54 0008 A348233D 		.word	1025722531
+  55 000c 8728073D 		.word	1023879303
+  56              		.global	steer_motor_pos_min
+  57              		.section	.data.steer_motor_pos_min,"aw"
+  58              		.align	2
+  61              	steer_motor_pos_min:
+  62 0000 18C57740 		.word	1081591064
+  63 0004 96287640 		.word	1081485462
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 2
+
+
+  64 0008 D7927640 		.word	1081512663
+  65 000c 16677640 		.word	1081501462
+  66              		.global	steer_range_
+  67              		.section	.data.steer_range_,"aw"
+  68              		.align	2
+  71              	steer_range_:
+  72 0000 B4697440 		.word	1081371060
+  73              		.global	steer_forward_pos
+  74              		.section	.data.steer_forward_pos,"aw"
+  75              		.align	2
+  78              	steer_forward_pos:
+  79 0000 2F49EF3F 		.word	1072646447
+  80 0004 AC4EEC3F 		.word	1072451244
+  81 0008 2EEBED3F 		.word	1072556846
+  82 000c 2D0AED3F 		.word	1072499245
+  83              		.section	.text.Chassis_Init,"ax",%progbits
+  84              		.align	1
+  85              		.global	Chassis_Init
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  90              	Chassis_Init:
+  91              	.LFB144:
+  92              		.file 1 "User/Src/chassis.c"
+   1:User/Src/chassis.c **** #include "chassis.h"
+   2:User/Src/chassis.c **** 
+   3:User/Src/chassis.c **** 
+   4:User/Src/chassis.c **** 
+   5:User/Src/chassis.c **** // orient front direction
+   6:User/Src/chassis.c **** // front left, front right, rear right, rear left
+   7:User/Src/chassis.c **** u8 steer_motor_id[4] = {0x05, 0x06, 0x07, 0x08};
+   8:User/Src/chassis.c **** // left front 0x01, right front 0x02, left rear 0x03, right rear 0x04
+   9:User/Src/chassis.c **** u8 drive_motor_id[4] = {0x01, 0x02, 0x03, 0x04};
+  10:User/Src/chassis.c **** 
+  11:User/Src/chassis.c **** 
+  12:User/Src/chassis.c **** 
+  13:User/Src/chassis.c **** 
+  14:User/Src/chassis.c **** s32 drive_motor_spd_cmd[4] = {0};
+  15:User/Src/chassis.c **** float steer_motor_pos_cmd[4] = {0};
+  16:User/Src/chassis.c **** 
+  17:User/Src/chassis.c **** float steer_motor_pos_max[4] = {0.0505455099, 0.0272755008, 0.0398641936, 0.0329976343};
+  18:User/Src/chassis.c **** // max -> min clock-wise
+  19:User/Src/chassis.c **** float steer_motor_pos_min[4] = {3.87140465, 3.84622717, 3.85271239, 3.85004187};
+  20:User/Src/chassis.c **** 
+  21:User/Src/chassis.c **** float steer_range_ = 3.8189516692;
+  22:User/Src/chassis.c **** 
+  23:User/Src/chassis.c **** float steer_forward_pos[4] = {1.8694208890999, 1.84615088, 1.8587395727999, 1.8518730134999};
+  24:User/Src/chassis.c **** 
+  25:User/Src/chassis.c **** void Chassis_Init(void){
+  93              		.loc 1 25 24
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 8
+  96              		@ frame_needed = 1, uses_anonymous_args = 0
+  97 0000 80B5     		push	{r7, lr}
+  98              	.LCFI0:
+  99              		.cfi_def_cfa_offset 8
+ 100              		.cfi_offset 7, -8
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 3
+
+
+ 101              		.cfi_offset 14, -4
+ 102 0002 82B0     		sub	sp, sp, #8
+ 103              	.LCFI1:
+ 104              		.cfi_def_cfa_offset 16
+ 105 0004 00AF     		add	r7, sp, #0
+ 106              	.LCFI2:
+ 107              		.cfi_def_cfa_register 7
+  26:User/Src/chassis.c ****   
+  27:User/Src/chassis.c ****   Hollysys_enable_A(0x03);
+ 108              		.loc 1 27 3
+ 109 0006 0320     		movs	r0, #3
+ 110 0008 FFF7FEFF 		bl	Hollysys_enable_A
+  28:User/Src/chassis.c ****   Hollysys_enable_B(0x04);
+ 111              		.loc 1 28 3
+ 112 000c 0420     		movs	r0, #4
+ 113 000e FFF7FEFF 		bl	Hollysys_enable_B
+  29:User/Src/chassis.c ****   Hollysys_enable_A(0x01);
+ 114              		.loc 1 29 3
+ 115 0012 0120     		movs	r0, #1
+ 116 0014 FFF7FEFF 		bl	Hollysys_enable_A
+  30:User/Src/chassis.c ****   Hollysys_enable_B(0x02);
+ 117              		.loc 1 30 3
+ 118 0018 0220     		movs	r0, #2
+ 119 001a FFF7FEFF 		bl	Hollysys_enable_B
+  31:User/Src/chassis.c ****   HAL_Delay(100);
+ 120              		.loc 1 31 3
+ 121 001e 6420     		movs	r0, #100
+ 122 0020 FFF7FEFF 		bl	HAL_Delay
+ 123              	.LBB2:
+  32:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
+ 124              		.loc 1 32 10
+ 125 0024 0023     		movs	r3, #0
+ 126 0026 FB71     		strb	r3, [r7, #7]
+ 127              		.loc 1 32 3
+ 128 0028 08E0     		b	.L2
+ 129              	.L3:
+  33:User/Src/chassis.c ****     Hollysys_CANopen_PV_Init(drive_motor_id[i]);
+ 130              		.loc 1 33 5 discriminator 3
+ 131 002a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 132 002c 1D4A     		ldr	r2, .L8
+ 133 002e D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 134 0030 1846     		mov	r0, r3
+ 135 0032 FFF7FEFF 		bl	Hollysys_CANopen_PV_Init
+  32:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
+ 136              		.loc 1 32 46 discriminator 3
+ 137 0036 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 138 0038 0133     		adds	r3, r3, #1
+ 139 003a FB71     		strb	r3, [r7, #7]
+ 140              	.L2:
+  32:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
+ 141              		.loc 1 32 3 discriminator 1
+ 142 003c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 143 003e 032B     		cmp	r3, #3
+ 144 0040 F3D9     		bls	.L3
+ 145              	.LBE2:
+  34:User/Src/chassis.c ****   }
+  35:User/Src/chassis.c ****   HAL_Delay(100);
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 4
+
+
+ 146              		.loc 1 35 3
+ 147 0042 6420     		movs	r0, #100
+ 148 0044 FFF7FEFF 		bl	HAL_Delay
+ 149              	.LBB3:
+  36:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
+ 150              		.loc 1 36 10
+ 151 0048 0023     		movs	r3, #0
+ 152 004a BB71     		strb	r3, [r7, #6]
+ 153              		.loc 1 36 3
+ 154 004c 08E0     		b	.L4
+ 155              	.L5:
+  37:User/Src/chassis.c ****     Hollysys_startup(drive_motor_id[i]);
+ 156              		.loc 1 37 5 discriminator 3
+ 157 004e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 158 0050 144A     		ldr	r2, .L8
+ 159 0052 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 160 0054 1846     		mov	r0, r3
+ 161 0056 FFF7FEFF 		bl	Hollysys_startup
+  36:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
+ 162              		.loc 1 36 46 discriminator 3
+ 163 005a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 164 005c 0133     		adds	r3, r3, #1
+ 165 005e BB71     		strb	r3, [r7, #6]
+ 166              	.L4:
+  36:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
+ 167              		.loc 1 36 3 discriminator 1
+ 168 0060 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 169 0062 032B     		cmp	r3, #3
+ 170 0064 F3D9     		bls	.L5
+ 171              	.LBE3:
+  38:User/Src/chassis.c ****   }
+  39:User/Src/chassis.c ****   HAL_Delay(100);
+ 172              		.loc 1 39 3
+ 173 0066 6420     		movs	r0, #100
+ 174 0068 FFF7FEFF 		bl	HAL_Delay
+  40:User/Src/chassis.c **** 
+  41:User/Src/chassis.c ****   Motorevo_init();
+ 175              		.loc 1 41 3
+ 176 006c FFF7FEFF 		bl	Motorevo_init
+ 177              	.LBB4:
+  42:User/Src/chassis.c **** 
+  43:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(steer_motor_id); i++){
+ 178              		.loc 1 43 10
+ 179 0070 0023     		movs	r3, #0
+ 180 0072 7B71     		strb	r3, [r7, #5]
+ 181              		.loc 1 43 3
+ 182 0074 0EE0     		b	.L6
+ 183              	.L7:
+  44:User/Src/chassis.c ****     Motorevo_Reset(steer_motor_id[i]);
+ 184              		.loc 1 44 5 discriminator 3
+ 185 0076 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 186 0078 0B4A     		ldr	r2, .L8+4
+ 187 007a D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 188 007c 1846     		mov	r0, r3
+ 189 007e FFF7FEFF 		bl	Motorevo_Reset
+  45:User/Src/chassis.c ****     Motorevo_Activate(steer_motor_id[i]);
+ 190              		.loc 1 45 5 discriminator 3
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 5
+
+
+ 191 0082 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 192 0084 084A     		ldr	r2, .L8+4
+ 193 0086 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 194 0088 1846     		mov	r0, r3
+ 195 008a FFF7FEFF 		bl	Motorevo_Activate
+  43:User/Src/chassis.c ****     Motorevo_Reset(steer_motor_id[i]);
+ 196              		.loc 1 43 46 discriminator 3
+ 197 008e 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 198 0090 0133     		adds	r3, r3, #1
+ 199 0092 7B71     		strb	r3, [r7, #5]
+ 200              	.L6:
+  43:User/Src/chassis.c ****     Motorevo_Reset(steer_motor_id[i]);
+ 201              		.loc 1 43 3 discriminator 1
+ 202 0094 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 203 0096 032B     		cmp	r3, #3
+ 204 0098 EDD9     		bls	.L7
+ 205              	.LBE4:
+  46:User/Src/chassis.c ****   }
+  47:User/Src/chassis.c **** 
+  48:User/Src/chassis.c **** }
+ 206              		.loc 1 48 1
+ 207 009a 00BF     		nop
+ 208 009c 00BF     		nop
+ 209 009e 0837     		adds	r7, r7, #8
+ 210              	.LCFI3:
+ 211              		.cfi_def_cfa_offset 8
+ 212 00a0 BD46     		mov	sp, r7
+ 213              	.LCFI4:
+ 214              		.cfi_def_cfa_register 13
+ 215              		@ sp needed
+ 216 00a2 80BD     		pop	{r7, pc}
+ 217              	.L9:
+ 218              		.align	2
+ 219              	.L8:
+ 220 00a4 00000000 		.word	drive_motor_id
+ 221 00a8 00000000 		.word	steer_motor_id
+ 222              		.cfi_endproc
+ 223              	.LFE144:
+ 225              		.section	.text.Chassis_Set_drive_spd,"ax",%progbits
+ 226              		.align	1
+ 227              		.global	Chassis_Set_drive_spd
+ 228              		.syntax unified
+ 229              		.thumb
+ 230              		.thumb_func
+ 232              	Chassis_Set_drive_spd:
+ 233              	.LFB145:
+  49:User/Src/chassis.c **** 
+  50:User/Src/chassis.c **** void Chassis_Set_drive_spd(){
+ 234              		.loc 1 50 29
+ 235              		.cfi_startproc
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 1, uses_anonymous_args = 0
+ 238 0000 80B5     		push	{r7, lr}
+ 239              	.LCFI5:
+ 240              		.cfi_def_cfa_offset 8
+ 241              		.cfi_offset 7, -8
+ 242              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 6
+
+
+ 243 0002 00AF     		add	r7, sp, #0
+ 244              	.LCFI6:
+ 245              		.cfi_def_cfa_register 7
+  51:User/Src/chassis.c ****   // for(u8 i = 0; i < 4; i++)
+  52:User/Src/chassis.c ****   Hollysys_Setspdcmd(drive_motor_id[0], drive_motor_spd_cmd[0]);
+ 246              		.loc 1 52 3
+ 247 0004 114B     		ldr	r3, .L11
+ 248 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 249 0008 114A     		ldr	r2, .L11+4
+ 250 000a 1268     		ldr	r2, [r2]
+ 251 000c 1146     		mov	r1, r2
+ 252 000e 1846     		mov	r0, r3
+ 253 0010 FFF7FEFF 		bl	Hollysys_Setspdcmd
+  53:User/Src/chassis.c ****   Hollysys_Setspdcmd(drive_motor_id[1], -drive_motor_spd_cmd[1]);
+ 254              		.loc 1 53 3
+ 255 0014 0D4B     		ldr	r3, .L11
+ 256 0016 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 257              		.loc 1 53 61
+ 258 0018 0D4B     		ldr	r3, .L11+4
+ 259 001a 5B68     		ldr	r3, [r3, #4]
+ 260              		.loc 1 53 3
+ 261 001c 5B42     		rsbs	r3, r3, #0
+ 262 001e 1946     		mov	r1, r3
+ 263 0020 1046     		mov	r0, r2
+ 264 0022 FFF7FEFF 		bl	Hollysys_Setspdcmd
+  54:User/Src/chassis.c ****   Hollysys_Setspdcmd(drive_motor_id[2], drive_motor_spd_cmd[2]);
+ 265              		.loc 1 54 3
+ 266 0026 094B     		ldr	r3, .L11
+ 267 0028 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 268 002a 094A     		ldr	r2, .L11+4
+ 269 002c 9268     		ldr	r2, [r2, #8]
+ 270 002e 1146     		mov	r1, r2
+ 271 0030 1846     		mov	r0, r3
+ 272 0032 FFF7FEFF 		bl	Hollysys_Setspdcmd
+  55:User/Src/chassis.c ****   Hollysys_Setspdcmd(drive_motor_id[3], -drive_motor_spd_cmd[3]);
+ 273              		.loc 1 55 3
+ 274 0036 054B     		ldr	r3, .L11
+ 275 0038 DA78     		ldrb	r2, [r3, #3]	@ zero_extendqisi2
+ 276              		.loc 1 55 61
+ 277 003a 054B     		ldr	r3, .L11+4
+ 278 003c DB68     		ldr	r3, [r3, #12]
+ 279              		.loc 1 55 3
+ 280 003e 5B42     		rsbs	r3, r3, #0
+ 281 0040 1946     		mov	r1, r3
+ 282 0042 1046     		mov	r0, r2
+ 283 0044 FFF7FEFF 		bl	Hollysys_Setspdcmd
+  56:User/Src/chassis.c **** }
+ 284              		.loc 1 56 1
+ 285 0048 00BF     		nop
+ 286 004a 80BD     		pop	{r7, pc}
+ 287              	.L12:
+ 288              		.align	2
+ 289              	.L11:
+ 290 004c 00000000 		.word	drive_motor_id
+ 291 0050 00000000 		.word	drive_motor_spd_cmd
+ 292              		.cfi_endproc
+ 293              	.LFE145:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 7
+
+
+ 295              		.section	.text.Chassis_Drive_Info_Update,"ax",%progbits
+ 296              		.align	1
+ 297              		.global	Chassis_Drive_Info_Update
+ 298              		.syntax unified
+ 299              		.thumb
+ 300              		.thumb_func
+ 302              	Chassis_Drive_Info_Update:
+ 303              	.LFB146:
+  57:User/Src/chassis.c **** 
+  58:User/Src/chassis.c **** void Chassis_Drive_Info_Update(){
+ 304              		.loc 1 58 33
+ 305              		.cfi_startproc
+ 306              		@ args = 0, pretend = 0, frame = 8
+ 307              		@ frame_needed = 1, uses_anonymous_args = 0
+ 308 0000 80B5     		push	{r7, lr}
+ 309              	.LCFI7:
+ 310              		.cfi_def_cfa_offset 8
+ 311              		.cfi_offset 7, -8
+ 312              		.cfi_offset 14, -4
+ 313 0002 82B0     		sub	sp, sp, #8
+ 314              	.LCFI8:
+ 315              		.cfi_def_cfa_offset 16
+ 316 0004 00AF     		add	r7, sp, #0
+ 317              	.LCFI9:
+ 318              		.cfi_def_cfa_register 7
+ 319              	.LBB5:
+  59:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++)
+ 320              		.loc 1 59 10
+ 321 0006 0023     		movs	r3, #0
+ 322 0008 FB71     		strb	r3, [r7, #7]
+ 323              		.loc 1 59 3
+ 324 000a 08E0     		b	.L14
+ 325              	.L15:
+  60:User/Src/chassis.c ****     Hollysys_GetData(drive_motor_id[i]);
+ 326              		.loc 1 60 5 discriminator 3
+ 327 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 328 000e 084A     		ldr	r2, .L16
+ 329 0010 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 330 0012 1846     		mov	r0, r3
+ 331 0014 FFF7FEFF 		bl	Hollysys_GetData
+  59:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++)
+ 332              		.loc 1 59 46 discriminator 3
+ 333 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 334 001a 0133     		adds	r3, r3, #1
+ 335 001c FB71     		strb	r3, [r7, #7]
+ 336              	.L14:
+  59:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++)
+ 337              		.loc 1 59 3 discriminator 1
+ 338 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 339 0020 032B     		cmp	r3, #3
+ 340 0022 F3D9     		bls	.L15
+ 341              	.LBE5:
+  61:User/Src/chassis.c **** }
+ 342              		.loc 1 61 1
+ 343 0024 00BF     		nop
+ 344 0026 00BF     		nop
+ 345 0028 0837     		adds	r7, r7, #8
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 8
+
+
+ 346              	.LCFI10:
+ 347              		.cfi_def_cfa_offset 8
+ 348 002a BD46     		mov	sp, r7
+ 349              	.LCFI11:
+ 350              		.cfi_def_cfa_register 13
+ 351              		@ sp needed
+ 352 002c 80BD     		pop	{r7, pc}
+ 353              	.L17:
+ 354 002e 00BF     		.align	2
+ 355              	.L16:
+ 356 0030 00000000 		.word	drive_motor_id
+ 357              		.cfi_endproc
+ 358              	.LFE146:
+ 360              		.section	.text.Chassis_Update,"ax",%progbits
+ 361              		.align	1
+ 362              		.global	Chassis_Update
+ 363              		.syntax unified
+ 364              		.thumb
+ 365              		.thumb_func
+ 367              	Chassis_Update:
+ 368              	.LFB147:
+  62:User/Src/chassis.c **** void Chassis_Update(void){
+ 369              		.loc 1 62 26
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 0
+ 372              		@ frame_needed = 1, uses_anonymous_args = 0
+ 373 0000 80B5     		push	{r7, lr}
+ 374              	.LCFI12:
+ 375              		.cfi_def_cfa_offset 8
+ 376              		.cfi_offset 7, -8
+ 377              		.cfi_offset 14, -4
+ 378 0002 00AF     		add	r7, sp, #0
+ 379              	.LCFI13:
+ 380              		.cfi_def_cfa_register 7
+  63:User/Src/chassis.c ****   Hollysys_Update();
+ 381              		.loc 1 63 3
+ 382 0004 FFF7FEFF 		bl	Hollysys_Update
+  64:User/Src/chassis.c **** }
+ 383              		.loc 1 64 1
+ 384 0008 00BF     		nop
+ 385 000a 80BD     		pop	{r7, pc}
+ 386              		.cfi_endproc
+ 387              	.LFE147:
+ 389              		.section	.text.Chassis_Deinit,"ax",%progbits
+ 390              		.align	1
+ 391              		.global	Chassis_Deinit
+ 392              		.syntax unified
+ 393              		.thumb
+ 394              		.thumb_func
+ 396              	Chassis_Deinit:
+ 397              	.LFB148:
+  65:User/Src/chassis.c **** 
+  66:User/Src/chassis.c **** void Chassis_Deinit(void){
+ 398              		.loc 1 66 26
+ 399              		.cfi_startproc
+ 400              		@ args = 0, pretend = 0, frame = 8
+ 401              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 9
+
+
+ 402 0000 80B5     		push	{r7, lr}
+ 403              	.LCFI14:
+ 404              		.cfi_def_cfa_offset 8
+ 405              		.cfi_offset 7, -8
+ 406              		.cfi_offset 14, -4
+ 407 0002 82B0     		sub	sp, sp, #8
+ 408              	.LCFI15:
+ 409              		.cfi_def_cfa_offset 16
+ 410 0004 00AF     		add	r7, sp, #0
+ 411              	.LCFI16:
+ 412              		.cfi_def_cfa_register 7
+  67:User/Src/chassis.c ****   HAL_Delay(50);
+ 413              		.loc 1 67 3
+ 414 0006 3220     		movs	r0, #50
+ 415 0008 FFF7FEFF 		bl	HAL_Delay
+ 416              	.LBB6:
+  68:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
+ 417              		.loc 1 68 10
+ 418 000c 0023     		movs	r3, #0
+ 419 000e FB71     		strb	r3, [r7, #7]
+ 420              		.loc 1 68 3
+ 421 0010 08E0     		b	.L20
+ 422              	.L21:
+  69:User/Src/chassis.c ****     Hollysys_closedown(drive_motor_id[i]);
+ 423              		.loc 1 69 5 discriminator 3
+ 424 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 425 0014 174A     		ldr	r2, .L24
+ 426 0016 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 427 0018 1846     		mov	r0, r3
+ 428 001a FFF7FEFF 		bl	Hollysys_closedown
+  68:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
+ 429              		.loc 1 68 46 discriminator 3
+ 430 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 431 0020 0133     		adds	r3, r3, #1
+ 432 0022 FB71     		strb	r3, [r7, #7]
+ 433              	.L20:
+  68:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
+ 434              		.loc 1 68 3 discriminator 1
+ 435 0024 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 436 0026 032B     		cmp	r3, #3
+ 437 0028 F3D9     		bls	.L21
+ 438              	.LBE6:
+  70:User/Src/chassis.c ****   }
+  71:User/Src/chassis.c ****   Hollysys_disable_A(0x03);
+ 439              		.loc 1 71 3
+ 440 002a 0320     		movs	r0, #3
+ 441 002c FFF7FEFF 		bl	Hollysys_disable_A
+  72:User/Src/chassis.c ****   Hollysys_disable_B(0x04);
+ 442              		.loc 1 72 3
+ 443 0030 0420     		movs	r0, #4
+ 444 0032 FFF7FEFF 		bl	Hollysys_disable_B
+  73:User/Src/chassis.c ****   Hollysys_disable_A(0x01);
+ 445              		.loc 1 73 3
+ 446 0036 0120     		movs	r0, #1
+ 447 0038 FFF7FEFF 		bl	Hollysys_disable_A
+  74:User/Src/chassis.c ****   Hollysys_disable_B(0x02);
+ 448              		.loc 1 74 3
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 10
+
+
+ 449 003c 0220     		movs	r0, #2
+ 450 003e FFF7FEFF 		bl	Hollysys_disable_B
+  75:User/Src/chassis.c ****   HAL_Delay(50);
+ 451              		.loc 1 75 3
+ 452 0042 3220     		movs	r0, #50
+ 453 0044 FFF7FEFF 		bl	HAL_Delay
+ 454              	.LBB7:
+  76:User/Src/chassis.c **** 
+  77:User/Src/chassis.c ****   for(u8 i = 0; i < sizeof(steer_motor_id); i++){
+ 455              		.loc 1 77 10
+ 456 0048 0023     		movs	r3, #0
+ 457 004a BB71     		strb	r3, [r7, #6]
+ 458              		.loc 1 77 3
+ 459 004c 08E0     		b	.L22
+ 460              	.L23:
+  78:User/Src/chassis.c ****     Motorevo_Reset(steer_motor_id[i]);
+ 461              		.loc 1 78 5 discriminator 3
+ 462 004e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 463 0050 094A     		ldr	r2, .L24+4
+ 464 0052 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 465 0054 1846     		mov	r0, r3
+ 466 0056 FFF7FEFF 		bl	Motorevo_Reset
+  77:User/Src/chassis.c ****     Motorevo_Reset(steer_motor_id[i]);
+ 467              		.loc 1 77 46 discriminator 3
+ 468 005a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 469 005c 0133     		adds	r3, r3, #1
+ 470 005e BB71     		strb	r3, [r7, #6]
+ 471              	.L22:
+  77:User/Src/chassis.c ****     Motorevo_Reset(steer_motor_id[i]);
+ 472              		.loc 1 77 3 discriminator 1
+ 473 0060 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 474 0062 032B     		cmp	r3, #3
+ 475 0064 F3D9     		bls	.L23
+ 476              	.LBE7:
+  79:User/Src/chassis.c ****   }
+  80:User/Src/chassis.c ****   HAL_Delay(50);
+ 477              		.loc 1 80 3
+ 478 0066 3220     		movs	r0, #50
+ 479 0068 FFF7FEFF 		bl	HAL_Delay
+  81:User/Src/chassis.c **** }
+ 480              		.loc 1 81 1
+ 481 006c 00BF     		nop
+ 482 006e 0837     		adds	r7, r7, #8
+ 483              	.LCFI17:
+ 484              		.cfi_def_cfa_offset 8
+ 485 0070 BD46     		mov	sp, r7
+ 486              	.LCFI18:
+ 487              		.cfi_def_cfa_register 13
+ 488              		@ sp needed
+ 489 0072 80BD     		pop	{r7, pc}
+ 490              	.L25:
+ 491              		.align	2
+ 492              	.L24:
+ 493 0074 00000000 		.word	drive_motor_id
+ 494 0078 00000000 		.word	steer_motor_id
+ 495              		.cfi_endproc
+ 496              	.LFE148:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 11
+
+
+ 498              		.text
+ 499              	.Letext0:
+ 500              		.file 2 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 501              		.file 3 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 502              		.file 4 "User/Inc/common.h"
+ 503              		.file 5 "User/Inc/chassis.h"
+ARM GAS  C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 chassis.c
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:23     .data.steer_motor_id:00000000 steer_motor_id
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:20     .data.steer_motor_id:00000000 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:30     .data.drive_motor_id:00000000 drive_motor_id
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:27     .data.drive_motor_id:00000000 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:37     .bss.drive_motor_spd_cmd:00000000 drive_motor_spd_cmd
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:34     .bss.drive_motor_spd_cmd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:44     .bss.steer_motor_pos_cmd:00000000 steer_motor_pos_cmd
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:41     .bss.steer_motor_pos_cmd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:51     .data.steer_motor_pos_max:00000000 steer_motor_pos_max
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:48     .data.steer_motor_pos_max:00000000 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:61     .data.steer_motor_pos_min:00000000 steer_motor_pos_min
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:58     .data.steer_motor_pos_min:00000000 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:71     .data.steer_range_:00000000 steer_range_
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:68     .data.steer_range_:00000000 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:78     .data.steer_forward_pos:00000000 steer_forward_pos
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:75     .data.steer_forward_pos:00000000 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:84     .text.Chassis_Init:00000000 $t
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:90     .text.Chassis_Init:00000000 Chassis_Init
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:220    .text.Chassis_Init:000000a4 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:226    .text.Chassis_Set_drive_spd:00000000 $t
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:232    .text.Chassis_Set_drive_spd:00000000 Chassis_Set_drive_spd
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:290    .text.Chassis_Set_drive_spd:0000004c $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:296    .text.Chassis_Drive_Info_Update:00000000 $t
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:302    .text.Chassis_Drive_Info_Update:00000000 Chassis_Drive_Info_Update
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:356    .text.Chassis_Drive_Info_Update:00000030 $d
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:361    .text.Chassis_Update:00000000 $t
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:367    .text.Chassis_Update:00000000 Chassis_Update
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:390    .text.Chassis_Deinit:00000000 $t
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:396    .text.Chassis_Deinit:00000000 Chassis_Deinit
+C:\Users\Su\AppData\Local\Temp\cc4yPsvN.s:493    .text.Chassis_Deinit:00000074 $d
+
+UNDEFINED SYMBOLS
+Hollysys_enable_A
+Hollysys_enable_B
+HAL_Delay
+Hollysys_CANopen_PV_Init
+Hollysys_startup
+Motorevo_init
+Motorevo_Reset
+Motorevo_Activate
+Hollysys_Setspdcmd
+Hollysys_GetData
+Hollysys_Update
+Hollysys_closedown
+Hollysys_disable_A
+Hollysys_disable_B

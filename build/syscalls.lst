@@ -1,0 +1,94 @@
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccKIMGPj.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.arch armv7e-m
+   3              		.fpu fpv5-d16
+   4              		.eabi_attribute 28, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"syscalls.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text._write,"ax",%progbits
+  19              		.align	1
+  20              		.global	_write
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	_write:
+  26              	.LFB148:
+  27              		.file 1 "User/Src/syscalls.c"
+   1:User/Src/syscalls.c **** #include <sys/unistd.h> // write()
+   2:User/Src/syscalls.c **** #include "usbd_cdc_if.h"
+   3:User/Src/syscalls.c **** 
+   4:User/Src/syscalls.c **** extern volatile uint8_t cdc_tx_busy;
+   5:User/Src/syscalls.c **** 
+   6:User/Src/syscalls.c **** int _write(int file, char *ptr, int len)
+   7:User/Src/syscalls.c **** {
+  28              		.loc 1 7 1
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 16
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32 0000 80B5     		push	{r7, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 7, -8
+  36              		.cfi_offset 14, -4
+  37 0002 84B0     		sub	sp, sp, #16
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 24
+  40 0004 00AF     		add	r7, sp, #0
+  41              	.LCFI2:
+  42              		.cfi_def_cfa_register 7
+  43 0006 F860     		str	r0, [r7, #12]
+  44 0008 B960     		str	r1, [r7, #8]
+  45 000a 7A60     		str	r2, [r7, #4]
+   8:User/Src/syscalls.c ****     CDC_Transmit_HS((uint8_t*)ptr, len);
+  46              		.loc 1 8 5
+  47 000c 7B68     		ldr	r3, [r7, #4]
+  48 000e 9BB2     		uxth	r3, r3
+  49 0010 1946     		mov	r1, r3
+  50 0012 B868     		ldr	r0, [r7, #8]
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccKIMGPj.s 			page 2
+
+
+  51 0014 FFF7FEFF 		bl	CDC_Transmit_HS
+   9:User/Src/syscalls.c ****     return len;
+  52              		.loc 1 9 12
+  53 0018 7B68     		ldr	r3, [r7, #4]
+  10:User/Src/syscalls.c **** }
+  54              		.loc 1 10 1
+  55 001a 1846     		mov	r0, r3
+  56 001c 1037     		adds	r7, r7, #16
+  57              	.LCFI3:
+  58              		.cfi_def_cfa_offset 8
+  59 001e BD46     		mov	sp, r7
+  60              	.LCFI4:
+  61              		.cfi_def_cfa_register 13
+  62              		@ sp needed
+  63 0020 80BD     		pop	{r7, pc}
+  64              		.cfi_endproc
+  65              	.LFE148:
+  67              		.text
+  68              	.Letext0:
+  69              		.file 2 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\machine\\_default_types.h"
+  70              		.file 3 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\sys\\_stdint.h"
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccKIMGPj.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 syscalls.c
+C:\Users\Su\AppData\Local\Temp\ccKIMGPj.s:19     .text._write:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccKIMGPj.s:25     .text._write:00000000 _write
+
+UNDEFINED SYMBOLS
+CDC_Transmit_HS
