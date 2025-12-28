@@ -191,22 +191,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    // if(query_chassis_flag){
-    //   Chassis_Info_Query();
-    //   query_chassis_flag = 0;
-    //   update_chasis_flag = 1;
-    // }
-    // if(update_chasis_flag){
-    //   Chassis_State_Update();
-    //   update_chasis_flag = 0;
-    //   Chassis_Update();
-    // } 
-
-    // int state = HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), 100);
-
-    // HAL_Delay(2000);
   Chassis_Info_Query();
   Chassis_State_Update();
+  Chassis_drive_spd_decrease();
   Chassis_Set_steer_pos();
   Chassis_Set_drive_spd();
   Chassis_Update();

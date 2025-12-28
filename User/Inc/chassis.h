@@ -4,6 +4,7 @@
 #include "hollysys.h"
 #include "common.h"
 #include "motorevo.h"
+#include <math.h>
 
 #define Steer_LF 0x05
 #define Steer_RF 0x06

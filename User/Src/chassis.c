@@ -23,6 +23,7 @@ float steer_front_angle = pi / 2.0;
 float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
 float steer_motor_ang_cmd[STEER_MOTOR_NUM] = {pi / 2, pi / 2, pi / 2, pi / 2};
 
+u8 steer_decrease_flag = 0;
 
 s32 drive_motor_spd_cmd[DRIVE_MOTOR_NUM] = {0};
 
@@ -35,6 +36,7 @@ float sign_hx[STEER_MOTOR_NUM] = {-1, 1, 1, -1};
 float sign_hy[STEER_MOTOR_NUM] = {1, 1, -1, -1};
 
 u8 steer_to_drive[STEER_MOTOR_NUM] = {0, 1, 3, 2};
+
 
 void Chassis_Init(void){
   
@@ -66,12 +68,28 @@ void Chassis_Init(void){
   HAL_Delay(50);
 }
 
-
+void Chassis_drive_spd_decrease(){
+  for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
+    if(fabs(motorevo_state[i].pos - steer_motor_pos_cmd[i]) > 0.5){
+      steer_decrease_flag = 1;
+      break;
+    }
+  }
+}
 void Chassis_Set_drive_spd(){
-  Hollysys_Setspdcmd(drive_motor_id[0], drive_motor_spd_cmd[0]);
-  Hollysys_Setspdcmd(drive_motor_id[1], -drive_motor_spd_cmd[1]);
-  Hollysys_Setspdcmd(drive_motor_id[2], drive_motor_spd_cmd[2]);
-  Hollysys_Setspdcmd(drive_motor_id[3], -drive_motor_spd_cmd[3]);
+  if(steer_decrease_flag){
+    Hollysys_Setspdcmd(drive_motor_id[0], drive_motor_spd_cmd[0]*0.1);
+    Hollysys_Setspdcmd(drive_motor_id[1], -drive_motor_spd_cmd[1]*0.1);
+    Hollysys_Setspdcmd(drive_motor_id[2], drive_motor_spd_cmd[2]*0.1);
+    Hollysys_Setspdcmd(drive_motor_id[3], -drive_motor_spd_cmd[3]*0.1);
+  }
+  else{
+    Hollysys_Setspdcmd(drive_motor_id[0], drive_motor_spd_cmd[0]);
+    Hollysys_Setspdcmd(drive_motor_id[1], -drive_motor_spd_cmd[1]);
+    Hollysys_Setspdcmd(drive_motor_id[2], drive_motor_spd_cmd[2]);
+    Hollysys_Setspdcmd(drive_motor_id[3], -drive_motor_spd_cmd[3]);
+  }
+  steer_decrease_flag = 0;
 }
 
 float Chassis_Steer_Angle_Clip(float* angle, float* center_ang){
@@ -132,6 +150,7 @@ void Chassis_Drive_Info_Query(){
 
 // Chassis motor output update
 void Chassis_Update(void){
+
   Hollysys_Update();
   Motorevo_Update();
 }
