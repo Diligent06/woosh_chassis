@@ -2,8 +2,8 @@
 #include "string.h"
 
 
-struct Receive_servo motorevo_rec[4];
-struct Motor_state motorevo_state[4];
+struct Receive_servo motorevo_rec[MOTOREVO_NUM];
+struct Motor_state motorevo_state[MOTOREVO_NUM];
 
 u8 motorevo_sed_buf[8] = {0};
 
@@ -12,7 +12,7 @@ u8 motorevo_activate_buf[8] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfc};
 u8 motorevo_set_zero_buf[8] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe};
 
 
-u8 motorevo_id[4] = {0x05, 0x06, 0x07, 0x08};
+u8 motorevo_id[MOTOREVO_NUM] = {0x05, 0x06, 0x07, 0x08};
 
 float pos_range[2] = {-12.5, 12.5};
 float vel_range[2] = {-30.0, 30.0};
@@ -23,12 +23,12 @@ float vel_kp_range[2] = {0.0, 250.0};
 float vel_kd_range[2] = {0.0, 50.0};
 float vel_ki_range[2] = {0.0, 0.05};
 
-float motorevo_pos_cmd[4] = {0};
-float motorevo_vel_cmd[4] = {0};
+float motorevo_pos_cmd[MOTOREVO_NUM] = {0};
+float motorevo_vel_cmd[MOTOREVO_NUM] = {0};
 
-float pos_min[4] = {0};
-float pos_max[4] = {0};
-float pos_front[4] = {0};
+float pos_min[MOTOREVO_NUM] = {0};
+float pos_max[MOTOREVO_NUM] = {0};
+float pos_front[MOTOREVO_NUM] = {0};
 
 
 float motorevo_pos_kp = 15.0;
@@ -114,7 +114,6 @@ void Motorevo_Update_State(){
     motorevo_state[i].pos = map_u16_to_float((u16)motorevo_rec[i].pos_h << 8 | motorevo_rec[i].pos_l, pos_range[MIN_range], pos_range[MAX_range]);
     motorevo_state[i].vec = map_u12_to_float((u16)motorevo_rec[i].vec_h << 4 | motorevo_rec[i].vec_l_tor_h >> 4, vel_range[MIN_range], vel_range[MAX_range]);
     motorevo_state[i].tor = map_u12_to_float((u16)(motorevo_rec[i].vec_l_tor_h & 0x0F) << 8 | motorevo_rec[i].tor_l, tor_range[MIN_range], tor_range[MAX_range]);
-
   }
 }
 

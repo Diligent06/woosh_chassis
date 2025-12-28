@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 1
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -39,63 +39,88 @@ ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 1
   44              	CAN1Sedbuf:
   45 0000 00000000 		.space	8
   45      00000000 
-  46              		.global	hollysys_motor_id
-  47              		.section	.data.hollysys_motor_id,"aw"
+  46              		.global	hollysys_spd_rxbuf
+  47              		.section	.bss.hollysys_spd_rxbuf,"aw",%nobits
   48              		.align	2
-  51              	hollysys_motor_id:
-  52 0000 01020304 		.ascii	"\001\002\003\004"
-  53              		.global	hollysys_acc
-  54              		.section	.data.hollysys_acc,"aw"
+  51              	hollysys_spd_rxbuf:
+  52 0000 00000000 		.space	32
+  52      00000000 
+  52      00000000 
+  52      00000000 
+  52      00000000 
+  53              		.global	hollysys_pos_rxbuf
+  54              		.section	.bss.hollysys_pos_rxbuf,"aw",%nobits
   55              		.align	2
-  58              	hollysys_acc:
-  59 0000 E8030000 		.word	1000
-  60 0004 E8030000 		.word	1000
-  61 0008 E8030000 		.word	1000
-  62 000c E8030000 		.word	1000
-  63              		.global	hollysys_dec
-  64              		.section	.data.hollysys_dec,"aw"
-  65              		.align	2
-  68              	hollysys_dec:
-  69 0000 E8030000 		.word	1000
-  70 0004 E8030000 		.word	1000
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 2
+  58              	hollysys_pos_rxbuf:
+  59 0000 00000000 		.space	32
+  59      00000000 
+  59      00000000 
+  59      00000000 
+  59      00000000 
+  60              		.global	hollysys_motor_id
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 2
 
 
-  71 0008 E8030000 		.word	1000
-  72 000c E8030000 		.word	1000
-  73              		.global	hollysys_spd_cmd
-  74              		.section	.bss.hollysys_spd_cmd,"aw",%nobits
-  75              		.align	2
-  78              	hollysys_spd_cmd:
-  79 0000 00000000 		.space	16
-  79      00000000 
-  79      00000000 
-  79      00000000 
-  80              		.global	hollysys_spd
-  81              		.section	.bss.hollysys_spd,"aw",%nobits
-  82              		.align	2
-  85              	hollysys_spd:
-  86 0000 00000000 		.space	16
-  86      00000000 
-  86      00000000 
-  86      00000000 
-  87              		.global	hollysys_pos
-  88              		.section	.bss.hollysys_pos,"aw",%nobits
+  61              		.section	.data.hollysys_motor_id,"aw"
+  62              		.align	2
+  65              	hollysys_motor_id:
+  66 0000 01020304 		.ascii	"\001\002\003\004"
+  67              		.global	hollysys_acc
+  68              		.section	.data.hollysys_acc,"aw"
+  69              		.align	2
+  72              	hollysys_acc:
+  73 0000 E8030000 		.word	1000
+  74 0004 E8030000 		.word	1000
+  75 0008 E8030000 		.word	1000
+  76 000c E8030000 		.word	1000
+  77              		.global	hollysys_dec
+  78              		.section	.data.hollysys_dec,"aw"
+  79              		.align	2
+  82              	hollysys_dec:
+  83 0000 E8030000 		.word	1000
+  84 0004 E8030000 		.word	1000
+  85 0008 E8030000 		.word	1000
+  86 000c E8030000 		.word	1000
+  87              		.global	hollysys_spd_cmd
+  88              		.section	.bss.hollysys_spd_cmd,"aw",%nobits
   89              		.align	2
-  92              	hollysys_pos:
+  92              	hollysys_spd_cmd:
   93 0000 00000000 		.space	16
   93      00000000 
   93      00000000 
   93      00000000 
-  94              		.section	.text.Hollysys_CAN_Send,"ax",%progbits
-  95              		.align	1
-  96              		.global	Hollysys_CAN_Send
-  97              		.syntax unified
-  98              		.thumb
-  99              		.thumb_func
- 101              	Hollysys_CAN_Send:
- 102              	.LFB144:
- 103              		.file 1 "User/Src/hollysys.c"
+  94              		.global	hollysys_spd
+  95              		.section	.bss.hollysys_spd,"aw",%nobits
+  96              		.align	2
+  99              	hollysys_spd:
+ 100 0000 00000000 		.space	16
+ 100      00000000 
+ 100      00000000 
+ 100      00000000 
+ 101              		.global	hollysys_pos
+ 102              		.section	.bss.hollysys_pos,"aw",%nobits
+ 103              		.align	2
+ 106              	hollysys_pos:
+ 107 0000 00000000 		.space	16
+ 107      00000000 
+ 107      00000000 
+ 107      00000000 
+ 108              		.global	need_pos
+ 109              		.section	.bss.need_pos,"aw",%nobits
+ 112              	need_pos:
+ 113 0000 00       		.space	1
+ 114              		.section	.text.Hollysys_Update_State,"ax",%progbits
+ 115              		.align	1
+ 116              		.global	Hollysys_Update_State
+ 117              		.syntax unified
+ 118              		.thumb
+ 119              		.thumb_func
+ 121              	Hollysys_Update_State:
+ 122              	.LFB144:
+ 123              		.file 1 "User/Src/hollysys.c"
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 3
+
+
    1:User/Src/hollysys.c **** /********************************************************************************
    2:User/Src/hollysys.c ****   
    3:User/Src/hollysys.c **** 	* @file     
@@ -116,1955 +141,2166 @@ ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 1
   18:User/Src/hollysys.c **** *********************************************************************************/ 
   19:User/Src/hollysys.c **** 
   20:User/Src/hollysys.c **** #include "hollysys.h"
-  21:User/Src/hollysys.c **** 
-  22:User/Src/hollysys.c **** #include "fdcan.h"
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 3
+  21:User/Src/hollysys.c **** #include "fdcan.h"
+  22:User/Src/hollysys.c **** 
+  23:User/Src/hollysys.c **** //速度模式PV：
+  24:User/Src/hollysys.c **** u32 PV_spd;
+  25:User/Src/hollysys.c **** u32 PP_spd;
+  26:User/Src/hollysys.c **** u32 PT_spd;
+  27:User/Src/hollysys.c **** 
+  28:User/Src/hollysys.c **** // CAN send buffer 
+  29:User/Src/hollysys.c **** u8 CAN1Sedbuf[8];
+  30:User/Src/hollysys.c **** // CAN receive buffer
+  31:User/Src/hollysys.c **** u8 hollysys_spd_rxbuf[HOLLYSYS_NUM][8];
+  32:User/Src/hollysys.c **** u8 hollysys_pos_rxbuf[HOLLYSYS_NUM][8];
+  33:User/Src/hollysys.c **** 
+  34:User/Src/hollysys.c **** 
+  35:User/Src/hollysys.c **** u8 hollysys_motor_id[HOLLYSYS_NUM] = {0x01, 0x02, 0x03, 0x04};
+  36:User/Src/hollysys.c **** 
+  37:User/Src/hollysys.c **** u32 hollysys_acc[HOLLYSYS_NUM] = {1000, 1000, 1000, 1000};
+  38:User/Src/hollysys.c **** u32 hollysys_dec[HOLLYSYS_NUM] = {1000, 1000, 1000, 1000};
+  39:User/Src/hollysys.c **** s32 hollysys_spd_cmd[HOLLYSYS_NUM] = {0, 0, 0, 0};
+  40:User/Src/hollysys.c **** 
+  41:User/Src/hollysys.c **** s32 hollysys_spd[HOLLYSYS_NUM];
+  42:User/Src/hollysys.c **** s32 hollysys_pos[HOLLYSYS_NUM];
+  43:User/Src/hollysys.c **** 
+  44:User/Src/hollysys.c **** u8 need_pos = 0;
+  45:User/Src/hollysys.c **** 
+  46:User/Src/hollysys.c **** void Hollysys_Update_State(){
+ 124              		.loc 1 46 29
+ 125              		.cfi_startproc
+ 126              		@ args = 0, pretend = 0, frame = 8
+ 127              		@ frame_needed = 1, uses_anonymous_args = 0
+ 128              		@ link register save eliminated.
+ 129 0000 80B4     		push	{r7}
+ 130              	.LCFI0:
+ 131              		.cfi_def_cfa_offset 4
+ 132              		.cfi_offset 7, -4
+ 133 0002 83B0     		sub	sp, sp, #12
+ 134              	.LCFI1:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 4
 
 
-  23:User/Src/hollysys.c **** 
-  24:User/Src/hollysys.c **** //速度模式PV：
-  25:User/Src/hollysys.c **** u32 PV_spd;
-  26:User/Src/hollysys.c **** u32 PP_spd;
-  27:User/Src/hollysys.c **** u32 PT_spd;
-  28:User/Src/hollysys.c **** u8 CAN1Sedbuf[8];
-  29:User/Src/hollysys.c **** 
-  30:User/Src/hollysys.c **** u8 hollysys_motor_id[4] = {0x01, 0x02, 0x03, 0x04};
-  31:User/Src/hollysys.c **** 
-  32:User/Src/hollysys.c **** u32 hollysys_acc[4] = {1000, 1000, 1000, 1000};
-  33:User/Src/hollysys.c **** u32 hollysys_dec[4] = {1000, 1000, 1000, 1000};
-  34:User/Src/hollysys.c **** s32 hollysys_spd_cmd[4] = {0, 0, 0, 0};
-  35:User/Src/hollysys.c **** 
-  36:User/Src/hollysys.c **** s32 hollysys_spd[4];
-  37:User/Src/hollysys.c **** s32 hollysys_pos[4];
-  38:User/Src/hollysys.c **** 
-  39:User/Src/hollysys.c **** 
-  40:User/Src/hollysys.c **** u8 Hollysys_CAN_Send(u16 Id){
- 104              		.loc 1 40 29
- 105              		.cfi_startproc
- 106              		@ args = 0, pretend = 0, frame = 8
- 107              		@ frame_needed = 1, uses_anonymous_args = 0
- 108 0000 80B5     		push	{r7, lr}
- 109              	.LCFI0:
- 110              		.cfi_def_cfa_offset 8
- 111              		.cfi_offset 7, -8
- 112              		.cfi_offset 14, -4
- 113 0002 82B0     		sub	sp, sp, #8
- 114              	.LCFI1:
- 115              		.cfi_def_cfa_offset 16
- 116 0004 00AF     		add	r7, sp, #0
- 117              	.LCFI2:
- 118              		.cfi_def_cfa_register 7
- 119 0006 0346     		mov	r3, r0
- 120 0008 FB80     		strh	r3, [r7, #6]	@ movhi
-  41:User/Src/hollysys.c **** 	txHeader.Identifier = Id;
- 121              		.loc 1 41 22
- 122 000a FB88     		ldrh	r3, [r7, #6]
- 123 000c 054A     		ldr	r2, .L2
- 124 000e 1360     		str	r3, [r2]
-  42:User/Src/hollysys.c **** 	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &txHeader, CAN1Sedbuf);
- 125              		.loc 1 42 2
- 126 0010 054A     		ldr	r2, .L2+4
- 127 0012 0449     		ldr	r1, .L2
- 128 0014 0548     		ldr	r0, .L2+8
- 129 0016 FFF7FEFF 		bl	HAL_FDCAN_AddMessageToTxFifoQ
-  43:User/Src/hollysys.c **** }
- 130              		.loc 1 43 1
- 131 001a 00BF     		nop
- 132 001c 1846     		mov	r0, r3
- 133 001e 0837     		adds	r7, r7, #8
- 134              	.LCFI3:
- 135              		.cfi_def_cfa_offset 8
- 136 0020 BD46     		mov	sp, r7
- 137              	.LCFI4:
- 138              		.cfi_def_cfa_register 13
- 139              		@ sp needed
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 4
+ 135              		.cfi_def_cfa_offset 16
+ 136 0004 00AF     		add	r7, sp, #0
+ 137              	.LCFI2:
+ 138              		.cfi_def_cfa_register 7
+ 139              	.LBB2:
+  47:User/Src/hollysys.c **** 	for(u8 i = 0; i < HOLLYSYS_NUM; i++){
+ 140              		.loc 1 47 9
+ 141 0006 0023     		movs	r3, #0
+ 142 0008 FB71     		strb	r3, [r7, #7]
+ 143              		.loc 1 47 2
+ 144 000a 44E0     		b	.L2
+ 145              	.L4:
+  48:User/Src/hollysys.c **** 		hollysys_spd[i] = ((s32)hollysys_spd_rxbuf[i][7] << 24) | ((s32)hollysys_spd_rxbuf[i][6] << 16) |
+ 146              		.loc 1 48 48
+ 147 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 148 000e 274A     		ldr	r2, .L5
+ 149 0010 DB00     		lsls	r3, r3, #3
+ 150 0012 1344     		add	r3, r3, r2
+ 151 0014 DB79     		ldrb	r3, [r3, #7]	@ zero_extendqisi2
+ 152              		.loc 1 48 52
+ 153 0016 1A06     		lsls	r2, r3, #24
+ 154              		.loc 1 48 88
+ 155 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 156 001a 2449     		ldr	r1, .L5
+ 157 001c DB00     		lsls	r3, r3, #3
+ 158 001e 0B44     		add	r3, r3, r1
+ 159 0020 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 160              		.loc 1 48 92
+ 161 0022 1B04     		lsls	r3, r3, #16
+ 162              		.loc 1 48 59
+ 163 0024 1A43     		orrs	r2, r2, r3
+  49:User/Src/hollysys.c **** 											((s32)hollysys_spd_rxbuf[i][5] << 8) | (s32)hollysys_spd_rxbuf[i][4];
+ 164              		.loc 1 49 39
+ 165 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 166 0028 2049     		ldr	r1, .L5
+ 167 002a DB00     		lsls	r3, r3, #3
+ 168 002c 0B44     		add	r3, r3, r1
+ 169 002e 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 170              		.loc 1 49 43
+ 171 0030 1B02     		lsls	r3, r3, #8
+  48:User/Src/hollysys.c **** 		hollysys_spd[i] = ((s32)hollysys_spd_rxbuf[i][7] << 24) | ((s32)hollysys_spd_rxbuf[i][6] << 16) |
+ 172              		.loc 1 48 99
+ 173 0032 1A43     		orrs	r2, r2, r3
+ 174              		.loc 1 49 77
+ 175 0034 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 176 0036 1D49     		ldr	r1, .L5
+ 177 0038 DB00     		lsls	r3, r3, #3
+ 178 003a 0B44     		add	r3, r3, r1
+ 179 003c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 180              		.loc 1 49 51
+ 181 003e 1946     		mov	r1, r3
+  48:User/Src/hollysys.c **** 		hollysys_spd[i] = ((s32)hollysys_spd_rxbuf[i][7] << 24) | ((s32)hollysys_spd_rxbuf[i][6] << 16) |
+ 182              		.loc 1 48 15
+ 183 0040 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 184              		.loc 1 49 49
+ 185 0042 0A43     		orrs	r2, r2, r1
+  48:User/Src/hollysys.c **** 		hollysys_spd[i] = ((s32)hollysys_spd_rxbuf[i][7] << 24) | ((s32)hollysys_spd_rxbuf[i][6] << 16) |
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 5
 
 
- 140 0022 80BD     		pop	{r7, pc}
- 141              	.L3:
- 142              		.align	2
- 143              	.L2:
- 144 0024 00000000 		.word	txHeader
- 145 0028 00000000 		.word	CAN1Sedbuf
- 146 002c 00000000 		.word	hfdcan1
- 147              		.cfi_endproc
- 148              	.LFE144:
- 150              		.section	.text.Hollysys_Cal_F_Index,"ax",%progbits
- 151              		.align	1
- 152              		.global	Hollysys_Cal_F_Index
- 153              		.syntax unified
- 154              		.thumb
- 155              		.thumb_func
- 157              	Hollysys_Cal_F_Index:
- 158              	.LFB145:
-  44:User/Src/hollysys.c **** 
-  45:User/Src/hollysys.c **** u16 Hollysys_Cal_F_Index(u8 x, u8 y, u8 z){
- 159              		.loc 1 45 43
- 160              		.cfi_startproc
- 161              		@ args = 0, pretend = 0, frame = 8
- 162              		@ frame_needed = 1, uses_anonymous_args = 0
- 163              		@ link register save eliminated.
- 164 0000 80B4     		push	{r7}
- 165              	.LCFI5:
- 166              		.cfi_def_cfa_offset 4
- 167              		.cfi_offset 7, -4
- 168 0002 83B0     		sub	sp, sp, #12
- 169              	.LCFI6:
- 170              		.cfi_def_cfa_offset 16
- 171 0004 00AF     		add	r7, sp, #0
- 172              	.LCFI7:
- 173              		.cfi_def_cfa_register 7
- 174 0006 0346     		mov	r3, r0
- 175 0008 FB71     		strb	r3, [r7, #7]
- 176 000a 0B46     		mov	r3, r1
- 177 000c BB71     		strb	r3, [r7, #6]
- 178 000e 1346     		mov	r3, r2
- 179 0010 7B71     		strb	r3, [r7, #5]
-  46:User/Src/hollysys.c **** 	return 0x2000 + 0x1000*x + 0x100*y + z;
- 180              		.loc 1 46 16
- 181 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 182 0014 0233     		adds	r3, r3, #2
- 183              		.loc 1 46 27
- 184 0016 1A01     		lsls	r2, r3, #4
- 185 0018 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
- 186 001a 1344     		add	r3, r3, r2
- 187              		.loc 1 46 37
- 188 001c 9BB2     		uxth	r3, r3
- 189 001e 1B02     		lsls	r3, r3, #8
- 190 0020 9AB2     		uxth	r2, r3
- 191 0022 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
- 192 0024 9BB2     		uxth	r3, r3
- 193 0026 1344     		add	r3, r3, r2
- 194 0028 9BB2     		uxth	r3, r3
-  47:User/Src/hollysys.c **** }
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 5
+ 186              		.loc 1 48 19
+ 187 0044 1A49     		ldr	r1, .L5+4
+ 188 0046 41F82320 		str	r2, [r1, r3, lsl #2]
+  50:User/Src/hollysys.c **** 		if(need_pos){
+ 189              		.loc 1 50 6
+ 190 004a 1A4B     		ldr	r3, .L5+8
+ 191 004c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 192              		.loc 1 50 5
+ 193 004e 002B     		cmp	r3, #0
+ 194 0050 1ED0     		beq	.L3
+  51:User/Src/hollysys.c **** 			hollysys_pos[i] = ((s32)hollysys_pos_rxbuf[i][7] << 24) | ((s32)hollysys_pos_rxbuf[i][6] << 16) 
+ 195              		.loc 1 51 49
+ 196 0052 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 197 0054 184A     		ldr	r2, .L5+12
+ 198 0056 DB00     		lsls	r3, r3, #3
+ 199 0058 1344     		add	r3, r3, r2
+ 200 005a DB79     		ldrb	r3, [r3, #7]	@ zero_extendqisi2
+ 201              		.loc 1 51 53
+ 202 005c 1A06     		lsls	r2, r3, #24
+ 203              		.loc 1 51 89
+ 204 005e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 205 0060 1549     		ldr	r1, .L5+12
+ 206 0062 DB00     		lsls	r3, r3, #3
+ 207 0064 0B44     		add	r3, r3, r1
+ 208 0066 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 209              		.loc 1 51 93
+ 210 0068 1B04     		lsls	r3, r3, #16
+ 211              		.loc 1 51 60
+ 212 006a 1A43     		orrs	r2, r2, r3
+  52:User/Src/hollysys.c **** 												((s32)hollysys_pos_rxbuf[i][5] << 8) | (s32)hollysys_pos_rxbuf[i][4];
+ 213              		.loc 1 52 40
+ 214 006c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 215 006e 1249     		ldr	r1, .L5+12
+ 216 0070 DB00     		lsls	r3, r3, #3
+ 217 0072 0B44     		add	r3, r3, r1
+ 218 0074 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 219              		.loc 1 52 44
+ 220 0076 1B02     		lsls	r3, r3, #8
+  51:User/Src/hollysys.c **** 			hollysys_pos[i] = ((s32)hollysys_pos_rxbuf[i][7] << 24) | ((s32)hollysys_pos_rxbuf[i][6] << 16) 
+ 221              		.loc 1 51 100
+ 222 0078 1A43     		orrs	r2, r2, r3
+ 223              		.loc 1 52 78
+ 224 007a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 225 007c 0E49     		ldr	r1, .L5+12
+ 226 007e DB00     		lsls	r3, r3, #3
+ 227 0080 0B44     		add	r3, r3, r1
+ 228 0082 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 229              		.loc 1 52 52
+ 230 0084 1946     		mov	r1, r3
+  51:User/Src/hollysys.c **** 			hollysys_pos[i] = ((s32)hollysys_pos_rxbuf[i][7] << 24) | ((s32)hollysys_pos_rxbuf[i][6] << 16) 
+ 231              		.loc 1 51 16
+ 232 0086 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 233              		.loc 1 52 50
+ 234 0088 0A43     		orrs	r2, r2, r1
+  51:User/Src/hollysys.c **** 			hollysys_pos[i] = ((s32)hollysys_pos_rxbuf[i][7] << 24) | ((s32)hollysys_pos_rxbuf[i][6] << 16) 
+ 235              		.loc 1 51 20
+ 236 008a 0C49     		ldr	r1, .L5+16
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 6
 
 
- 195              		.loc 1 47 1
- 196 002a 1846     		mov	r0, r3
- 197 002c 0C37     		adds	r7, r7, #12
- 198              	.LCFI8:
- 199              		.cfi_def_cfa_offset 4
- 200 002e BD46     		mov	sp, r7
- 201              	.LCFI9:
- 202              		.cfi_def_cfa_register 13
- 203              		@ sp needed
- 204 0030 5DF8047B 		ldr	r7, [sp], #4
- 205              	.LCFI10:
- 206              		.cfi_restore 7
- 207              		.cfi_def_cfa_offset 0
- 208 0034 7047     		bx	lr
- 209              		.cfi_endproc
- 210              	.LFE145:
- 212              		.section	.text.Hollysys_Cal_P_Index,"ax",%progbits
- 213              		.align	1
- 214              		.global	Hollysys_Cal_P_Index
- 215              		.syntax unified
- 216              		.thumb
- 217              		.thumb_func
- 219              	Hollysys_Cal_P_Index:
- 220              	.LFB146:
-  48:User/Src/hollysys.c **** 
-  49:User/Src/hollysys.c **** u16 Hollysys_Cal_P_Index(u8 y, u8 z){
- 221              		.loc 1 49 37
- 222              		.cfi_startproc
- 223              		@ args = 0, pretend = 0, frame = 8
- 224              		@ frame_needed = 1, uses_anonymous_args = 0
- 225              		@ link register save eliminated.
- 226 0000 80B4     		push	{r7}
- 227              	.LCFI11:
- 228              		.cfi_def_cfa_offset 4
- 229              		.cfi_offset 7, -4
- 230 0002 83B0     		sub	sp, sp, #12
- 231              	.LCFI12:
- 232              		.cfi_def_cfa_offset 16
- 233 0004 00AF     		add	r7, sp, #0
- 234              	.LCFI13:
- 235              		.cfi_def_cfa_register 7
- 236 0006 0346     		mov	r3, r0
- 237 0008 0A46     		mov	r2, r1
- 238 000a FB71     		strb	r3, [r7, #7]
- 239 000c 1346     		mov	r3, r2
- 240 000e BB71     		strb	r3, [r7, #6]
-  50:User/Src/hollysys.c **** 	return 0x4000 + 0x100*y + z;
- 241              		.loc 1 50 16
- 242 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 243 0012 4033     		adds	r3, r3, #64
- 244              		.loc 1 50 26
- 245 0014 9BB2     		uxth	r3, r3
- 246 0016 1B02     		lsls	r3, r3, #8
- 247 0018 9AB2     		uxth	r2, r3
- 248 001a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
- 249 001c 9BB2     		uxth	r3, r3
- 250 001e 1344     		add	r3, r3, r2
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 6
+ 237 008c 41F82320 		str	r2, [r1, r3, lsl #2]
+ 238              	.L3:
+  47:User/Src/hollysys.c **** 		hollysys_spd[i] = ((s32)hollysys_spd_rxbuf[i][7] << 24) | ((s32)hollysys_spd_rxbuf[i][6] << 16) |
+ 239              		.loc 1 47 35 discriminator 2
+ 240 0090 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 241 0092 0133     		adds	r3, r3, #1
+ 242 0094 FB71     		strb	r3, [r7, #7]
+ 243              	.L2:
+  47:User/Src/hollysys.c **** 		hollysys_spd[i] = ((s32)hollysys_spd_rxbuf[i][7] << 24) | ((s32)hollysys_spd_rxbuf[i][6] << 16) |
+ 244              		.loc 1 47 2 discriminator 1
+ 245 0096 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 246 0098 032B     		cmp	r3, #3
+ 247 009a B7D9     		bls	.L4
+ 248              	.LBE2:
+  53:User/Src/hollysys.c **** 		}
+  54:User/Src/hollysys.c **** 		
+  55:User/Src/hollysys.c **** 	}
+  56:User/Src/hollysys.c **** }
+ 249              		.loc 1 56 1
+ 250 009c 00BF     		nop
+ 251 009e 00BF     		nop
+ 252 00a0 0C37     		adds	r7, r7, #12
+ 253              	.LCFI3:
+ 254              		.cfi_def_cfa_offset 4
+ 255 00a2 BD46     		mov	sp, r7
+ 256              	.LCFI4:
+ 257              		.cfi_def_cfa_register 13
+ 258              		@ sp needed
+ 259 00a4 5DF8047B 		ldr	r7, [sp], #4
+ 260              	.LCFI5:
+ 261              		.cfi_restore 7
+ 262              		.cfi_def_cfa_offset 0
+ 263 00a8 7047     		bx	lr
+ 264              	.L6:
+ 265 00aa 00BF     		.align	2
+ 266              	.L5:
+ 267 00ac 00000000 		.word	hollysys_spd_rxbuf
+ 268 00b0 00000000 		.word	hollysys_spd
+ 269 00b4 00000000 		.word	need_pos
+ 270 00b8 00000000 		.word	hollysys_pos_rxbuf
+ 271 00bc 00000000 		.word	hollysys_pos
+ 272              		.cfi_endproc
+ 273              	.LFE144:
+ 275              		.section	.text.Hollysys_CAN_Send,"ax",%progbits
+ 276              		.align	1
+ 277              		.global	Hollysys_CAN_Send
+ 278              		.syntax unified
+ 279              		.thumb
+ 280              		.thumb_func
+ 282              	Hollysys_CAN_Send:
+ 283              	.LFB145:
+  57:User/Src/hollysys.c **** u8 Hollysys_CAN_Send(u16 Id){
+ 284              		.loc 1 57 29
+ 285              		.cfi_startproc
+ 286              		@ args = 0, pretend = 0, frame = 8
+ 287              		@ frame_needed = 1, uses_anonymous_args = 0
+ 288 0000 80B5     		push	{r7, lr}
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 7
 
 
- 251 0020 9BB2     		uxth	r3, r3
-  51:User/Src/hollysys.c **** }
- 252              		.loc 1 51 1
- 253 0022 1846     		mov	r0, r3
- 254 0024 0C37     		adds	r7, r7, #12
- 255              	.LCFI14:
- 256              		.cfi_def_cfa_offset 4
- 257 0026 BD46     		mov	sp, r7
- 258              	.LCFI15:
- 259              		.cfi_def_cfa_register 13
- 260              		@ sp needed
- 261 0028 5DF8047B 		ldr	r7, [sp], #4
- 262              	.LCFI16:
- 263              		.cfi_restore 7
- 264              		.cfi_def_cfa_offset 0
- 265 002c 7047     		bx	lr
- 266              		.cfi_endproc
- 267              	.LFE146:
- 269              		.section	.text.Hollysys_Cal_D_Index,"ax",%progbits
- 270              		.align	1
- 271              		.global	Hollysys_Cal_D_Index
- 272              		.syntax unified
- 273              		.thumb
- 274              		.thumb_func
- 276              	Hollysys_Cal_D_Index:
- 277              	.LFB147:
-  52:User/Src/hollysys.c **** 
-  53:User/Src/hollysys.c **** u16 Hollysys_Cal_D_Index(u8 x, u8 y){
- 278              		.loc 1 53 37
- 279              		.cfi_startproc
- 280              		@ args = 0, pretend = 0, frame = 8
- 281              		@ frame_needed = 1, uses_anonymous_args = 0
- 282              		@ link register save eliminated.
- 283 0000 80B4     		push	{r7}
- 284              	.LCFI17:
- 285              		.cfi_def_cfa_offset 4
- 286              		.cfi_offset 7, -4
- 287 0002 83B0     		sub	sp, sp, #12
- 288              	.LCFI18:
- 289              		.cfi_def_cfa_offset 16
- 290 0004 00AF     		add	r7, sp, #0
- 291              	.LCFI19:
- 292              		.cfi_def_cfa_register 7
- 293 0006 0346     		mov	r3, r0
- 294 0008 0A46     		mov	r2, r1
- 295 000a FB71     		strb	r3, [r7, #7]
- 296 000c 1346     		mov	r3, r2
- 297 000e BB71     		strb	r3, [r7, #6]
-  54:User/Src/hollysys.c **** 	return 0x5000 + 0x100*x + y;
- 298              		.loc 1 54 16
- 299 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 300 0012 5033     		adds	r3, r3, #80
- 301              		.loc 1 54 26
- 302 0014 9BB2     		uxth	r3, r3
- 303 0016 1B02     		lsls	r3, r3, #8
- 304 0018 9AB2     		uxth	r2, r3
- 305 001a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 7
+ 289              	.LCFI6:
+ 290              		.cfi_def_cfa_offset 8
+ 291              		.cfi_offset 7, -8
+ 292              		.cfi_offset 14, -4
+ 293 0002 82B0     		sub	sp, sp, #8
+ 294              	.LCFI7:
+ 295              		.cfi_def_cfa_offset 16
+ 296 0004 00AF     		add	r7, sp, #0
+ 297              	.LCFI8:
+ 298              		.cfi_def_cfa_register 7
+ 299 0006 0346     		mov	r3, r0
+ 300 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+  58:User/Src/hollysys.c **** 	txHeader.Identifier = Id;
+ 301              		.loc 1 58 22
+ 302 000a FB88     		ldrh	r3, [r7, #6]
+ 303 000c 054A     		ldr	r2, .L8
+ 304 000e 1360     		str	r3, [r2]
+  59:User/Src/hollysys.c **** 	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &txHeader, CAN1Sedbuf);
+ 305              		.loc 1 59 2
+ 306 0010 054A     		ldr	r2, .L8+4
+ 307 0012 0449     		ldr	r1, .L8
+ 308 0014 0548     		ldr	r0, .L8+8
+ 309 0016 FFF7FEFF 		bl	HAL_FDCAN_AddMessageToTxFifoQ
+  60:User/Src/hollysys.c **** }
+ 310              		.loc 1 60 1
+ 311 001a 00BF     		nop
+ 312 001c 1846     		mov	r0, r3
+ 313 001e 0837     		adds	r7, r7, #8
+ 314              	.LCFI9:
+ 315              		.cfi_def_cfa_offset 8
+ 316 0020 BD46     		mov	sp, r7
+ 317              	.LCFI10:
+ 318              		.cfi_def_cfa_register 13
+ 319              		@ sp needed
+ 320 0022 80BD     		pop	{r7, pc}
+ 321              	.L9:
+ 322              		.align	2
+ 323              	.L8:
+ 324 0024 00000000 		.word	txHeader
+ 325 0028 00000000 		.word	CAN1Sedbuf
+ 326 002c 00000000 		.word	hfdcan1
+ 327              		.cfi_endproc
+ 328              	.LFE145:
+ 330              		.section	.text.Hollysys_Cal_F_Index,"ax",%progbits
+ 331              		.align	1
+ 332              		.global	Hollysys_Cal_F_Index
+ 333              		.syntax unified
+ 334              		.thumb
+ 335              		.thumb_func
+ 337              	Hollysys_Cal_F_Index:
+ 338              	.LFB146:
+  61:User/Src/hollysys.c **** 
+  62:User/Src/hollysys.c **** u16 Hollysys_Cal_F_Index(u8 x, u8 y, u8 z){
+ 339              		.loc 1 62 43
+ 340              		.cfi_startproc
+ 341              		@ args = 0, pretend = 0, frame = 8
+ 342              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 8
 
 
- 306 001c 9BB2     		uxth	r3, r3
- 307 001e 1344     		add	r3, r3, r2
- 308 0020 9BB2     		uxth	r3, r3
-  55:User/Src/hollysys.c **** }
- 309              		.loc 1 55 1
- 310 0022 1846     		mov	r0, r3
- 311 0024 0C37     		adds	r7, r7, #12
- 312              	.LCFI20:
- 313              		.cfi_def_cfa_offset 4
- 314 0026 BD46     		mov	sp, r7
- 315              	.LCFI21:
- 316              		.cfi_def_cfa_register 13
- 317              		@ sp needed
- 318 0028 5DF8047B 		ldr	r7, [sp], #4
- 319              	.LCFI22:
- 320              		.cfi_restore 7
- 321              		.cfi_def_cfa_offset 0
- 322 002c 7047     		bx	lr
- 323              		.cfi_endproc
- 324              	.LFE147:
- 326              		.section	.text.Hollysys_startup,"ax",%progbits
- 327              		.align	1
- 328              		.global	Hollysys_startup
- 329              		.syntax unified
- 330              		.thumb
- 331              		.thumb_func
- 333              	Hollysys_startup:
- 334              	.LFB148:
-  56:User/Src/hollysys.c **** 
-  57:User/Src/hollysys.c **** void Hollysys_startup(u8 CANopen_ID){
- 335              		.loc 1 57 37
- 336              		.cfi_startproc
- 337              		@ args = 0, pretend = 0, frame = 8
- 338              		@ frame_needed = 1, uses_anonymous_args = 0
- 339 0000 80B5     		push	{r7, lr}
- 340              	.LCFI23:
- 341              		.cfi_def_cfa_offset 8
- 342              		.cfi_offset 7, -8
- 343              		.cfi_offset 14, -4
- 344 0002 82B0     		sub	sp, sp, #8
- 345              	.LCFI24:
- 346              		.cfi_def_cfa_offset 16
- 347 0004 00AF     		add	r7, sp, #0
- 348              	.LCFI25:
- 349              		.cfi_def_cfa_register 7
- 350 0006 0346     		mov	r3, r0
- 351 0008 FB71     		strb	r3, [r7, #7]
-  58:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
- 352              		.loc 1 58 16
- 353 000a 1D4B     		ldr	r3, .L11
- 354 000c 2B22     		movs	r2, #43
- 355 000e 1A70     		strb	r2, [r3]
-  59:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x40;
- 356              		.loc 1 59 16
- 357 0010 1B4B     		ldr	r3, .L11
- 358 0012 4022     		movs	r2, #64
- 359 0014 5A70     		strb	r2, [r3, #1]
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 8
+ 343              		@ link register save eliminated.
+ 344 0000 80B4     		push	{r7}
+ 345              	.LCFI11:
+ 346              		.cfi_def_cfa_offset 4
+ 347              		.cfi_offset 7, -4
+ 348 0002 83B0     		sub	sp, sp, #12
+ 349              	.LCFI12:
+ 350              		.cfi_def_cfa_offset 16
+ 351 0004 00AF     		add	r7, sp, #0
+ 352              	.LCFI13:
+ 353              		.cfi_def_cfa_register 7
+ 354 0006 0346     		mov	r3, r0
+ 355 0008 FB71     		strb	r3, [r7, #7]
+ 356 000a 0B46     		mov	r3, r1
+ 357 000c BB71     		strb	r3, [r7, #6]
+ 358 000e 1346     		mov	r3, r2
+ 359 0010 7B71     		strb	r3, [r7, #5]
+  63:User/Src/hollysys.c **** 	return 0x2000 + 0x1000*x + 0x100*y + z;
+ 360              		.loc 1 63 16
+ 361 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 362 0014 0233     		adds	r3, r3, #2
+ 363              		.loc 1 63 27
+ 364 0016 1A01     		lsls	r2, r3, #4
+ 365 0018 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 366 001a 1344     		add	r3, r3, r2
+ 367              		.loc 1 63 37
+ 368 001c 9BB2     		uxth	r3, r3
+ 369 001e 1B02     		lsls	r3, r3, #8
+ 370 0020 9AB2     		uxth	r2, r3
+ 371 0022 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 372 0024 9BB2     		uxth	r3, r3
+ 373 0026 1344     		add	r3, r3, r2
+ 374 0028 9BB2     		uxth	r3, r3
+  64:User/Src/hollysys.c **** }
+ 375              		.loc 1 64 1
+ 376 002a 1846     		mov	r0, r3
+ 377 002c 0C37     		adds	r7, r7, #12
+ 378              	.LCFI14:
+ 379              		.cfi_def_cfa_offset 4
+ 380 002e BD46     		mov	sp, r7
+ 381              	.LCFI15:
+ 382              		.cfi_def_cfa_register 13
+ 383              		@ sp needed
+ 384 0030 5DF8047B 		ldr	r7, [sp], #4
+ 385              	.LCFI16:
+ 386              		.cfi_restore 7
+ 387              		.cfi_def_cfa_offset 0
+ 388 0034 7047     		bx	lr
+ 389              		.cfi_endproc
+ 390              	.LFE146:
+ 392              		.section	.text.Hollysys_Cal_P_Index,"ax",%progbits
+ 393              		.align	1
+ 394              		.global	Hollysys_Cal_P_Index
+ 395              		.syntax unified
+ 396              		.thumb
+ 397              		.thumb_func
+ 399              	Hollysys_Cal_P_Index:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 9
 
 
-  60:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x60;
- 360              		.loc 1 60 16
- 361 0016 1A4B     		ldr	r3, .L11
- 362 0018 6022     		movs	r2, #96
- 363 001a 9A70     		strb	r2, [r3, #2]
-  61:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
- 364              		.loc 1 61 16
- 365 001c 184B     		ldr	r3, .L11
- 366 001e 0022     		movs	r2, #0
- 367 0020 DA70     		strb	r2, [r3, #3]
-  62:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x06;
- 368              		.loc 1 62 16
- 369 0022 174B     		ldr	r3, .L11
- 370 0024 0622     		movs	r2, #6
- 371 0026 1A71     		strb	r2, [r3, #4]
-  63:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
- 372              		.loc 1 63 16
- 373 0028 154B     		ldr	r3, .L11
- 374 002a 0022     		movs	r2, #0
- 375 002c 5A71     		strb	r2, [r3, #5]
-  64:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
- 376              		.loc 1 64 16
- 377 002e 144B     		ldr	r3, .L11
- 378 0030 0022     		movs	r2, #0
- 379 0032 9A71     		strb	r2, [r3, #6]
-  65:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
- 380              		.loc 1 65 16
- 381 0034 124B     		ldr	r3, .L11
- 382 0036 0022     		movs	r2, #0
- 383 0038 DA71     		strb	r2, [r3, #7]
-  66:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
- 384              		.loc 1 66 2
- 385 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 386 003c 9BB2     		uxth	r3, r3
- 387 003e 03F5C063 		add	r3, r3, #1536
- 388 0042 9BB2     		uxth	r3, r3
- 389 0044 1846     		mov	r0, r3
- 390 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
-  67:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x07;
- 391              		.loc 1 67 16
- 392 004a 0D4B     		ldr	r3, .L11
- 393 004c 0722     		movs	r2, #7
- 394 004e 1A71     		strb	r2, [r3, #4]
-  68:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
- 395              		.loc 1 68 2
- 396 0050 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 397 0052 9BB2     		uxth	r3, r3
- 398 0054 03F5C063 		add	r3, r3, #1536
- 399 0058 9BB2     		uxth	r3, r3
- 400 005a 1846     		mov	r0, r3
- 401 005c FFF7FEFF 		bl	Hollysys_CAN_Send
-  69:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x0f;
- 402              		.loc 1 69 16
- 403 0060 074B     		ldr	r3, .L11
- 404 0062 0F22     		movs	r2, #15
- 405 0064 1A71     		strb	r2, [r3, #4]
-  70:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 9
+ 400              	.LFB147:
+  65:User/Src/hollysys.c **** 
+  66:User/Src/hollysys.c **** u16 Hollysys_Cal_P_Index(u8 y, u8 z){
+ 401              		.loc 1 66 37
+ 402              		.cfi_startproc
+ 403              		@ args = 0, pretend = 0, frame = 8
+ 404              		@ frame_needed = 1, uses_anonymous_args = 0
+ 405              		@ link register save eliminated.
+ 406 0000 80B4     		push	{r7}
+ 407              	.LCFI17:
+ 408              		.cfi_def_cfa_offset 4
+ 409              		.cfi_offset 7, -4
+ 410 0002 83B0     		sub	sp, sp, #12
+ 411              	.LCFI18:
+ 412              		.cfi_def_cfa_offset 16
+ 413 0004 00AF     		add	r7, sp, #0
+ 414              	.LCFI19:
+ 415              		.cfi_def_cfa_register 7
+ 416 0006 0346     		mov	r3, r0
+ 417 0008 0A46     		mov	r2, r1
+ 418 000a FB71     		strb	r3, [r7, #7]
+ 419 000c 1346     		mov	r3, r2
+ 420 000e BB71     		strb	r3, [r7, #6]
+  67:User/Src/hollysys.c **** 	return 0x4000 + 0x100*y + z;
+ 421              		.loc 1 67 16
+ 422 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 423 0012 4033     		adds	r3, r3, #64
+ 424              		.loc 1 67 26
+ 425 0014 9BB2     		uxth	r3, r3
+ 426 0016 1B02     		lsls	r3, r3, #8
+ 427 0018 9AB2     		uxth	r2, r3
+ 428 001a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 429 001c 9BB2     		uxth	r3, r3
+ 430 001e 1344     		add	r3, r3, r2
+ 431 0020 9BB2     		uxth	r3, r3
+  68:User/Src/hollysys.c **** }
+ 432              		.loc 1 68 1
+ 433 0022 1846     		mov	r0, r3
+ 434 0024 0C37     		adds	r7, r7, #12
+ 435              	.LCFI20:
+ 436              		.cfi_def_cfa_offset 4
+ 437 0026 BD46     		mov	sp, r7
+ 438              	.LCFI21:
+ 439              		.cfi_def_cfa_register 13
+ 440              		@ sp needed
+ 441 0028 5DF8047B 		ldr	r7, [sp], #4
+ 442              	.LCFI22:
+ 443              		.cfi_restore 7
+ 444              		.cfi_def_cfa_offset 0
+ 445 002c 7047     		bx	lr
+ 446              		.cfi_endproc
+ 447              	.LFE147:
+ 449              		.section	.text.Hollysys_Cal_D_Index,"ax",%progbits
+ 450              		.align	1
+ 451              		.global	Hollysys_Cal_D_Index
+ 452              		.syntax unified
+ 453              		.thumb
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 10
 
 
- 406              		.loc 1 70 2
- 407 0066 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 408 0068 9BB2     		uxth	r3, r3
- 409 006a 03F5C063 		add	r3, r3, #1536
- 410 006e 9BB2     		uxth	r3, r3
- 411 0070 1846     		mov	r0, r3
- 412 0072 FFF7FEFF 		bl	Hollysys_CAN_Send
-  71:User/Src/hollysys.c **** }
- 413              		.loc 1 71 1
- 414 0076 00BF     		nop
- 415 0078 0837     		adds	r7, r7, #8
- 416              	.LCFI26:
- 417              		.cfi_def_cfa_offset 8
- 418 007a BD46     		mov	sp, r7
- 419              	.LCFI27:
- 420              		.cfi_def_cfa_register 13
- 421              		@ sp needed
- 422 007c 80BD     		pop	{r7, pc}
- 423              	.L12:
- 424 007e 00BF     		.align	2
- 425              	.L11:
- 426 0080 00000000 		.word	CAN1Sedbuf
- 427              		.cfi_endproc
- 428              	.LFE148:
- 430              		.section	.text.Hollysys_closedown,"ax",%progbits
- 431              		.align	1
- 432              		.global	Hollysys_closedown
- 433              		.syntax unified
- 434              		.thumb
- 435              		.thumb_func
- 437              	Hollysys_closedown:
- 438              	.LFB149:
-  72:User/Src/hollysys.c **** 
-  73:User/Src/hollysys.c **** void Hollysys_closedown(u8 CANopen_ID){
- 439              		.loc 1 73 39
- 440              		.cfi_startproc
- 441              		@ args = 0, pretend = 0, frame = 8
- 442              		@ frame_needed = 1, uses_anonymous_args = 0
- 443 0000 80B5     		push	{r7, lr}
- 444              	.LCFI28:
- 445              		.cfi_def_cfa_offset 8
- 446              		.cfi_offset 7, -8
- 447              		.cfi_offset 14, -4
- 448 0002 82B0     		sub	sp, sp, #8
- 449              	.LCFI29:
- 450              		.cfi_def_cfa_offset 16
- 451 0004 00AF     		add	r7, sp, #0
- 452              	.LCFI30:
- 453              		.cfi_def_cfa_register 7
- 454 0006 0346     		mov	r3, r0
- 455 0008 FB71     		strb	r3, [r7, #7]
-  74:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
- 456              		.loc 1 74 16
- 457 000a 124B     		ldr	r3, .L14
- 458 000c 2B22     		movs	r2, #43
- 459 000e 1A70     		strb	r2, [r3]
-  75:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x40;
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 10
+ 454              		.thumb_func
+ 456              	Hollysys_Cal_D_Index:
+ 457              	.LFB148:
+  69:User/Src/hollysys.c **** 
+  70:User/Src/hollysys.c **** u16 Hollysys_Cal_D_Index(u8 x, u8 y){
+ 458              		.loc 1 70 37
+ 459              		.cfi_startproc
+ 460              		@ args = 0, pretend = 0, frame = 8
+ 461              		@ frame_needed = 1, uses_anonymous_args = 0
+ 462              		@ link register save eliminated.
+ 463 0000 80B4     		push	{r7}
+ 464              	.LCFI23:
+ 465              		.cfi_def_cfa_offset 4
+ 466              		.cfi_offset 7, -4
+ 467 0002 83B0     		sub	sp, sp, #12
+ 468              	.LCFI24:
+ 469              		.cfi_def_cfa_offset 16
+ 470 0004 00AF     		add	r7, sp, #0
+ 471              	.LCFI25:
+ 472              		.cfi_def_cfa_register 7
+ 473 0006 0346     		mov	r3, r0
+ 474 0008 0A46     		mov	r2, r1
+ 475 000a FB71     		strb	r3, [r7, #7]
+ 476 000c 1346     		mov	r3, r2
+ 477 000e BB71     		strb	r3, [r7, #6]
+  71:User/Src/hollysys.c **** 	return 0x5000 + 0x100*x + y;
+ 478              		.loc 1 71 16
+ 479 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 480 0012 5033     		adds	r3, r3, #80
+ 481              		.loc 1 71 26
+ 482 0014 9BB2     		uxth	r3, r3
+ 483 0016 1B02     		lsls	r3, r3, #8
+ 484 0018 9AB2     		uxth	r2, r3
+ 485 001a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 486 001c 9BB2     		uxth	r3, r3
+ 487 001e 1344     		add	r3, r3, r2
+ 488 0020 9BB2     		uxth	r3, r3
+  72:User/Src/hollysys.c **** }
+ 489              		.loc 1 72 1
+ 490 0022 1846     		mov	r0, r3
+ 491 0024 0C37     		adds	r7, r7, #12
+ 492              	.LCFI26:
+ 493              		.cfi_def_cfa_offset 4
+ 494 0026 BD46     		mov	sp, r7
+ 495              	.LCFI27:
+ 496              		.cfi_def_cfa_register 13
+ 497              		@ sp needed
+ 498 0028 5DF8047B 		ldr	r7, [sp], #4
+ 499              	.LCFI28:
+ 500              		.cfi_restore 7
+ 501              		.cfi_def_cfa_offset 0
+ 502 002c 7047     		bx	lr
+ 503              		.cfi_endproc
+ 504              	.LFE148:
+ 506              		.section	.text.Hollysys_startup,"ax",%progbits
+ 507              		.align	1
+ 508              		.global	Hollysys_startup
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 11
 
 
- 460              		.loc 1 75 16
- 461 0010 104B     		ldr	r3, .L14
- 462 0012 4022     		movs	r2, #64
- 463 0014 5A70     		strb	r2, [r3, #1]
-  76:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x60;
- 464              		.loc 1 76 16
- 465 0016 0F4B     		ldr	r3, .L14
- 466 0018 6022     		movs	r2, #96
- 467 001a 9A70     		strb	r2, [r3, #2]
-  77:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
- 468              		.loc 1 77 16
- 469 001c 0D4B     		ldr	r3, .L14
- 470 001e 0022     		movs	r2, #0
- 471 0020 DA70     		strb	r2, [r3, #3]
-  78:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x07;
- 472              		.loc 1 78 16
- 473 0022 0C4B     		ldr	r3, .L14
- 474 0024 0722     		movs	r2, #7
- 475 0026 1A71     		strb	r2, [r3, #4]
-  79:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
- 476              		.loc 1 79 16
- 477 0028 0A4B     		ldr	r3, .L14
- 478 002a 0022     		movs	r2, #0
- 479 002c 5A71     		strb	r2, [r3, #5]
-  80:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
- 480              		.loc 1 80 16
- 481 002e 094B     		ldr	r3, .L14
- 482 0030 0022     		movs	r2, #0
- 483 0032 9A71     		strb	r2, [r3, #6]
-  81:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
- 484              		.loc 1 81 16
- 485 0034 074B     		ldr	r3, .L14
- 486 0036 0022     		movs	r2, #0
- 487 0038 DA71     		strb	r2, [r3, #7]
-  82:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
- 488              		.loc 1 82 2
- 489 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 490 003c 9BB2     		uxth	r3, r3
- 491 003e 03F5C063 		add	r3, r3, #1536
- 492 0042 9BB2     		uxth	r3, r3
- 493 0044 1846     		mov	r0, r3
- 494 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
-  83:User/Src/hollysys.c **** }
- 495              		.loc 1 83 1
- 496 004a 00BF     		nop
- 497 004c 0837     		adds	r7, r7, #8
- 498              	.LCFI31:
- 499              		.cfi_def_cfa_offset 8
- 500 004e BD46     		mov	sp, r7
- 501              	.LCFI32:
- 502              		.cfi_def_cfa_register 13
- 503              		@ sp needed
- 504 0050 80BD     		pop	{r7, pc}
- 505              	.L15:
- 506 0052 00BF     		.align	2
- 507              	.L14:
- 508 0054 00000000 		.word	CAN1Sedbuf
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 11
+ 509              		.syntax unified
+ 510              		.thumb
+ 511              		.thumb_func
+ 513              	Hollysys_startup:
+ 514              	.LFB149:
+  73:User/Src/hollysys.c **** 
+  74:User/Src/hollysys.c **** void Hollysys_startup(u8 CANopen_ID){
+ 515              		.loc 1 74 37
+ 516              		.cfi_startproc
+ 517              		@ args = 0, pretend = 0, frame = 8
+ 518              		@ frame_needed = 1, uses_anonymous_args = 0
+ 519 0000 80B5     		push	{r7, lr}
+ 520              	.LCFI29:
+ 521              		.cfi_def_cfa_offset 8
+ 522              		.cfi_offset 7, -8
+ 523              		.cfi_offset 14, -4
+ 524 0002 82B0     		sub	sp, sp, #8
+ 525              	.LCFI30:
+ 526              		.cfi_def_cfa_offset 16
+ 527 0004 00AF     		add	r7, sp, #0
+ 528              	.LCFI31:
+ 529              		.cfi_def_cfa_register 7
+ 530 0006 0346     		mov	r3, r0
+ 531 0008 FB71     		strb	r3, [r7, #7]
+  75:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
+ 532              		.loc 1 75 16
+ 533 000a 1D4B     		ldr	r3, .L17
+ 534 000c 2B22     		movs	r2, #43
+ 535 000e 1A70     		strb	r2, [r3]
+  76:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x40;
+ 536              		.loc 1 76 16
+ 537 0010 1B4B     		ldr	r3, .L17
+ 538 0012 4022     		movs	r2, #64
+ 539 0014 5A70     		strb	r2, [r3, #1]
+  77:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x60;
+ 540              		.loc 1 77 16
+ 541 0016 1A4B     		ldr	r3, .L17
+ 542 0018 6022     		movs	r2, #96
+ 543 001a 9A70     		strb	r2, [r3, #2]
+  78:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
+ 544              		.loc 1 78 16
+ 545 001c 184B     		ldr	r3, .L17
+ 546 001e 0022     		movs	r2, #0
+ 547 0020 DA70     		strb	r2, [r3, #3]
+  79:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x06;
+ 548              		.loc 1 79 16
+ 549 0022 174B     		ldr	r3, .L17
+ 550 0024 0622     		movs	r2, #6
+ 551 0026 1A71     		strb	r2, [r3, #4]
+  80:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
+ 552              		.loc 1 80 16
+ 553 0028 154B     		ldr	r3, .L17
+ 554 002a 0022     		movs	r2, #0
+ 555 002c 5A71     		strb	r2, [r3, #5]
+  81:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
+ 556              		.loc 1 81 16
+ 557 002e 144B     		ldr	r3, .L17
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 12
 
 
- 509              		.cfi_endproc
- 510              	.LFE149:
- 512              		.section	.text.Hollysys_enable_A,"ax",%progbits
- 513              		.align	1
- 514              		.global	Hollysys_enable_A
- 515              		.syntax unified
- 516              		.thumb
- 517              		.thumb_func
- 519              	Hollysys_enable_A:
- 520              	.LFB150:
-  84:User/Src/hollysys.c **** 
-  85:User/Src/hollysys.c **** 
-  86:User/Src/hollysys.c **** // enable controller
-  87:User/Src/hollysys.c **** void Hollysys_enable_A(u8 CANopen_ID){
- 521              		.loc 1 87 38
- 522              		.cfi_startproc
- 523              		@ args = 0, pretend = 0, frame = 8
- 524              		@ frame_needed = 1, uses_anonymous_args = 0
- 525 0000 80B5     		push	{r7, lr}
- 526              	.LCFI33:
- 527              		.cfi_def_cfa_offset 8
- 528              		.cfi_offset 7, -8
- 529              		.cfi_offset 14, -4
- 530 0002 82B0     		sub	sp, sp, #8
- 531              	.LCFI34:
- 532              		.cfi_def_cfa_offset 16
- 533 0004 00AF     		add	r7, sp, #0
- 534              	.LCFI35:
- 535              		.cfi_def_cfa_register 7
- 536 0006 0346     		mov	r3, r0
- 537 0008 FB71     		strb	r3, [r7, #7]
-  88:User/Src/hollysys.c **** 	// axis 1
-  89:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
- 538              		.loc 1 89 16
- 539 000a 124B     		ldr	r3, .L17
- 540 000c 2B22     		movs	r2, #43
- 541 000e 1A70     		strb	r2, [r3]
-  90:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x00;
- 542              		.loc 1 90 16
- 543 0010 104B     		ldr	r3, .L17
- 544 0012 0022     		movs	r2, #0
- 545 0014 5A70     		strb	r2, [r3, #1]
-  91:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x21;
- 546              		.loc 1 91 16
- 547 0016 0F4B     		ldr	r3, .L17
- 548 0018 2122     		movs	r2, #33
- 549 001a 9A70     		strb	r2, [r3, #2]
-  92:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
- 550              		.loc 1 92 16
- 551 001c 0D4B     		ldr	r3, .L17
- 552 001e 0022     		movs	r2, #0
- 553 0020 DA70     		strb	r2, [r3, #3]
-  93:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x01;
- 554              		.loc 1 93 16
- 555 0022 0C4B     		ldr	r3, .L17
- 556 0024 0122     		movs	r2, #1
- 557 0026 1A71     		strb	r2, [r3, #4]
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 12
+ 558 0030 0022     		movs	r2, #0
+ 559 0032 9A71     		strb	r2, [r3, #6]
+  82:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
+ 560              		.loc 1 82 16
+ 561 0034 124B     		ldr	r3, .L17
+ 562 0036 0022     		movs	r2, #0
+ 563 0038 DA71     		strb	r2, [r3, #7]
+  83:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 564              		.loc 1 83 2
+ 565 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 566 003c 9BB2     		uxth	r3, r3
+ 567 003e 03F5C063 		add	r3, r3, #1536
+ 568 0042 9BB2     		uxth	r3, r3
+ 569 0044 1846     		mov	r0, r3
+ 570 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
+  84:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x07;
+ 571              		.loc 1 84 16
+ 572 004a 0D4B     		ldr	r3, .L17
+ 573 004c 0722     		movs	r2, #7
+ 574 004e 1A71     		strb	r2, [r3, #4]
+  85:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 575              		.loc 1 85 2
+ 576 0050 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 577 0052 9BB2     		uxth	r3, r3
+ 578 0054 03F5C063 		add	r3, r3, #1536
+ 579 0058 9BB2     		uxth	r3, r3
+ 580 005a 1846     		mov	r0, r3
+ 581 005c FFF7FEFF 		bl	Hollysys_CAN_Send
+  86:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x0f;
+ 582              		.loc 1 86 16
+ 583 0060 074B     		ldr	r3, .L17
+ 584 0062 0F22     		movs	r2, #15
+ 585 0064 1A71     		strb	r2, [r3, #4]
+  87:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 586              		.loc 1 87 2
+ 587 0066 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 588 0068 9BB2     		uxth	r3, r3
+ 589 006a 03F5C063 		add	r3, r3, #1536
+ 590 006e 9BB2     		uxth	r3, r3
+ 591 0070 1846     		mov	r0, r3
+ 592 0072 FFF7FEFF 		bl	Hollysys_CAN_Send
+  88:User/Src/hollysys.c **** }
+ 593              		.loc 1 88 1
+ 594 0076 00BF     		nop
+ 595 0078 0837     		adds	r7, r7, #8
+ 596              	.LCFI32:
+ 597              		.cfi_def_cfa_offset 8
+ 598 007a BD46     		mov	sp, r7
+ 599              	.LCFI33:
+ 600              		.cfi_def_cfa_register 13
+ 601              		@ sp needed
+ 602 007c 80BD     		pop	{r7, pc}
+ 603              	.L18:
+ 604 007e 00BF     		.align	2
+ 605              	.L17:
+ 606 0080 00000000 		.word	CAN1Sedbuf
+ 607              		.cfi_endproc
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 13
 
 
-  94:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
- 558              		.loc 1 94 16
- 559 0028 0A4B     		ldr	r3, .L17
- 560 002a 0022     		movs	r2, #0
- 561 002c 5A71     		strb	r2, [r3, #5]
-  95:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
- 562              		.loc 1 95 16
- 563 002e 094B     		ldr	r3, .L17
- 564 0030 0022     		movs	r2, #0
- 565 0032 9A71     		strb	r2, [r3, #6]
-  96:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
- 566              		.loc 1 96 16
- 567 0034 074B     		ldr	r3, .L17
- 568 0036 0022     		movs	r2, #0
- 569 0038 DA71     		strb	r2, [r3, #7]
-  97:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
- 570              		.loc 1 97 2
- 571 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 572 003c 9BB2     		uxth	r3, r3
- 573 003e 03F5C063 		add	r3, r3, #1536
- 574 0042 9BB2     		uxth	r3, r3
- 575 0044 1846     		mov	r0, r3
- 576 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
-  98:User/Src/hollysys.c **** }
- 577              		.loc 1 98 1
- 578 004a 00BF     		nop
- 579 004c 0837     		adds	r7, r7, #8
- 580              	.LCFI36:
- 581              		.cfi_def_cfa_offset 8
- 582 004e BD46     		mov	sp, r7
- 583              	.LCFI37:
- 584              		.cfi_def_cfa_register 13
- 585              		@ sp needed
- 586 0050 80BD     		pop	{r7, pc}
- 587              	.L18:
- 588 0052 00BF     		.align	2
- 589              	.L17:
- 590 0054 00000000 		.word	CAN1Sedbuf
- 591              		.cfi_endproc
- 592              	.LFE150:
- 594              		.section	.text.Hollysys_enable_B,"ax",%progbits
- 595              		.align	1
- 596              		.global	Hollysys_enable_B
- 597              		.syntax unified
- 598              		.thumb
- 599              		.thumb_func
- 601              	Hollysys_enable_B:
- 602              	.LFB151:
-  99:User/Src/hollysys.c **** 
- 100:User/Src/hollysys.c **** void Hollysys_enable_B(u8 CANopen_ID){
- 603              		.loc 1 100 38
- 604              		.cfi_startproc
- 605              		@ args = 0, pretend = 0, frame = 8
- 606              		@ frame_needed = 1, uses_anonymous_args = 0
- 607 0000 80B5     		push	{r7, lr}
- 608              	.LCFI38:
- 609              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 13
+ 608              	.LFE149:
+ 610              		.section	.text.Hollysys_closedown,"ax",%progbits
+ 611              		.align	1
+ 612              		.global	Hollysys_closedown
+ 613              		.syntax unified
+ 614              		.thumb
+ 615              		.thumb_func
+ 617              	Hollysys_closedown:
+ 618              	.LFB150:
+  89:User/Src/hollysys.c **** 
+  90:User/Src/hollysys.c **** void Hollysys_closedown(u8 CANopen_ID){
+ 619              		.loc 1 90 39
+ 620              		.cfi_startproc
+ 621              		@ args = 0, pretend = 0, frame = 8
+ 622              		@ frame_needed = 1, uses_anonymous_args = 0
+ 623 0000 80B5     		push	{r7, lr}
+ 624              	.LCFI34:
+ 625              		.cfi_def_cfa_offset 8
+ 626              		.cfi_offset 7, -8
+ 627              		.cfi_offset 14, -4
+ 628 0002 82B0     		sub	sp, sp, #8
+ 629              	.LCFI35:
+ 630              		.cfi_def_cfa_offset 16
+ 631 0004 00AF     		add	r7, sp, #0
+ 632              	.LCFI36:
+ 633              		.cfi_def_cfa_register 7
+ 634 0006 0346     		mov	r3, r0
+ 635 0008 FB71     		strb	r3, [r7, #7]
+  91:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
+ 636              		.loc 1 91 16
+ 637 000a 124B     		ldr	r3, .L20
+ 638 000c 2B22     		movs	r2, #43
+ 639 000e 1A70     		strb	r2, [r3]
+  92:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x40;
+ 640              		.loc 1 92 16
+ 641 0010 104B     		ldr	r3, .L20
+ 642 0012 4022     		movs	r2, #64
+ 643 0014 5A70     		strb	r2, [r3, #1]
+  93:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x60;
+ 644              		.loc 1 93 16
+ 645 0016 0F4B     		ldr	r3, .L20
+ 646 0018 6022     		movs	r2, #96
+ 647 001a 9A70     		strb	r2, [r3, #2]
+  94:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
+ 648              		.loc 1 94 16
+ 649 001c 0D4B     		ldr	r3, .L20
+ 650 001e 0022     		movs	r2, #0
+ 651 0020 DA70     		strb	r2, [r3, #3]
+  95:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x07;
+ 652              		.loc 1 95 16
+ 653 0022 0C4B     		ldr	r3, .L20
+ 654 0024 0722     		movs	r2, #7
+ 655 0026 1A71     		strb	r2, [r3, #4]
+  96:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
+ 656              		.loc 1 96 16
+ 657 0028 0A4B     		ldr	r3, .L20
+ 658 002a 0022     		movs	r2, #0
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 14
 
 
- 610              		.cfi_offset 7, -8
- 611              		.cfi_offset 14, -4
- 612 0002 82B0     		sub	sp, sp, #8
- 613              	.LCFI39:
- 614              		.cfi_def_cfa_offset 16
- 615 0004 00AF     		add	r7, sp, #0
- 616              	.LCFI40:
- 617              		.cfi_def_cfa_register 7
- 618 0006 0346     		mov	r3, r0
- 619 0008 FB71     		strb	r3, [r7, #7]
- 101:User/Src/hollysys.c **** 	// axis 2
- 102:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
- 620              		.loc 1 102 16
- 621 000a 124B     		ldr	r3, .L20
- 622 000c 2B22     		movs	r2, #43
- 623 000e 1A70     		strb	r2, [r3]
- 103:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x00;
- 624              		.loc 1 103 16
- 625 0010 104B     		ldr	r3, .L20
- 626 0012 0022     		movs	r2, #0
- 627 0014 5A70     		strb	r2, [r3, #1]
- 104:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x31;
- 628              		.loc 1 104 16
- 629 0016 0F4B     		ldr	r3, .L20
- 630 0018 3122     		movs	r2, #49
- 631 001a 9A70     		strb	r2, [r3, #2]
- 105:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
- 632              		.loc 1 105 16
- 633 001c 0D4B     		ldr	r3, .L20
- 634 001e 0022     		movs	r2, #0
- 635 0020 DA70     		strb	r2, [r3, #3]
- 106:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x01;
- 636              		.loc 1 106 16
- 637 0022 0C4B     		ldr	r3, .L20
- 638 0024 0122     		movs	r2, #1
- 639 0026 1A71     		strb	r2, [r3, #4]
- 107:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
- 640              		.loc 1 107 16
- 641 0028 0A4B     		ldr	r3, .L20
- 642 002a 0022     		movs	r2, #0
- 643 002c 5A71     		strb	r2, [r3, #5]
- 108:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
- 644              		.loc 1 108 16
- 645 002e 094B     		ldr	r3, .L20
- 646 0030 0022     		movs	r2, #0
- 647 0032 9A71     		strb	r2, [r3, #6]
- 109:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
- 648              		.loc 1 109 16
- 649 0034 074B     		ldr	r3, .L20
- 650 0036 0022     		movs	r2, #0
- 651 0038 DA71     		strb	r2, [r3, #7]
- 110:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
- 652              		.loc 1 110 2
- 653 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 654 003c 9BB2     		uxth	r3, r3
- 655 003e 03F5C063 		add	r3, r3, #1536
- 656 0042 9BB2     		uxth	r3, r3
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 14
+ 659 002c 5A71     		strb	r2, [r3, #5]
+  97:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
+ 660              		.loc 1 97 16
+ 661 002e 094B     		ldr	r3, .L20
+ 662 0030 0022     		movs	r2, #0
+ 663 0032 9A71     		strb	r2, [r3, #6]
+  98:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
+ 664              		.loc 1 98 16
+ 665 0034 074B     		ldr	r3, .L20
+ 666 0036 0022     		movs	r2, #0
+ 667 0038 DA71     		strb	r2, [r3, #7]
+  99:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 668              		.loc 1 99 2
+ 669 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 670 003c 9BB2     		uxth	r3, r3
+ 671 003e 03F5C063 		add	r3, r3, #1536
+ 672 0042 9BB2     		uxth	r3, r3
+ 673 0044 1846     		mov	r0, r3
+ 674 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 100:User/Src/hollysys.c **** }
+ 675              		.loc 1 100 1
+ 676 004a 00BF     		nop
+ 677 004c 0837     		adds	r7, r7, #8
+ 678              	.LCFI37:
+ 679              		.cfi_def_cfa_offset 8
+ 680 004e BD46     		mov	sp, r7
+ 681              	.LCFI38:
+ 682              		.cfi_def_cfa_register 13
+ 683              		@ sp needed
+ 684 0050 80BD     		pop	{r7, pc}
+ 685              	.L21:
+ 686 0052 00BF     		.align	2
+ 687              	.L20:
+ 688 0054 00000000 		.word	CAN1Sedbuf
+ 689              		.cfi_endproc
+ 690              	.LFE150:
+ 692              		.section	.text.Hollysys_enable_A,"ax",%progbits
+ 693              		.align	1
+ 694              		.global	Hollysys_enable_A
+ 695              		.syntax unified
+ 696              		.thumb
+ 697              		.thumb_func
+ 699              	Hollysys_enable_A:
+ 700              	.LFB151:
+ 101:User/Src/hollysys.c **** 
+ 102:User/Src/hollysys.c **** 
+ 103:User/Src/hollysys.c **** // enable controller
+ 104:User/Src/hollysys.c **** void Hollysys_enable_A(u8 CANopen_ID){
+ 701              		.loc 1 104 38
+ 702              		.cfi_startproc
+ 703              		@ args = 0, pretend = 0, frame = 8
+ 704              		@ frame_needed = 1, uses_anonymous_args = 0
+ 705 0000 80B5     		push	{r7, lr}
+ 706              	.LCFI39:
+ 707              		.cfi_def_cfa_offset 8
+ 708              		.cfi_offset 7, -8
+ 709              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 15
 
 
- 657 0044 1846     		mov	r0, r3
- 658 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
- 111:User/Src/hollysys.c **** }
- 659              		.loc 1 111 1
- 660 004a 00BF     		nop
- 661 004c 0837     		adds	r7, r7, #8
- 662              	.LCFI41:
- 663              		.cfi_def_cfa_offset 8
- 664 004e BD46     		mov	sp, r7
- 665              	.LCFI42:
- 666              		.cfi_def_cfa_register 13
- 667              		@ sp needed
- 668 0050 80BD     		pop	{r7, pc}
- 669              	.L21:
- 670 0052 00BF     		.align	2
- 671              	.L20:
- 672 0054 00000000 		.word	CAN1Sedbuf
- 673              		.cfi_endproc
- 674              	.LFE151:
- 676              		.section	.text.Hollysys_disable_A,"ax",%progbits
- 677              		.align	1
- 678              		.global	Hollysys_disable_A
- 679              		.syntax unified
- 680              		.thumb
- 681              		.thumb_func
- 683              	Hollysys_disable_A:
- 684              	.LFB152:
- 112:User/Src/hollysys.c **** 
- 113:User/Src/hollysys.c **** // disable controller
- 114:User/Src/hollysys.c **** void Hollysys_disable_A(u8 CANopen_ID){
- 685              		.loc 1 114 39
- 686              		.cfi_startproc
- 687              		@ args = 0, pretend = 0, frame = 8
- 688              		@ frame_needed = 1, uses_anonymous_args = 0
- 689 0000 80B5     		push	{r7, lr}
- 690              	.LCFI43:
- 691              		.cfi_def_cfa_offset 8
- 692              		.cfi_offset 7, -8
- 693              		.cfi_offset 14, -4
- 694 0002 82B0     		sub	sp, sp, #8
- 695              	.LCFI44:
- 696              		.cfi_def_cfa_offset 16
- 697 0004 00AF     		add	r7, sp, #0
- 698              	.LCFI45:
- 699              		.cfi_def_cfa_register 7
- 700 0006 0346     		mov	r3, r0
- 701 0008 FB71     		strb	r3, [r7, #7]
- 115:User/Src/hollysys.c **** 	// axis 1
- 116:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
- 702              		.loc 1 116 16
- 703 000a 124B     		ldr	r3, .L23
- 704 000c 2B22     		movs	r2, #43
- 705 000e 1A70     		strb	r2, [r3]
- 117:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x00;
- 706              		.loc 1 117 16
- 707 0010 104B     		ldr	r3, .L23
- 708 0012 0022     		movs	r2, #0
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 15
+ 710 0002 82B0     		sub	sp, sp, #8
+ 711              	.LCFI40:
+ 712              		.cfi_def_cfa_offset 16
+ 713 0004 00AF     		add	r7, sp, #0
+ 714              	.LCFI41:
+ 715              		.cfi_def_cfa_register 7
+ 716 0006 0346     		mov	r3, r0
+ 717 0008 FB71     		strb	r3, [r7, #7]
+ 105:User/Src/hollysys.c **** 	// axis 1
+ 106:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
+ 718              		.loc 1 106 16
+ 719 000a 124B     		ldr	r3, .L23
+ 720 000c 2B22     		movs	r2, #43
+ 721 000e 1A70     		strb	r2, [r3]
+ 107:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x00;
+ 722              		.loc 1 107 16
+ 723 0010 104B     		ldr	r3, .L23
+ 724 0012 0022     		movs	r2, #0
+ 725 0014 5A70     		strb	r2, [r3, #1]
+ 108:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x21;
+ 726              		.loc 1 108 16
+ 727 0016 0F4B     		ldr	r3, .L23
+ 728 0018 2122     		movs	r2, #33
+ 729 001a 9A70     		strb	r2, [r3, #2]
+ 109:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
+ 730              		.loc 1 109 16
+ 731 001c 0D4B     		ldr	r3, .L23
+ 732 001e 0022     		movs	r2, #0
+ 733 0020 DA70     		strb	r2, [r3, #3]
+ 110:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x01;
+ 734              		.loc 1 110 16
+ 735 0022 0C4B     		ldr	r3, .L23
+ 736 0024 0122     		movs	r2, #1
+ 737 0026 1A71     		strb	r2, [r3, #4]
+ 111:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
+ 738              		.loc 1 111 16
+ 739 0028 0A4B     		ldr	r3, .L23
+ 740 002a 0022     		movs	r2, #0
+ 741 002c 5A71     		strb	r2, [r3, #5]
+ 112:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
+ 742              		.loc 1 112 16
+ 743 002e 094B     		ldr	r3, .L23
+ 744 0030 0022     		movs	r2, #0
+ 745 0032 9A71     		strb	r2, [r3, #6]
+ 113:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
+ 746              		.loc 1 113 16
+ 747 0034 074B     		ldr	r3, .L23
+ 748 0036 0022     		movs	r2, #0
+ 749 0038 DA71     		strb	r2, [r3, #7]
+ 114:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 750              		.loc 1 114 2
+ 751 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 752 003c 9BB2     		uxth	r3, r3
+ 753 003e 03F5C063 		add	r3, r3, #1536
+ 754 0042 9BB2     		uxth	r3, r3
+ 755 0044 1846     		mov	r0, r3
+ 756 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 16
 
 
- 709 0014 5A70     		strb	r2, [r3, #1]
- 118:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0X21;
- 710              		.loc 1 118 16
- 711 0016 0F4B     		ldr	r3, .L23
- 712 0018 2122     		movs	r2, #33
- 713 001a 9A70     		strb	r2, [r3, #2]
- 119:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
- 714              		.loc 1 119 16
- 715 001c 0D4B     		ldr	r3, .L23
- 716 001e 0022     		movs	r2, #0
- 717 0020 DA70     		strb	r2, [r3, #3]
- 120:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x00;
- 718              		.loc 1 120 16
- 719 0022 0C4B     		ldr	r3, .L23
- 720 0024 0022     		movs	r2, #0
- 721 0026 1A71     		strb	r2, [r3, #4]
- 121:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
- 722              		.loc 1 121 16
- 723 0028 0A4B     		ldr	r3, .L23
- 724 002a 0022     		movs	r2, #0
- 725 002c 5A71     		strb	r2, [r3, #5]
- 122:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
- 726              		.loc 1 122 16
- 727 002e 094B     		ldr	r3, .L23
- 728 0030 0022     		movs	r2, #0
- 729 0032 9A71     		strb	r2, [r3, #6]
- 123:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
- 730              		.loc 1 123 16
- 731 0034 074B     		ldr	r3, .L23
- 732 0036 0022     		movs	r2, #0
- 733 0038 DA71     		strb	r2, [r3, #7]
- 124:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
- 734              		.loc 1 124 2
- 735 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 736 003c 9BB2     		uxth	r3, r3
- 737 003e 03F5C063 		add	r3, r3, #1536
- 738 0042 9BB2     		uxth	r3, r3
- 739 0044 1846     		mov	r0, r3
- 740 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
- 125:User/Src/hollysys.c **** }
- 741              		.loc 1 125 1
- 742 004a 00BF     		nop
- 743 004c 0837     		adds	r7, r7, #8
- 744              	.LCFI46:
- 745              		.cfi_def_cfa_offset 8
- 746 004e BD46     		mov	sp, r7
- 747              	.LCFI47:
- 748              		.cfi_def_cfa_register 13
- 749              		@ sp needed
- 750 0050 80BD     		pop	{r7, pc}
- 751              	.L24:
- 752 0052 00BF     		.align	2
- 753              	.L23:
- 754 0054 00000000 		.word	CAN1Sedbuf
- 755              		.cfi_endproc
- 756              	.LFE152:
- 758              		.section	.text.Hollysys_disable_B,"ax",%progbits
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 16
+ 115:User/Src/hollysys.c **** }
+ 757              		.loc 1 115 1
+ 758 004a 00BF     		nop
+ 759 004c 0837     		adds	r7, r7, #8
+ 760              	.LCFI42:
+ 761              		.cfi_def_cfa_offset 8
+ 762 004e BD46     		mov	sp, r7
+ 763              	.LCFI43:
+ 764              		.cfi_def_cfa_register 13
+ 765              		@ sp needed
+ 766 0050 80BD     		pop	{r7, pc}
+ 767              	.L24:
+ 768 0052 00BF     		.align	2
+ 769              	.L23:
+ 770 0054 00000000 		.word	CAN1Sedbuf
+ 771              		.cfi_endproc
+ 772              	.LFE151:
+ 774              		.section	.text.Hollysys_enable_B,"ax",%progbits
+ 775              		.align	1
+ 776              		.global	Hollysys_enable_B
+ 777              		.syntax unified
+ 778              		.thumb
+ 779              		.thumb_func
+ 781              	Hollysys_enable_B:
+ 782              	.LFB152:
+ 116:User/Src/hollysys.c **** 
+ 117:User/Src/hollysys.c **** void Hollysys_enable_B(u8 CANopen_ID){
+ 783              		.loc 1 117 38
+ 784              		.cfi_startproc
+ 785              		@ args = 0, pretend = 0, frame = 8
+ 786              		@ frame_needed = 1, uses_anonymous_args = 0
+ 787 0000 80B5     		push	{r7, lr}
+ 788              	.LCFI44:
+ 789              		.cfi_def_cfa_offset 8
+ 790              		.cfi_offset 7, -8
+ 791              		.cfi_offset 14, -4
+ 792 0002 82B0     		sub	sp, sp, #8
+ 793              	.LCFI45:
+ 794              		.cfi_def_cfa_offset 16
+ 795 0004 00AF     		add	r7, sp, #0
+ 796              	.LCFI46:
+ 797              		.cfi_def_cfa_register 7
+ 798 0006 0346     		mov	r3, r0
+ 799 0008 FB71     		strb	r3, [r7, #7]
+ 118:User/Src/hollysys.c **** 	// axis 2
+ 119:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
+ 800              		.loc 1 119 16
+ 801 000a 124B     		ldr	r3, .L26
+ 802 000c 2B22     		movs	r2, #43
+ 803 000e 1A70     		strb	r2, [r3]
+ 120:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x00;
+ 804              		.loc 1 120 16
+ 805 0010 104B     		ldr	r3, .L26
+ 806 0012 0022     		movs	r2, #0
+ 807 0014 5A70     		strb	r2, [r3, #1]
+ 121:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x31;
+ 808              		.loc 1 121 16
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 17
 
 
- 759              		.align	1
- 760              		.global	Hollysys_disable_B
- 761              		.syntax unified
- 762              		.thumb
- 763              		.thumb_func
- 765              	Hollysys_disable_B:
- 766              	.LFB153:
- 126:User/Src/hollysys.c **** 
- 127:User/Src/hollysys.c **** void Hollysys_disable_B(u8 CANopen_ID){
- 767              		.loc 1 127 39
- 768              		.cfi_startproc
- 769              		@ args = 0, pretend = 0, frame = 8
- 770              		@ frame_needed = 1, uses_anonymous_args = 0
- 771 0000 80B5     		push	{r7, lr}
- 772              	.LCFI48:
- 773              		.cfi_def_cfa_offset 8
- 774              		.cfi_offset 7, -8
- 775              		.cfi_offset 14, -4
- 776 0002 82B0     		sub	sp, sp, #8
- 777              	.LCFI49:
- 778              		.cfi_def_cfa_offset 16
- 779 0004 00AF     		add	r7, sp, #0
- 780              	.LCFI50:
- 781              		.cfi_def_cfa_register 7
- 782 0006 0346     		mov	r3, r0
- 783 0008 FB71     		strb	r3, [r7, #7]
- 128:User/Src/hollysys.c **** 	// axis 2
- 129:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
- 784              		.loc 1 129 16
- 785 000a 124B     		ldr	r3, .L26
- 786 000c 2B22     		movs	r2, #43
- 787 000e 1A70     		strb	r2, [r3]
- 130:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x00;
- 788              		.loc 1 130 16
- 789 0010 104B     		ldr	r3, .L26
- 790 0012 0022     		movs	r2, #0
- 791 0014 5A70     		strb	r2, [r3, #1]
- 131:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0X31;
- 792              		.loc 1 131 16
- 793 0016 0F4B     		ldr	r3, .L26
- 794 0018 3122     		movs	r2, #49
- 795 001a 9A70     		strb	r2, [r3, #2]
- 132:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
- 796              		.loc 1 132 16
- 797 001c 0D4B     		ldr	r3, .L26
- 798 001e 0022     		movs	r2, #0
- 799 0020 DA70     		strb	r2, [r3, #3]
- 133:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x00;
- 800              		.loc 1 133 16
- 801 0022 0C4B     		ldr	r3, .L26
- 802 0024 0022     		movs	r2, #0
- 803 0026 1A71     		strb	r2, [r3, #4]
- 134:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
- 804              		.loc 1 134 16
- 805 0028 0A4B     		ldr	r3, .L26
- 806 002a 0022     		movs	r2, #0
- 807 002c 5A71     		strb	r2, [r3, #5]
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 17
+ 809 0016 0F4B     		ldr	r3, .L26
+ 810 0018 3122     		movs	r2, #49
+ 811 001a 9A70     		strb	r2, [r3, #2]
+ 122:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
+ 812              		.loc 1 122 16
+ 813 001c 0D4B     		ldr	r3, .L26
+ 814 001e 0022     		movs	r2, #0
+ 815 0020 DA70     		strb	r2, [r3, #3]
+ 123:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x01;
+ 816              		.loc 1 123 16
+ 817 0022 0C4B     		ldr	r3, .L26
+ 818 0024 0122     		movs	r2, #1
+ 819 0026 1A71     		strb	r2, [r3, #4]
+ 124:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
+ 820              		.loc 1 124 16
+ 821 0028 0A4B     		ldr	r3, .L26
+ 822 002a 0022     		movs	r2, #0
+ 823 002c 5A71     		strb	r2, [r3, #5]
+ 125:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
+ 824              		.loc 1 125 16
+ 825 002e 094B     		ldr	r3, .L26
+ 826 0030 0022     		movs	r2, #0
+ 827 0032 9A71     		strb	r2, [r3, #6]
+ 126:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
+ 828              		.loc 1 126 16
+ 829 0034 074B     		ldr	r3, .L26
+ 830 0036 0022     		movs	r2, #0
+ 831 0038 DA71     		strb	r2, [r3, #7]
+ 127:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 832              		.loc 1 127 2
+ 833 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 834 003c 9BB2     		uxth	r3, r3
+ 835 003e 03F5C063 		add	r3, r3, #1536
+ 836 0042 9BB2     		uxth	r3, r3
+ 837 0044 1846     		mov	r0, r3
+ 838 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 128:User/Src/hollysys.c **** }
+ 839              		.loc 1 128 1
+ 840 004a 00BF     		nop
+ 841 004c 0837     		adds	r7, r7, #8
+ 842              	.LCFI47:
+ 843              		.cfi_def_cfa_offset 8
+ 844 004e BD46     		mov	sp, r7
+ 845              	.LCFI48:
+ 846              		.cfi_def_cfa_register 13
+ 847              		@ sp needed
+ 848 0050 80BD     		pop	{r7, pc}
+ 849              	.L27:
+ 850 0052 00BF     		.align	2
+ 851              	.L26:
+ 852 0054 00000000 		.word	CAN1Sedbuf
+ 853              		.cfi_endproc
+ 854              	.LFE152:
+ 856              		.section	.text.Hollysys_disable_A,"ax",%progbits
+ 857              		.align	1
+ 858              		.global	Hollysys_disable_A
+ 859              		.syntax unified
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 18
 
 
- 135:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
- 808              		.loc 1 135 16
- 809 002e 094B     		ldr	r3, .L26
- 810 0030 0022     		movs	r2, #0
- 811 0032 9A71     		strb	r2, [r3, #6]
- 136:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
- 812              		.loc 1 136 16
- 813 0034 074B     		ldr	r3, .L26
- 814 0036 0022     		movs	r2, #0
- 815 0038 DA71     		strb	r2, [r3, #7]
- 137:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
- 816              		.loc 1 137 2
- 817 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 818 003c 9BB2     		uxth	r3, r3
- 819 003e 03F5C063 		add	r3, r3, #1536
- 820 0042 9BB2     		uxth	r3, r3
- 821 0044 1846     		mov	r0, r3
- 822 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
- 138:User/Src/hollysys.c **** }
- 823              		.loc 1 138 1
- 824 004a 00BF     		nop
- 825 004c 0837     		adds	r7, r7, #8
- 826              	.LCFI51:
- 827              		.cfi_def_cfa_offset 8
- 828 004e BD46     		mov	sp, r7
- 829              	.LCFI52:
- 830              		.cfi_def_cfa_register 13
- 831              		@ sp needed
- 832 0050 80BD     		pop	{r7, pc}
- 833              	.L27:
- 834 0052 00BF     		.align	2
- 835              	.L26:
- 836 0054 00000000 		.word	CAN1Sedbuf
- 837              		.cfi_endproc
- 838              	.LFE153:
- 840              		.section	.text.Hollysys_Contol_Mode_SET,"ax",%progbits
- 841              		.align	1
- 842              		.global	Hollysys_Contol_Mode_SET
- 843              		.syntax unified
- 844              		.thumb
- 845              		.thumb_func
- 847              	Hollysys_Contol_Mode_SET:
- 848              	.LFB154:
- 139:User/Src/hollysys.c **** 
- 140:User/Src/hollysys.c **** 
- 141:User/Src/hollysys.c **** /*模式设置*/
- 142:User/Src/hollysys.c **** u8 Hollysys_Contol_Mode_SET(u8 CANopen_ID,u8 CANopen_mode){
- 849              		.loc 1 142 59
- 850              		.cfi_startproc
- 851              		@ args = 0, pretend = 0, frame = 8
- 852              		@ frame_needed = 1, uses_anonymous_args = 0
- 853 0000 80B5     		push	{r7, lr}
- 854              	.LCFI53:
- 855              		.cfi_def_cfa_offset 8
- 856              		.cfi_offset 7, -8
- 857              		.cfi_offset 14, -4
- 858 0002 82B0     		sub	sp, sp, #8
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 18
+ 860              		.thumb
+ 861              		.thumb_func
+ 863              	Hollysys_disable_A:
+ 864              	.LFB153:
+ 129:User/Src/hollysys.c **** 
+ 130:User/Src/hollysys.c **** // disable controller
+ 131:User/Src/hollysys.c **** void Hollysys_disable_A(u8 CANopen_ID){
+ 865              		.loc 1 131 39
+ 866              		.cfi_startproc
+ 867              		@ args = 0, pretend = 0, frame = 8
+ 868              		@ frame_needed = 1, uses_anonymous_args = 0
+ 869 0000 80B5     		push	{r7, lr}
+ 870              	.LCFI49:
+ 871              		.cfi_def_cfa_offset 8
+ 872              		.cfi_offset 7, -8
+ 873              		.cfi_offset 14, -4
+ 874 0002 82B0     		sub	sp, sp, #8
+ 875              	.LCFI50:
+ 876              		.cfi_def_cfa_offset 16
+ 877 0004 00AF     		add	r7, sp, #0
+ 878              	.LCFI51:
+ 879              		.cfi_def_cfa_register 7
+ 880 0006 0346     		mov	r3, r0
+ 881 0008 FB71     		strb	r3, [r7, #7]
+ 132:User/Src/hollysys.c **** 	// axis 1
+ 133:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
+ 882              		.loc 1 133 16
+ 883 000a 124B     		ldr	r3, .L29
+ 884 000c 2B22     		movs	r2, #43
+ 885 000e 1A70     		strb	r2, [r3]
+ 134:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x00;
+ 886              		.loc 1 134 16
+ 887 0010 104B     		ldr	r3, .L29
+ 888 0012 0022     		movs	r2, #0
+ 889 0014 5A70     		strb	r2, [r3, #1]
+ 135:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0X21;
+ 890              		.loc 1 135 16
+ 891 0016 0F4B     		ldr	r3, .L29
+ 892 0018 2122     		movs	r2, #33
+ 893 001a 9A70     		strb	r2, [r3, #2]
+ 136:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
+ 894              		.loc 1 136 16
+ 895 001c 0D4B     		ldr	r3, .L29
+ 896 001e 0022     		movs	r2, #0
+ 897 0020 DA70     		strb	r2, [r3, #3]
+ 137:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x00;
+ 898              		.loc 1 137 16
+ 899 0022 0C4B     		ldr	r3, .L29
+ 900 0024 0022     		movs	r2, #0
+ 901 0026 1A71     		strb	r2, [r3, #4]
+ 138:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
+ 902              		.loc 1 138 16
+ 903 0028 0A4B     		ldr	r3, .L29
+ 904 002a 0022     		movs	r2, #0
+ 905 002c 5A71     		strb	r2, [r3, #5]
+ 139:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
+ 906              		.loc 1 139 16
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 19
 
 
- 859              	.LCFI54:
- 860              		.cfi_def_cfa_offset 16
- 861 0004 00AF     		add	r7, sp, #0
- 862              	.LCFI55:
- 863              		.cfi_def_cfa_register 7
- 864 0006 0346     		mov	r3, r0
- 865 0008 0A46     		mov	r2, r1
- 866 000a FB71     		strb	r3, [r7, #7]
- 867 000c 1346     		mov	r3, r2
- 868 000e BB71     		strb	r3, [r7, #6]
- 143:User/Src/hollysys.c **** 	 
- 144:User/Src/hollysys.c **** 	 CAN1Sedbuf[0]=SDO_W1;
- 869              		.loc 1 144 16
- 870 0010 124B     		ldr	r3, .L30
- 871 0012 2F22     		movs	r2, #47
- 872 0014 1A70     		strb	r2, [r3]
- 145:User/Src/hollysys.c **** 	 CAN1Sedbuf[1]=0x60;
- 873              		.loc 1 145 16
- 874 0016 114B     		ldr	r3, .L30
- 875 0018 6022     		movs	r2, #96
- 876 001a 5A70     		strb	r2, [r3, #1]
- 146:User/Src/hollysys.c ****    CAN1Sedbuf[2]=0x60;
- 877              		.loc 1 146 17
- 878 001c 0F4B     		ldr	r3, .L30
- 879 001e 6022     		movs	r2, #96
- 880 0020 9A70     		strb	r2, [r3, #2]
- 147:User/Src/hollysys.c **** 	 CAN1Sedbuf[3]=0x00;
- 881              		.loc 1 147 16
- 882 0022 0E4B     		ldr	r3, .L30
- 883 0024 0022     		movs	r2, #0
- 884 0026 DA70     		strb	r2, [r3, #3]
- 148:User/Src/hollysys.c **** 	 CAN1Sedbuf[4]=CANopen_mode;
- 885              		.loc 1 148 16
- 886 0028 0C4A     		ldr	r2, .L30
- 887 002a BB79     		ldrb	r3, [r7, #6]
- 888 002c 1371     		strb	r3, [r2, #4]
- 149:User/Src/hollysys.c **** 	 CAN1Sedbuf[5]=0x00;
- 889              		.loc 1 149 16
- 890 002e 0B4B     		ldr	r3, .L30
- 891 0030 0022     		movs	r2, #0
- 892 0032 5A71     		strb	r2, [r3, #5]
- 150:User/Src/hollysys.c **** 	 CAN1Sedbuf[6]=0x00;
- 893              		.loc 1 150 16
- 894 0034 094B     		ldr	r3, .L30
- 895 0036 0022     		movs	r2, #0
- 896 0038 9A71     		strb	r2, [r3, #6]
- 151:User/Src/hollysys.c **** 	 CAN1Sedbuf[7]=0x00;	
- 897              		.loc 1 151 16
- 898 003a 084B     		ldr	r3, .L30
- 899 003c 0022     		movs	r2, #0
- 900 003e DA71     		strb	r2, [r3, #7]
- 152:User/Src/hollysys.c **** 	 Hollysys_CAN_Send(0x600 + CANopen_ID);
- 901              		.loc 1 152 3
- 902 0040 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 903 0042 9BB2     		uxth	r3, r3
- 904 0044 03F5C063 		add	r3, r3, #1536
- 905 0048 9BB2     		uxth	r3, r3
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 19
+ 907 002e 094B     		ldr	r3, .L29
+ 908 0030 0022     		movs	r2, #0
+ 909 0032 9A71     		strb	r2, [r3, #6]
+ 140:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
+ 910              		.loc 1 140 16
+ 911 0034 074B     		ldr	r3, .L29
+ 912 0036 0022     		movs	r2, #0
+ 913 0038 DA71     		strb	r2, [r3, #7]
+ 141:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 914              		.loc 1 141 2
+ 915 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 916 003c 9BB2     		uxth	r3, r3
+ 917 003e 03F5C063 		add	r3, r3, #1536
+ 918 0042 9BB2     		uxth	r3, r3
+ 919 0044 1846     		mov	r0, r3
+ 920 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 142:User/Src/hollysys.c **** }
+ 921              		.loc 1 142 1
+ 922 004a 00BF     		nop
+ 923 004c 0837     		adds	r7, r7, #8
+ 924              	.LCFI52:
+ 925              		.cfi_def_cfa_offset 8
+ 926 004e BD46     		mov	sp, r7
+ 927              	.LCFI53:
+ 928              		.cfi_def_cfa_register 13
+ 929              		@ sp needed
+ 930 0050 80BD     		pop	{r7, pc}
+ 931              	.L30:
+ 932 0052 00BF     		.align	2
+ 933              	.L29:
+ 934 0054 00000000 		.word	CAN1Sedbuf
+ 935              		.cfi_endproc
+ 936              	.LFE153:
+ 938              		.section	.text.Hollysys_disable_B,"ax",%progbits
+ 939              		.align	1
+ 940              		.global	Hollysys_disable_B
+ 941              		.syntax unified
+ 942              		.thumb
+ 943              		.thumb_func
+ 945              	Hollysys_disable_B:
+ 946              	.LFB154:
+ 143:User/Src/hollysys.c **** 
+ 144:User/Src/hollysys.c **** void Hollysys_disable_B(u8 CANopen_ID){
+ 947              		.loc 1 144 39
+ 948              		.cfi_startproc
+ 949              		@ args = 0, pretend = 0, frame = 8
+ 950              		@ frame_needed = 1, uses_anonymous_args = 0
+ 951 0000 80B5     		push	{r7, lr}
+ 952              	.LCFI54:
+ 953              		.cfi_def_cfa_offset 8
+ 954              		.cfi_offset 7, -8
+ 955              		.cfi_offset 14, -4
+ 956 0002 82B0     		sub	sp, sp, #8
+ 957              	.LCFI55:
+ 958              		.cfi_def_cfa_offset 16
+ 959 0004 00AF     		add	r7, sp, #0
+ 960              	.LCFI56:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 20
 
 
- 906 004a 1846     		mov	r0, r3
- 907 004c FFF7FEFF 		bl	Hollysys_CAN_Send
- 153:User/Src/hollysys.c **** 	 return(1);
- 908              		.loc 1 153 9
- 909 0050 0123     		movs	r3, #1
- 154:User/Src/hollysys.c **** } 
- 910              		.loc 1 154 1
- 911 0052 1846     		mov	r0, r3
- 912 0054 0837     		adds	r7, r7, #8
- 913              	.LCFI56:
- 914              		.cfi_def_cfa_offset 8
- 915 0056 BD46     		mov	sp, r7
- 916              	.LCFI57:
- 917              		.cfi_def_cfa_register 13
- 918              		@ sp needed
- 919 0058 80BD     		pop	{r7, pc}
- 920              	.L31:
- 921 005a 00BF     		.align	2
- 922              	.L30:
- 923 005c 00000000 		.word	CAN1Sedbuf
- 924              		.cfi_endproc
- 925              	.LFE154:
- 927              		.section	.text.Hollysys_CANopen_Activate,"ax",%progbits
- 928              		.align	1
- 929              		.global	Hollysys_CANopen_Activate
- 930              		.syntax unified
- 931              		.thumb
- 932              		.thumb_func
- 934              	Hollysys_CANopen_Activate:
- 935              	.LFB155:
- 155:User/Src/hollysys.c **** 
- 156:User/Src/hollysys.c **** /*激活节点*/
- 157:User/Src/hollysys.c **** u8 Hollysys_CANopen_Activate(u8 CANopen_ID){
- 936              		.loc 1 157 44
- 937              		.cfi_startproc
- 938              		@ args = 0, pretend = 0, frame = 8
- 939              		@ frame_needed = 1, uses_anonymous_args = 0
- 940 0000 80B5     		push	{r7, lr}
- 941              	.LCFI58:
- 942              		.cfi_def_cfa_offset 8
- 943              		.cfi_offset 7, -8
- 944              		.cfi_offset 14, -4
- 945 0002 82B0     		sub	sp, sp, #8
- 946              	.LCFI59:
- 947              		.cfi_def_cfa_offset 16
- 948 0004 00AF     		add	r7, sp, #0
- 949              	.LCFI60:
- 950              		.cfi_def_cfa_register 7
- 951 0006 0346     		mov	r3, r0
- 952 0008 FB71     		strb	r3, [r7, #7]
- 158:User/Src/hollysys.c **** 	 
- 159:User/Src/hollysys.c **** 	 CAN1Sedbuf[0]=0x01;
- 953              		.loc 1 159 16
- 954 000a 074B     		ldr	r3, .L34
- 955 000c 0122     		movs	r2, #1
- 956 000e 1A70     		strb	r2, [r3]
- 160:User/Src/hollysys.c **** 	 CAN1Sedbuf[1]=CANopen_ID;	
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 20
+ 961              		.cfi_def_cfa_register 7
+ 962 0006 0346     		mov	r3, r0
+ 963 0008 FB71     		strb	r3, [r7, #7]
+ 145:User/Src/hollysys.c **** 	// axis 2
+ 146:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x2b;
+ 964              		.loc 1 146 16
+ 965 000a 124B     		ldr	r3, .L32
+ 966 000c 2B22     		movs	r2, #43
+ 967 000e 1A70     		strb	r2, [r3]
+ 147:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x00;
+ 968              		.loc 1 147 16
+ 969 0010 104B     		ldr	r3, .L32
+ 970 0012 0022     		movs	r2, #0
+ 971 0014 5A70     		strb	r2, [r3, #1]
+ 148:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0X31;
+ 972              		.loc 1 148 16
+ 973 0016 0F4B     		ldr	r3, .L32
+ 974 0018 3122     		movs	r2, #49
+ 975 001a 9A70     		strb	r2, [r3, #2]
+ 149:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
+ 976              		.loc 1 149 16
+ 977 001c 0D4B     		ldr	r3, .L32
+ 978 001e 0022     		movs	r2, #0
+ 979 0020 DA70     		strb	r2, [r3, #3]
+ 150:User/Src/hollysys.c **** 	CAN1Sedbuf[4] = 0x00;
+ 980              		.loc 1 150 16
+ 981 0022 0C4B     		ldr	r3, .L32
+ 982 0024 0022     		movs	r2, #0
+ 983 0026 1A71     		strb	r2, [r3, #4]
+ 151:User/Src/hollysys.c **** 	CAN1Sedbuf[5] = 0x00;
+ 984              		.loc 1 151 16
+ 985 0028 0A4B     		ldr	r3, .L32
+ 986 002a 0022     		movs	r2, #0
+ 987 002c 5A71     		strb	r2, [r3, #5]
+ 152:User/Src/hollysys.c **** 	CAN1Sedbuf[6] = 0x00;
+ 988              		.loc 1 152 16
+ 989 002e 094B     		ldr	r3, .L32
+ 990 0030 0022     		movs	r2, #0
+ 991 0032 9A71     		strb	r2, [r3, #6]
+ 153:User/Src/hollysys.c **** 	CAN1Sedbuf[7] = 0x00;
+ 992              		.loc 1 153 16
+ 993 0034 074B     		ldr	r3, .L32
+ 994 0036 0022     		movs	r2, #0
+ 995 0038 DA71     		strb	r2, [r3, #7]
+ 154:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 996              		.loc 1 154 2
+ 997 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 998 003c 9BB2     		uxth	r3, r3
+ 999 003e 03F5C063 		add	r3, r3, #1536
+ 1000 0042 9BB2     		uxth	r3, r3
+ 1001 0044 1846     		mov	r0, r3
+ 1002 0046 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 155:User/Src/hollysys.c **** }
+ 1003              		.loc 1 155 1
+ 1004 004a 00BF     		nop
+ 1005 004c 0837     		adds	r7, r7, #8
+ 1006              	.LCFI57:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 21
 
 
- 957              		.loc 1 160 16
- 958 0010 054A     		ldr	r2, .L34
- 959 0012 FB79     		ldrb	r3, [r7, #7]
- 960 0014 5370     		strb	r3, [r2, #1]
- 161:User/Src/hollysys.c **** 	 Hollysys_CAN_Send(0x000);
- 961              		.loc 1 161 3
- 962 0016 0020     		movs	r0, #0
- 963 0018 FFF7FEFF 		bl	Hollysys_CAN_Send
- 162:User/Src/hollysys.c **** 	 return(1);
- 964              		.loc 1 162 9
- 965 001c 0123     		movs	r3, #1
- 163:User/Src/hollysys.c **** } 
- 966              		.loc 1 163 1
- 967 001e 1846     		mov	r0, r3
- 968 0020 0837     		adds	r7, r7, #8
- 969              	.LCFI61:
- 970              		.cfi_def_cfa_offset 8
- 971 0022 BD46     		mov	sp, r7
- 972              	.LCFI62:
- 973              		.cfi_def_cfa_register 13
- 974              		@ sp needed
- 975 0024 80BD     		pop	{r7, pc}
- 976              	.L35:
- 977 0026 00BF     		.align	2
- 978              	.L34:
- 979 0028 00000000 		.word	CAN1Sedbuf
- 980              		.cfi_endproc
- 981              	.LFE155:
- 983              		.section	.text.Hollysys_CAN_lifeguard,"ax",%progbits
- 984              		.align	1
- 985              		.global	Hollysys_CAN_lifeguard
- 986              		.syntax unified
- 987              		.thumb
- 988              		.thumb_func
- 990              	Hollysys_CAN_lifeguard:
- 991              	.LFB156:
- 164:User/Src/hollysys.c **** 
- 165:User/Src/hollysys.c **** u8 Hollysys_CAN_lifeguard(u8 CANopen_ID){
- 992              		.loc 1 165 41
- 993              		.cfi_startproc
- 994              		@ args = 0, pretend = 0, frame = 8
- 995              		@ frame_needed = 1, uses_anonymous_args = 0
- 996 0000 80B5     		push	{r7, lr}
- 997              	.LCFI63:
- 998              		.cfi_def_cfa_offset 8
- 999              		.cfi_offset 7, -8
- 1000              		.cfi_offset 14, -4
- 1001 0002 82B0     		sub	sp, sp, #8
- 1002              	.LCFI64:
- 1003              		.cfi_def_cfa_offset 16
- 1004 0004 00AF     		add	r7, sp, #0
- 1005              	.LCFI65:
- 1006              		.cfi_def_cfa_register 7
- 1007 0006 0346     		mov	r3, r0
- 1008 0008 FB71     		strb	r3, [r7, #7]
- 166:User/Src/hollysys.c **** 	memset(CAN1Sedbuf, 0, sizeof(CAN1Sedbuf));
- 1009              		.loc 1 166 2
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 21
+ 1007              		.cfi_def_cfa_offset 8
+ 1008 004e BD46     		mov	sp, r7
+ 1009              	.LCFI58:
+ 1010              		.cfi_def_cfa_register 13
+ 1011              		@ sp needed
+ 1012 0050 80BD     		pop	{r7, pc}
+ 1013              	.L33:
+ 1014 0052 00BF     		.align	2
+ 1015              	.L32:
+ 1016 0054 00000000 		.word	CAN1Sedbuf
+ 1017              		.cfi_endproc
+ 1018              	.LFE154:
+ 1020              		.section	.text.Hollysys_Contol_Mode_SET,"ax",%progbits
+ 1021              		.align	1
+ 1022              		.global	Hollysys_Contol_Mode_SET
+ 1023              		.syntax unified
+ 1024              		.thumb
+ 1025              		.thumb_func
+ 1027              	Hollysys_Contol_Mode_SET:
+ 1028              	.LFB155:
+ 156:User/Src/hollysys.c **** 
+ 157:User/Src/hollysys.c **** 
+ 158:User/Src/hollysys.c **** /*模式设置*/
+ 159:User/Src/hollysys.c **** u8 Hollysys_Contol_Mode_SET(u8 CANopen_ID,u8 CANopen_mode){
+ 1029              		.loc 1 159 59
+ 1030              		.cfi_startproc
+ 1031              		@ args = 0, pretend = 0, frame = 8
+ 1032              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1033 0000 80B5     		push	{r7, lr}
+ 1034              	.LCFI59:
+ 1035              		.cfi_def_cfa_offset 8
+ 1036              		.cfi_offset 7, -8
+ 1037              		.cfi_offset 14, -4
+ 1038 0002 82B0     		sub	sp, sp, #8
+ 1039              	.LCFI60:
+ 1040              		.cfi_def_cfa_offset 16
+ 1041 0004 00AF     		add	r7, sp, #0
+ 1042              	.LCFI61:
+ 1043              		.cfi_def_cfa_register 7
+ 1044 0006 0346     		mov	r3, r0
+ 1045 0008 0A46     		mov	r2, r1
+ 1046 000a FB71     		strb	r3, [r7, #7]
+ 1047 000c 1346     		mov	r3, r2
+ 1048 000e BB71     		strb	r3, [r7, #6]
+ 160:User/Src/hollysys.c **** 	 
+ 161:User/Src/hollysys.c **** 	 CAN1Sedbuf[0]=SDO_W1;
+ 1049              		.loc 1 161 16
+ 1050 0010 124B     		ldr	r3, .L36
+ 1051 0012 2F22     		movs	r2, #47
+ 1052 0014 1A70     		strb	r2, [r3]
+ 162:User/Src/hollysys.c **** 	 CAN1Sedbuf[1]=0x60;
+ 1053              		.loc 1 162 16
+ 1054 0016 114B     		ldr	r3, .L36
+ 1055 0018 6022     		movs	r2, #96
+ 1056 001a 5A70     		strb	r2, [r3, #1]
+ 163:User/Src/hollysys.c ****    CAN1Sedbuf[2]=0x60;
+ 1057              		.loc 1 163 17
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 22
 
 
- 1010 000a 0822     		movs	r2, #8
- 1011 000c 0021     		movs	r1, #0
- 1012 000e 0848     		ldr	r0, .L37
- 1013 0010 FFF7FEFF 		bl	memset
- 167:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x700 + CANopen_ID);
- 1014              		.loc 1 167 2
- 1015 0014 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1016 0016 9BB2     		uxth	r3, r3
- 1017 0018 03F5E063 		add	r3, r3, #1792
- 1018 001c 9BB2     		uxth	r3, r3
- 1019 001e 1846     		mov	r0, r3
- 1020 0020 FFF7FEFF 		bl	Hollysys_CAN_Send
- 168:User/Src/hollysys.c **** }
- 1021              		.loc 1 168 1
- 1022 0024 00BF     		nop
- 1023 0026 1846     		mov	r0, r3
- 1024 0028 0837     		adds	r7, r7, #8
- 1025              	.LCFI66:
- 1026              		.cfi_def_cfa_offset 8
- 1027 002a BD46     		mov	sp, r7
- 1028              	.LCFI67:
- 1029              		.cfi_def_cfa_register 13
- 1030              		@ sp needed
- 1031 002c 80BD     		pop	{r7, pc}
- 1032              	.L38:
- 1033 002e 00BF     		.align	2
- 1034              	.L37:
- 1035 0030 00000000 		.word	CAN1Sedbuf
- 1036              		.cfi_endproc
- 1037              	.LFE156:
- 1039              		.section	.text.Hollysys_SDO_Write_OD,"ax",%progbits
- 1040              		.align	1
- 1041              		.global	Hollysys_SDO_Write_OD
- 1042              		.syntax unified
- 1043              		.thumb
- 1044              		.thumb_func
- 1046              	Hollysys_SDO_Write_OD:
- 1047              	.LFB157:
- 169:User/Src/hollysys.c **** 
- 170:User/Src/hollysys.c **** u8 Hollysys_SDO_Write_OD(u8 CANopen_ID,u8 CMD, u16 Index, u8 SubIndex, u32 DATA){
- 1048              		.loc 1 170 81
- 1049              		.cfi_startproc
- 1050              		@ args = 4, pretend = 0, frame = 8
- 1051              		@ frame_needed = 1, uses_anonymous_args = 0
- 1052 0000 90B5     		push	{r4, r7, lr}
- 1053              	.LCFI68:
- 1054              		.cfi_def_cfa_offset 12
- 1055              		.cfi_offset 4, -12
- 1056              		.cfi_offset 7, -8
- 1057              		.cfi_offset 14, -4
- 1058 0002 83B0     		sub	sp, sp, #12
- 1059              	.LCFI69:
- 1060              		.cfi_def_cfa_offset 24
- 1061 0004 00AF     		add	r7, sp, #0
- 1062              	.LCFI70:
- 1063              		.cfi_def_cfa_register 7
- 1064 0006 0446     		mov	r4, r0
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 22
+ 1058 001c 0F4B     		ldr	r3, .L36
+ 1059 001e 6022     		movs	r2, #96
+ 1060 0020 9A70     		strb	r2, [r3, #2]
+ 164:User/Src/hollysys.c **** 	 CAN1Sedbuf[3]=0x00;
+ 1061              		.loc 1 164 16
+ 1062 0022 0E4B     		ldr	r3, .L36
+ 1063 0024 0022     		movs	r2, #0
+ 1064 0026 DA70     		strb	r2, [r3, #3]
+ 165:User/Src/hollysys.c **** 	 CAN1Sedbuf[4]=CANopen_mode;
+ 1065              		.loc 1 165 16
+ 1066 0028 0C4A     		ldr	r2, .L36
+ 1067 002a BB79     		ldrb	r3, [r7, #6]
+ 1068 002c 1371     		strb	r3, [r2, #4]
+ 166:User/Src/hollysys.c **** 	 CAN1Sedbuf[5]=0x00;
+ 1069              		.loc 1 166 16
+ 1070 002e 0B4B     		ldr	r3, .L36
+ 1071 0030 0022     		movs	r2, #0
+ 1072 0032 5A71     		strb	r2, [r3, #5]
+ 167:User/Src/hollysys.c **** 	 CAN1Sedbuf[6]=0x00;
+ 1073              		.loc 1 167 16
+ 1074 0034 094B     		ldr	r3, .L36
+ 1075 0036 0022     		movs	r2, #0
+ 1076 0038 9A71     		strb	r2, [r3, #6]
+ 168:User/Src/hollysys.c **** 	 CAN1Sedbuf[7]=0x00;	
+ 1077              		.loc 1 168 16
+ 1078 003a 084B     		ldr	r3, .L36
+ 1079 003c 0022     		movs	r2, #0
+ 1080 003e DA71     		strb	r2, [r3, #7]
+ 169:User/Src/hollysys.c **** 	 Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 1081              		.loc 1 169 3
+ 1082 0040 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1083 0042 9BB2     		uxth	r3, r3
+ 1084 0044 03F5C063 		add	r3, r3, #1536
+ 1085 0048 9BB2     		uxth	r3, r3
+ 1086 004a 1846     		mov	r0, r3
+ 1087 004c FFF7FEFF 		bl	Hollysys_CAN_Send
+ 170:User/Src/hollysys.c **** 	 return(1);
+ 1088              		.loc 1 170 9
+ 1089 0050 0123     		movs	r3, #1
+ 171:User/Src/hollysys.c **** } 
+ 1090              		.loc 1 171 1
+ 1091 0052 1846     		mov	r0, r3
+ 1092 0054 0837     		adds	r7, r7, #8
+ 1093              	.LCFI62:
+ 1094              		.cfi_def_cfa_offset 8
+ 1095 0056 BD46     		mov	sp, r7
+ 1096              	.LCFI63:
+ 1097              		.cfi_def_cfa_register 13
+ 1098              		@ sp needed
+ 1099 0058 80BD     		pop	{r7, pc}
+ 1100              	.L37:
+ 1101 005a 00BF     		.align	2
+ 1102              	.L36:
+ 1103 005c 00000000 		.word	CAN1Sedbuf
+ 1104              		.cfi_endproc
+ 1105              	.LFE155:
+ 1107              		.section	.text.Hollysys_CANopen_Activate,"ax",%progbits
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 23
 
 
- 1065 0008 0846     		mov	r0, r1
- 1066 000a 1146     		mov	r1, r2
- 1067 000c 1A46     		mov	r2, r3
- 1068 000e 2346     		mov	r3, r4
- 1069 0010 FB71     		strb	r3, [r7, #7]
- 1070 0012 0346     		mov	r3, r0
- 1071 0014 BB71     		strb	r3, [r7, #6]
- 1072 0016 0B46     		mov	r3, r1	@ movhi
- 1073 0018 BB80     		strh	r3, [r7, #4]	@ movhi
- 1074 001a 1346     		mov	r3, r2
- 1075 001c FB70     		strb	r3, [r7, #3]
- 171:User/Src/hollysys.c ****    CAN1Sedbuf[0]=CMD;
- 1076              		.loc 1 171 17
- 1077 001e 184A     		ldr	r2, .L41
- 1078 0020 BB79     		ldrb	r3, [r7, #6]
- 1079 0022 1370     		strb	r3, [r2]
- 172:User/Src/hollysys.c **** 	 CAN1Sedbuf[1]=(u8)(Index    & 0xFF);
- 1080              		.loc 1 172 17
- 1081 0024 BB88     		ldrh	r3, [r7, #4]	@ movhi
- 1082 0026 DAB2     		uxtb	r2, r3
- 1083              		.loc 1 172 16
- 1084 0028 154B     		ldr	r3, .L41
- 1085 002a 5A70     		strb	r2, [r3, #1]
- 173:User/Src/hollysys.c ****    CAN1Sedbuf[2]=(u8)(Index>>8 & 0xFF);
- 1086              		.loc 1 173 18
- 1087 002c BB88     		ldrh	r3, [r7, #4]
- 1088 002e 1B0A     		lsrs	r3, r3, #8
- 1089 0030 9BB2     		uxth	r3, r3
- 1090 0032 DAB2     		uxtb	r2, r3
- 1091              		.loc 1 173 17
- 1092 0034 124B     		ldr	r3, .L41
- 1093 0036 9A70     		strb	r2, [r3, #2]
- 174:User/Src/hollysys.c **** 	 CAN1Sedbuf[3]=SubIndex;
- 1094              		.loc 1 174 16
- 1095 0038 114A     		ldr	r2, .L41
- 1096 003a FB78     		ldrb	r3, [r7, #3]
- 1097 003c D370     		strb	r3, [r2, #3]
- 175:User/Src/hollysys.c **** 	 CAN1Sedbuf[4]=(u8)(DATA     & 0xFF);
- 1098              		.loc 1 175 17
- 1099 003e BB69     		ldr	r3, [r7, #24]
- 1100 0040 DAB2     		uxtb	r2, r3
- 1101              		.loc 1 175 16
- 1102 0042 0F4B     		ldr	r3, .L41
- 1103 0044 1A71     		strb	r2, [r3, #4]
- 176:User/Src/hollysys.c **** 	 CAN1Sedbuf[5]=(u8)(DATA>>8  & 0xFF);
- 1104              		.loc 1 176 26
- 1105 0046 BB69     		ldr	r3, [r7, #24]
- 1106 0048 1B0A     		lsrs	r3, r3, #8
- 1107              		.loc 1 176 17
- 1108 004a DAB2     		uxtb	r2, r3
- 1109              		.loc 1 176 16
- 1110 004c 0C4B     		ldr	r3, .L41
- 1111 004e 5A71     		strb	r2, [r3, #5]
- 177:User/Src/hollysys.c **** 	 CAN1Sedbuf[6]=(u8)(DATA>>16 & 0xFF);
- 1112              		.loc 1 177 26
- 1113 0050 BB69     		ldr	r3, [r7, #24]
- 1114 0052 1B0C     		lsrs	r3, r3, #16
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 23
+ 1108              		.align	1
+ 1109              		.global	Hollysys_CANopen_Activate
+ 1110              		.syntax unified
+ 1111              		.thumb
+ 1112              		.thumb_func
+ 1114              	Hollysys_CANopen_Activate:
+ 1115              	.LFB156:
+ 172:User/Src/hollysys.c **** 
+ 173:User/Src/hollysys.c **** /*激活节点*/
+ 174:User/Src/hollysys.c **** u8 Hollysys_CANopen_Activate(u8 CANopen_ID){
+ 1116              		.loc 1 174 44
+ 1117              		.cfi_startproc
+ 1118              		@ args = 0, pretend = 0, frame = 8
+ 1119              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1120 0000 80B5     		push	{r7, lr}
+ 1121              	.LCFI64:
+ 1122              		.cfi_def_cfa_offset 8
+ 1123              		.cfi_offset 7, -8
+ 1124              		.cfi_offset 14, -4
+ 1125 0002 82B0     		sub	sp, sp, #8
+ 1126              	.LCFI65:
+ 1127              		.cfi_def_cfa_offset 16
+ 1128 0004 00AF     		add	r7, sp, #0
+ 1129              	.LCFI66:
+ 1130              		.cfi_def_cfa_register 7
+ 1131 0006 0346     		mov	r3, r0
+ 1132 0008 FB71     		strb	r3, [r7, #7]
+ 175:User/Src/hollysys.c **** 	 
+ 176:User/Src/hollysys.c **** 	 CAN1Sedbuf[0]=0x01;
+ 1133              		.loc 1 176 16
+ 1134 000a 074B     		ldr	r3, .L40
+ 1135 000c 0122     		movs	r2, #1
+ 1136 000e 1A70     		strb	r2, [r3]
+ 177:User/Src/hollysys.c **** 	 CAN1Sedbuf[1]=CANopen_ID;	
+ 1137              		.loc 1 177 16
+ 1138 0010 054A     		ldr	r2, .L40
+ 1139 0012 FB79     		ldrb	r3, [r7, #7]
+ 1140 0014 5370     		strb	r3, [r2, #1]
+ 178:User/Src/hollysys.c **** 	 Hollysys_CAN_Send(0x000);
+ 1141              		.loc 1 178 3
+ 1142 0016 0020     		movs	r0, #0
+ 1143 0018 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 179:User/Src/hollysys.c **** 	 return(1);
+ 1144              		.loc 1 179 9
+ 1145 001c 0123     		movs	r3, #1
+ 180:User/Src/hollysys.c **** } 
+ 1146              		.loc 1 180 1
+ 1147 001e 1846     		mov	r0, r3
+ 1148 0020 0837     		adds	r7, r7, #8
+ 1149              	.LCFI67:
+ 1150              		.cfi_def_cfa_offset 8
+ 1151 0022 BD46     		mov	sp, r7
+ 1152              	.LCFI68:
+ 1153              		.cfi_def_cfa_register 13
+ 1154              		@ sp needed
+ 1155 0024 80BD     		pop	{r7, pc}
+ 1156              	.L41:
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 24
 
 
- 1115              		.loc 1 177 17
- 1116 0054 DAB2     		uxtb	r2, r3
- 1117              		.loc 1 177 16
- 1118 0056 0A4B     		ldr	r3, .L41
- 1119 0058 9A71     		strb	r2, [r3, #6]
- 178:User/Src/hollysys.c **** 	 CAN1Sedbuf[7]=(u8)(DATA>>24 & 0xFF);	
- 1120              		.loc 1 178 26
- 1121 005a BB69     		ldr	r3, [r7, #24]
- 1122 005c 1B0E     		lsrs	r3, r3, #24
- 1123              		.loc 1 178 17
- 1124 005e DAB2     		uxtb	r2, r3
- 1125              		.loc 1 178 16
- 1126 0060 074B     		ldr	r3, .L41
- 1127 0062 DA71     		strb	r2, [r3, #7]
- 179:User/Src/hollysys.c **** 	 Hollysys_CAN_Send(0x600 + CANopen_ID);
- 1128              		.loc 1 179 3
- 1129 0064 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1130 0066 9BB2     		uxth	r3, r3
- 1131 0068 03F5C063 		add	r3, r3, #1536
- 1132 006c 9BB2     		uxth	r3, r3
- 1133 006e 1846     		mov	r0, r3
- 1134 0070 FFF7FEFF 		bl	Hollysys_CAN_Send
- 180:User/Src/hollysys.c ****    return(1);
- 1135              		.loc 1 180 10
- 1136 0074 0123     		movs	r3, #1
- 181:User/Src/hollysys.c **** }
- 1137              		.loc 1 181 1
- 1138 0076 1846     		mov	r0, r3
- 1139 0078 0C37     		adds	r7, r7, #12
- 1140              	.LCFI71:
- 1141              		.cfi_def_cfa_offset 12
- 1142 007a BD46     		mov	sp, r7
- 1143              	.LCFI72:
- 1144              		.cfi_def_cfa_register 13
- 1145              		@ sp needed
- 1146 007c 90BD     		pop	{r4, r7, pc}
- 1147              	.L42:
- 1148 007e 00BF     		.align	2
- 1149              	.L41:
- 1150 0080 00000000 		.word	CAN1Sedbuf
- 1151              		.cfi_endproc
- 1152              	.LFE157:
- 1154              		.section	.text.Hollysys_SDO_Read_OD,"ax",%progbits
- 1155              		.align	1
- 1156              		.global	Hollysys_SDO_Read_OD
- 1157              		.syntax unified
- 1158              		.thumb
- 1159              		.thumb_func
- 1161              	Hollysys_SDO_Read_OD:
- 1162              	.LFB158:
- 182:User/Src/hollysys.c **** 
- 183:User/Src/hollysys.c **** u8 Hollysys_SDO_Read_OD(u8 CANopen_ID,u8 CMD, u16 Index, u8 SubIndex){
- 1163              		.loc 1 183 70
- 1164              		.cfi_startproc
- 1165              		@ args = 0, pretend = 0, frame = 8
- 1166              		@ frame_needed = 1, uses_anonymous_args = 0
- 1167 0000 90B5     		push	{r4, r7, lr}
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 24
+ 1157 0026 00BF     		.align	2
+ 1158              	.L40:
+ 1159 0028 00000000 		.word	CAN1Sedbuf
+ 1160              		.cfi_endproc
+ 1161              	.LFE156:
+ 1163              		.section	.text.Hollysys_CAN_lifeguard,"ax",%progbits
+ 1164              		.align	1
+ 1165              		.global	Hollysys_CAN_lifeguard
+ 1166              		.syntax unified
+ 1167              		.thumb
+ 1168              		.thumb_func
+ 1170              	Hollysys_CAN_lifeguard:
+ 1171              	.LFB157:
+ 181:User/Src/hollysys.c **** 
+ 182:User/Src/hollysys.c **** u8 Hollysys_CAN_lifeguard(u8 CANopen_ID){
+ 1172              		.loc 1 182 41
+ 1173              		.cfi_startproc
+ 1174              		@ args = 0, pretend = 0, frame = 8
+ 1175              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1176 0000 80B5     		push	{r7, lr}
+ 1177              	.LCFI69:
+ 1178              		.cfi_def_cfa_offset 8
+ 1179              		.cfi_offset 7, -8
+ 1180              		.cfi_offset 14, -4
+ 1181 0002 82B0     		sub	sp, sp, #8
+ 1182              	.LCFI70:
+ 1183              		.cfi_def_cfa_offset 16
+ 1184 0004 00AF     		add	r7, sp, #0
+ 1185              	.LCFI71:
+ 1186              		.cfi_def_cfa_register 7
+ 1187 0006 0346     		mov	r3, r0
+ 1188 0008 FB71     		strb	r3, [r7, #7]
+ 183:User/Src/hollysys.c **** 	memset(CAN1Sedbuf, 0, sizeof(CAN1Sedbuf));
+ 1189              		.loc 1 183 2
+ 1190 000a 0822     		movs	r2, #8
+ 1191 000c 0021     		movs	r1, #0
+ 1192 000e 0848     		ldr	r0, .L43
+ 1193 0010 FFF7FEFF 		bl	memset
+ 184:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x700 + CANopen_ID);
+ 1194              		.loc 1 184 2
+ 1195 0014 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1196 0016 9BB2     		uxth	r3, r3
+ 1197 0018 03F5E063 		add	r3, r3, #1792
+ 1198 001c 9BB2     		uxth	r3, r3
+ 1199 001e 1846     		mov	r0, r3
+ 1200 0020 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 185:User/Src/hollysys.c **** }
+ 1201              		.loc 1 185 1
+ 1202 0024 00BF     		nop
+ 1203 0026 1846     		mov	r0, r3
+ 1204 0028 0837     		adds	r7, r7, #8
+ 1205              	.LCFI72:
+ 1206              		.cfi_def_cfa_offset 8
+ 1207 002a BD46     		mov	sp, r7
+ 1208              	.LCFI73:
+ 1209              		.cfi_def_cfa_register 13
+ 1210              		@ sp needed
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 25
 
 
- 1168              	.LCFI73:
- 1169              		.cfi_def_cfa_offset 12
- 1170              		.cfi_offset 4, -12
- 1171              		.cfi_offset 7, -8
- 1172              		.cfi_offset 14, -4
- 1173 0002 83B0     		sub	sp, sp, #12
- 1174              	.LCFI74:
- 1175              		.cfi_def_cfa_offset 24
- 1176 0004 00AF     		add	r7, sp, #0
- 1177              	.LCFI75:
- 1178              		.cfi_def_cfa_register 7
- 1179 0006 0446     		mov	r4, r0
- 1180 0008 0846     		mov	r0, r1
- 1181 000a 1146     		mov	r1, r2
- 1182 000c 1A46     		mov	r2, r3
- 1183 000e 2346     		mov	r3, r4
- 1184 0010 FB71     		strb	r3, [r7, #7]
- 1185 0012 0346     		mov	r3, r0
- 1186 0014 BB71     		strb	r3, [r7, #6]
- 1187 0016 0B46     		mov	r3, r1	@ movhi
- 1188 0018 BB80     		strh	r3, [r7, #4]	@ movhi
- 1189 001a 1346     		mov	r3, r2
- 1190 001c FB70     		strb	r3, [r7, #3]
- 184:User/Src/hollysys.c ****   CAN1Sedbuf[0] = CMD;
- 1191              		.loc 1 184 17
- 1192 001e 114A     		ldr	r2, .L45
- 1193 0020 BB79     		ldrb	r3, [r7, #6]
- 1194 0022 1370     		strb	r3, [r2]
- 185:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = Index & 0xff;
- 1195              		.loc 1 185 16
- 1196 0024 BB88     		ldrh	r3, [r7, #4]	@ movhi
- 1197 0026 DAB2     		uxtb	r2, r3
- 1198 0028 0E4B     		ldr	r3, .L45
- 1199 002a 5A70     		strb	r2, [r3, #1]
- 186:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = (Index >> 8) & 0xff;
- 1200              		.loc 1 186 16
- 1201 002c BB88     		ldrh	r3, [r7, #4]
- 1202 002e 1B0A     		lsrs	r3, r3, #8
- 1203 0030 9BB2     		uxth	r3, r3
- 1204 0032 DAB2     		uxtb	r2, r3
- 1205 0034 0B4B     		ldr	r3, .L45
- 1206 0036 9A70     		strb	r2, [r3, #2]
- 187:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = SubIndex;
- 1207              		.loc 1 187 16
- 1208 0038 0A4A     		ldr	r2, .L45
- 1209 003a FB78     		ldrb	r3, [r7, #3]
- 1210 003c D370     		strb	r3, [r2, #3]
- 188:User/Src/hollysys.c **** 	memset(&CAN1Sedbuf[4], 0, 4);
- 1211              		.loc 1 188 2
- 1212 003e 0422     		movs	r2, #4
- 1213 0040 0021     		movs	r1, #0
- 1214 0042 0948     		ldr	r0, .L45+4
- 1215 0044 FFF7FEFF 		bl	memset
- 189:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
- 1216              		.loc 1 189 2
- 1217 0048 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1218 004a 9BB2     		uxth	r3, r3
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 25
+ 1211 002c 80BD     		pop	{r7, pc}
+ 1212              	.L44:
+ 1213 002e 00BF     		.align	2
+ 1214              	.L43:
+ 1215 0030 00000000 		.word	CAN1Sedbuf
+ 1216              		.cfi_endproc
+ 1217              	.LFE157:
+ 1219              		.section	.text.Hollysys_SDO_Write_OD,"ax",%progbits
+ 1220              		.align	1
+ 1221              		.global	Hollysys_SDO_Write_OD
+ 1222              		.syntax unified
+ 1223              		.thumb
+ 1224              		.thumb_func
+ 1226              	Hollysys_SDO_Write_OD:
+ 1227              	.LFB158:
+ 186:User/Src/hollysys.c **** 
+ 187:User/Src/hollysys.c **** u8 Hollysys_SDO_Write_OD(u8 CANopen_ID,u8 CMD, u16 Index, u8 SubIndex, u32 DATA){
+ 1228              		.loc 1 187 81
+ 1229              		.cfi_startproc
+ 1230              		@ args = 4, pretend = 0, frame = 8
+ 1231              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1232 0000 90B5     		push	{r4, r7, lr}
+ 1233              	.LCFI74:
+ 1234              		.cfi_def_cfa_offset 12
+ 1235              		.cfi_offset 4, -12
+ 1236              		.cfi_offset 7, -8
+ 1237              		.cfi_offset 14, -4
+ 1238 0002 83B0     		sub	sp, sp, #12
+ 1239              	.LCFI75:
+ 1240              		.cfi_def_cfa_offset 24
+ 1241 0004 00AF     		add	r7, sp, #0
+ 1242              	.LCFI76:
+ 1243              		.cfi_def_cfa_register 7
+ 1244 0006 0446     		mov	r4, r0
+ 1245 0008 0846     		mov	r0, r1
+ 1246 000a 1146     		mov	r1, r2
+ 1247 000c 1A46     		mov	r2, r3
+ 1248 000e 2346     		mov	r3, r4
+ 1249 0010 FB71     		strb	r3, [r7, #7]
+ 1250 0012 0346     		mov	r3, r0
+ 1251 0014 BB71     		strb	r3, [r7, #6]
+ 1252 0016 0B46     		mov	r3, r1	@ movhi
+ 1253 0018 BB80     		strh	r3, [r7, #4]	@ movhi
+ 1254 001a 1346     		mov	r3, r2
+ 1255 001c FB70     		strb	r3, [r7, #3]
+ 188:User/Src/hollysys.c ****    CAN1Sedbuf[0]=CMD;
+ 1256              		.loc 1 188 17
+ 1257 001e 184A     		ldr	r2, .L47
+ 1258 0020 BB79     		ldrb	r3, [r7, #6]
+ 1259 0022 1370     		strb	r3, [r2]
+ 189:User/Src/hollysys.c **** 	 CAN1Sedbuf[1]=(u8)(Index    & 0xFF);
+ 1260              		.loc 1 189 17
+ 1261 0024 BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 1262 0026 DAB2     		uxtb	r2, r3
+ 1263              		.loc 1 189 16
+ 1264 0028 154B     		ldr	r3, .L47
+ 1265 002a 5A70     		strb	r2, [r3, #1]
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 26
 
 
- 1219 004c 03F5C063 		add	r3, r3, #1536
- 1220 0050 9BB2     		uxth	r3, r3
- 1221 0052 1846     		mov	r0, r3
- 1222 0054 FFF7FEFF 		bl	Hollysys_CAN_Send
- 190:User/Src/hollysys.c ****   return(1);
- 1223              		.loc 1 190 9
- 1224 0058 0123     		movs	r3, #1
- 191:User/Src/hollysys.c **** }
- 1225              		.loc 1 191 1
- 1226 005a 1846     		mov	r0, r3
- 1227 005c 0C37     		adds	r7, r7, #12
- 1228              	.LCFI76:
- 1229              		.cfi_def_cfa_offset 12
- 1230 005e BD46     		mov	sp, r7
- 1231              	.LCFI77:
- 1232              		.cfi_def_cfa_register 13
- 1233              		@ sp needed
- 1234 0060 90BD     		pop	{r4, r7, pc}
- 1235              	.L46:
- 1236 0062 00BF     		.align	2
- 1237              	.L45:
- 1238 0064 00000000 		.word	CAN1Sedbuf
- 1239 0068 04000000 		.word	CAN1Sedbuf+4
- 1240              		.cfi_endproc
- 1241              	.LFE158:
- 1243              		.section	.text.Hollysys_CANopen_PV_Init,"ax",%progbits
- 1244              		.align	1
- 1245              		.global	Hollysys_CANopen_PV_Init
- 1246              		.syntax unified
- 1247              		.thumb
- 1248              		.thumb_func
- 1250              	Hollysys_CANopen_PV_Init:
- 1251              	.LFB159:
- 192:User/Src/hollysys.c **** 
- 193:User/Src/hollysys.c **** //PV canopen设置
- 194:User/Src/hollysys.c **** void Hollysys_CANopen_PV_Init(u8 can_id){
- 1252              		.loc 1 194 41
- 1253              		.cfi_startproc
- 1254              		@ args = 0, pretend = 0, frame = 8
- 1255              		@ frame_needed = 1, uses_anonymous_args = 0
- 1256 0000 80B5     		push	{r7, lr}
- 1257              	.LCFI78:
- 1258              		.cfi_def_cfa_offset 8
- 1259              		.cfi_offset 7, -8
- 1260              		.cfi_offset 14, -4
- 1261 0002 84B0     		sub	sp, sp, #16
- 1262              	.LCFI79:
- 1263              		.cfi_def_cfa_offset 24
- 1264 0004 02AF     		add	r7, sp, #8
- 1265              	.LCFI80:
- 1266              		.cfi_def_cfa 7, 16
- 1267 0006 0346     		mov	r3, r0
- 1268 0008 FB71     		strb	r3, [r7, #7]
- 195:User/Src/hollysys.c **** 	
- 196:User/Src/hollysys.c ****   Hollysys_CANopen_Activate(can_id);
- 1269              		.loc 1 196 3
- 1270 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 26
+ 190:User/Src/hollysys.c ****    CAN1Sedbuf[2]=(u8)(Index>>8 & 0xFF);
+ 1266              		.loc 1 190 18
+ 1267 002c BB88     		ldrh	r3, [r7, #4]
+ 1268 002e 1B0A     		lsrs	r3, r3, #8
+ 1269 0030 9BB2     		uxth	r3, r3
+ 1270 0032 DAB2     		uxtb	r2, r3
+ 1271              		.loc 1 190 17
+ 1272 0034 124B     		ldr	r3, .L47
+ 1273 0036 9A70     		strb	r2, [r3, #2]
+ 191:User/Src/hollysys.c **** 	 CAN1Sedbuf[3]=SubIndex;
+ 1274              		.loc 1 191 16
+ 1275 0038 114A     		ldr	r2, .L47
+ 1276 003a FB78     		ldrb	r3, [r7, #3]
+ 1277 003c D370     		strb	r3, [r2, #3]
+ 192:User/Src/hollysys.c **** 	 CAN1Sedbuf[4]=(u8)(DATA     & 0xFF);
+ 1278              		.loc 1 192 17
+ 1279 003e BB69     		ldr	r3, [r7, #24]
+ 1280 0040 DAB2     		uxtb	r2, r3
+ 1281              		.loc 1 192 16
+ 1282 0042 0F4B     		ldr	r3, .L47
+ 1283 0044 1A71     		strb	r2, [r3, #4]
+ 193:User/Src/hollysys.c **** 	 CAN1Sedbuf[5]=(u8)(DATA>>8  & 0xFF);
+ 1284              		.loc 1 193 26
+ 1285 0046 BB69     		ldr	r3, [r7, #24]
+ 1286 0048 1B0A     		lsrs	r3, r3, #8
+ 1287              		.loc 1 193 17
+ 1288 004a DAB2     		uxtb	r2, r3
+ 1289              		.loc 1 193 16
+ 1290 004c 0C4B     		ldr	r3, .L47
+ 1291 004e 5A71     		strb	r2, [r3, #5]
+ 194:User/Src/hollysys.c **** 	 CAN1Sedbuf[6]=(u8)(DATA>>16 & 0xFF);
+ 1292              		.loc 1 194 26
+ 1293 0050 BB69     		ldr	r3, [r7, #24]
+ 1294 0052 1B0C     		lsrs	r3, r3, #16
+ 1295              		.loc 1 194 17
+ 1296 0054 DAB2     		uxtb	r2, r3
+ 1297              		.loc 1 194 16
+ 1298 0056 0A4B     		ldr	r3, .L47
+ 1299 0058 9A71     		strb	r2, [r3, #6]
+ 195:User/Src/hollysys.c **** 	 CAN1Sedbuf[7]=(u8)(DATA>>24 & 0xFF);	
+ 1300              		.loc 1 195 26
+ 1301 005a BB69     		ldr	r3, [r7, #24]
+ 1302 005c 1B0E     		lsrs	r3, r3, #24
+ 1303              		.loc 1 195 17
+ 1304 005e DAB2     		uxtb	r2, r3
+ 1305              		.loc 1 195 16
+ 1306 0060 074B     		ldr	r3, .L47
+ 1307 0062 DA71     		strb	r2, [r3, #7]
+ 196:User/Src/hollysys.c **** 	 Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 1308              		.loc 1 196 3
+ 1309 0064 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1310 0066 9BB2     		uxth	r3, r3
+ 1311 0068 03F5C063 		add	r3, r3, #1536
+ 1312 006c 9BB2     		uxth	r3, r3
+ 1313 006e 1846     		mov	r0, r3
+ 1314 0070 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 197:User/Src/hollysys.c ****    return(1);
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 27
 
 
- 1271 000c 1846     		mov	r0, r3
- 1272 000e FFF7FEFF 		bl	Hollysys_CANopen_Activate
- 197:User/Src/hollysys.c **** 	 
- 198:User/Src/hollysys.c **** 	Hollysys_Contol_Mode_SET(can_id,  PV_Mode );
- 1273              		.loc 1 198 2
- 1274 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1275 0014 0321     		movs	r1, #3
- 1276 0016 1846     		mov	r0, r3
- 1277 0018 FFF7FEFF 		bl	Hollysys_Contol_Mode_SET
- 199:User/Src/hollysys.c **** 	 
- 200:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x6083,0x00,hollysys_acc[can_id - 1]);
- 1278              		.loc 1 200 72
- 1279 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1280 001e 013B     		subs	r3, r3, #1
- 1281              		.loc 1 200 2
- 1282 0020 144A     		ldr	r2, .L48
- 1283 0022 52F82330 		ldr	r3, [r2, r3, lsl #2]
- 1284 0026 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
- 1285 0028 0093     		str	r3, [sp]
- 1286 002a 0023     		movs	r3, #0
- 1287 002c 46F28302 		movw	r2, #24707
- 1288 0030 2321     		movs	r1, #35
- 1289 0032 FFF7FEFF 		bl	Hollysys_SDO_Write_OD
- 201:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x6084,0x00,hollysys_dec[can_id - 1]);
- 1290              		.loc 1 201 72
- 1291 0036 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1292 0038 013B     		subs	r3, r3, #1
- 1293              		.loc 1 201 2
- 1294 003a 0F4A     		ldr	r2, .L48+4
- 1295 003c 52F82330 		ldr	r3, [r2, r3, lsl #2]
- 1296 0040 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
- 1297 0042 0093     		str	r3, [sp]
- 1298 0044 0023     		movs	r3, #0
- 1299 0046 46F28402 		movw	r2, #24708
- 1300 004a 2321     		movs	r1, #35
- 1301 004c FFF7FEFF 		bl	Hollysys_SDO_Write_OD
- 202:User/Src/hollysys.c **** 
- 203:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x60FF,0x00,hollysys_spd_cmd[can_id - 1]);
- 1302              		.loc 1 203 76
- 1303 0050 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1304 0052 013B     		subs	r3, r3, #1
- 1305              		.loc 1 203 68
- 1306 0054 094A     		ldr	r2, .L48+8
- 1307 0056 52F82330 		ldr	r3, [r2, r3, lsl #2]
- 1308              		.loc 1 203 2
- 1309 005a F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
- 1310 005c 0093     		str	r3, [sp]
- 1311 005e 0023     		movs	r3, #0
- 1312 0060 46F2FF02 		movw	r2, #24831
- 1313 0064 2321     		movs	r1, #35
- 1314 0066 FFF7FEFF 		bl	Hollysys_SDO_Write_OD
- 204:User/Src/hollysys.c **** }
- 1315              		.loc 1 204 1
- 1316 006a 00BF     		nop
- 1317 006c 0837     		adds	r7, r7, #8
- 1318              	.LCFI81:
- 1319              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 27
-
-
- 1320 006e BD46     		mov	sp, r7
- 1321              	.LCFI82:
- 1322              		.cfi_def_cfa_register 13
- 1323              		@ sp needed
- 1324 0070 80BD     		pop	{r7, pc}
- 1325              	.L49:
- 1326 0072 00BF     		.align	2
+ 1315              		.loc 1 197 10
+ 1316 0074 0123     		movs	r3, #1
+ 198:User/Src/hollysys.c **** }
+ 1317              		.loc 1 198 1
+ 1318 0076 1846     		mov	r0, r3
+ 1319 0078 0C37     		adds	r7, r7, #12
+ 1320              	.LCFI77:
+ 1321              		.cfi_def_cfa_offset 12
+ 1322 007a BD46     		mov	sp, r7
+ 1323              	.LCFI78:
+ 1324              		.cfi_def_cfa_register 13
+ 1325              		@ sp needed
+ 1326 007c 90BD     		pop	{r4, r7, pc}
  1327              	.L48:
- 1328 0074 00000000 		.word	hollysys_acc
- 1329 0078 00000000 		.word	hollysys_dec
- 1330 007c 00000000 		.word	hollysys_spd_cmd
+ 1328 007e 00BF     		.align	2
+ 1329              	.L47:
+ 1330 0080 00000000 		.word	CAN1Sedbuf
  1331              		.cfi_endproc
- 1332              	.LFE159:
- 1334              		.section	.text.Hollysys_CANopen_PV_setacc,"ax",%progbits
+ 1332              	.LFE158:
+ 1334              		.section	.text.Hollysys_SDO_Read_OD,"ax",%progbits
  1335              		.align	1
- 1336              		.global	Hollysys_CANopen_PV_setacc
+ 1336              		.global	Hollysys_SDO_Read_OD
  1337              		.syntax unified
  1338              		.thumb
  1339              		.thumb_func
- 1341              	Hollysys_CANopen_PV_setacc:
- 1342              	.LFB160:
- 205:User/Src/hollysys.c **** 
- 206:User/Src/hollysys.c **** void Hollysys_CANopen_PV_setacc(u8 can_id, u32 acc){
- 1343              		.loc 1 206 52
+ 1341              	Hollysys_SDO_Read_OD:
+ 1342              	.LFB159:
+ 199:User/Src/hollysys.c **** 
+ 200:User/Src/hollysys.c **** u8 Hollysys_SDO_Read_OD(u8 CANopen_ID,u8 CMD, u16 Index, u8 SubIndex){
+ 1343              		.loc 1 200 70
  1344              		.cfi_startproc
  1345              		@ args = 0, pretend = 0, frame = 8
  1346              		@ frame_needed = 1, uses_anonymous_args = 0
- 1347 0000 80B5     		push	{r7, lr}
- 1348              	.LCFI83:
- 1349              		.cfi_def_cfa_offset 8
- 1350              		.cfi_offset 7, -8
- 1351              		.cfi_offset 14, -4
- 1352 0002 84B0     		sub	sp, sp, #16
- 1353              	.LCFI84:
- 1354              		.cfi_def_cfa_offset 24
- 1355 0004 02AF     		add	r7, sp, #8
- 1356              	.LCFI85:
- 1357              		.cfi_def_cfa 7, 16
- 1358 0006 0346     		mov	r3, r0
- 1359 0008 3960     		str	r1, [r7]
- 1360 000a FB71     		strb	r3, [r7, #7]
- 207:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x6083,0x00,acc);
- 1361              		.loc 1 207 2
- 1362 000c F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
- 1363 000e 3B68     		ldr	r3, [r7]
- 1364 0010 0093     		str	r3, [sp]
- 1365 0012 0023     		movs	r3, #0
- 1366 0014 46F28302 		movw	r2, #24707
- 1367 0018 2321     		movs	r1, #35
- 1368 001a FFF7FEFF 		bl	Hollysys_SDO_Write_OD
+ 1347 0000 90B5     		push	{r4, r7, lr}
+ 1348              	.LCFI79:
+ 1349              		.cfi_def_cfa_offset 12
+ 1350              		.cfi_offset 4, -12
+ 1351              		.cfi_offset 7, -8
+ 1352              		.cfi_offset 14, -4
+ 1353 0002 83B0     		sub	sp, sp, #12
+ 1354              	.LCFI80:
+ 1355              		.cfi_def_cfa_offset 24
+ 1356 0004 00AF     		add	r7, sp, #0
+ 1357              	.LCFI81:
+ 1358              		.cfi_def_cfa_register 7
+ 1359 0006 0446     		mov	r4, r0
+ 1360 0008 0846     		mov	r0, r1
+ 1361 000a 1146     		mov	r1, r2
+ 1362 000c 1A46     		mov	r2, r3
+ 1363 000e 2346     		mov	r3, r4
+ 1364 0010 FB71     		strb	r3, [r7, #7]
+ 1365 0012 0346     		mov	r3, r0
+ 1366 0014 BB71     		strb	r3, [r7, #6]
+ 1367 0016 0B46     		mov	r3, r1	@ movhi
+ 1368 0018 BB80     		strh	r3, [r7, #4]	@ movhi
+ 1369 001a 1346     		mov	r3, r2
+ 1370 001c FB70     		strb	r3, [r7, #3]
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 28
+
+
+ 201:User/Src/hollysys.c ****   CAN1Sedbuf[0] = CMD;
+ 1371              		.loc 1 201 17
+ 1372 001e 114A     		ldr	r2, .L51
+ 1373 0020 BB79     		ldrb	r3, [r7, #6]
+ 1374 0022 1370     		strb	r3, [r2]
+ 202:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = Index & 0xff;
+ 1375              		.loc 1 202 16
+ 1376 0024 BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 1377 0026 DAB2     		uxtb	r2, r3
+ 1378 0028 0E4B     		ldr	r3, .L51
+ 1379 002a 5A70     		strb	r2, [r3, #1]
+ 203:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = (Index >> 8) & 0xff;
+ 1380              		.loc 1 203 16
+ 1381 002c BB88     		ldrh	r3, [r7, #4]
+ 1382 002e 1B0A     		lsrs	r3, r3, #8
+ 1383 0030 9BB2     		uxth	r3, r3
+ 1384 0032 DAB2     		uxtb	r2, r3
+ 1385 0034 0B4B     		ldr	r3, .L51
+ 1386 0036 9A70     		strb	r2, [r3, #2]
+ 204:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = SubIndex;
+ 1387              		.loc 1 204 16
+ 1388 0038 0A4A     		ldr	r2, .L51
+ 1389 003a FB78     		ldrb	r3, [r7, #3]
+ 1390 003c D370     		strb	r3, [r2, #3]
+ 205:User/Src/hollysys.c **** 	memset(&CAN1Sedbuf[4], 0, 4);
+ 1391              		.loc 1 205 2
+ 1392 003e 0422     		movs	r2, #4
+ 1393 0040 0021     		movs	r1, #0
+ 1394 0042 0948     		ldr	r0, .L51+4
+ 1395 0044 FFF7FEFF 		bl	memset
+ 206:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + CANopen_ID);
+ 1396              		.loc 1 206 2
+ 1397 0048 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1398 004a 9BB2     		uxth	r3, r3
+ 1399 004c 03F5C063 		add	r3, r3, #1536
+ 1400 0050 9BB2     		uxth	r3, r3
+ 1401 0052 1846     		mov	r0, r3
+ 1402 0054 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 207:User/Src/hollysys.c ****   return(1);
+ 1403              		.loc 1 207 9
+ 1404 0058 0123     		movs	r3, #1
  208:User/Src/hollysys.c **** }
- 1369              		.loc 1 208 1
- 1370 001e 00BF     		nop
- 1371 0020 0837     		adds	r7, r7, #8
- 1372              	.LCFI86:
- 1373              		.cfi_def_cfa_offset 8
- 1374 0022 BD46     		mov	sp, r7
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 28
+ 1405              		.loc 1 208 1
+ 1406 005a 1846     		mov	r0, r3
+ 1407 005c 0C37     		adds	r7, r7, #12
+ 1408              	.LCFI82:
+ 1409              		.cfi_def_cfa_offset 12
+ 1410 005e BD46     		mov	sp, r7
+ 1411              	.LCFI83:
+ 1412              		.cfi_def_cfa_register 13
+ 1413              		@ sp needed
+ 1414 0060 90BD     		pop	{r4, r7, pc}
+ 1415              	.L52:
+ 1416 0062 00BF     		.align	2
+ 1417              	.L51:
+ 1418 0064 00000000 		.word	CAN1Sedbuf
+ 1419 0068 04000000 		.word	CAN1Sedbuf+4
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 29
 
 
- 1375              	.LCFI87:
- 1376              		.cfi_def_cfa_register 13
- 1377              		@ sp needed
- 1378 0024 80BD     		pop	{r7, pc}
- 1379              		.cfi_endproc
- 1380              	.LFE160:
- 1382              		.section	.text.Hollysys_CANopen_PV_setdec,"ax",%progbits
- 1383              		.align	1
- 1384              		.global	Hollysys_CANopen_PV_setdec
- 1385              		.syntax unified
- 1386              		.thumb
- 1387              		.thumb_func
- 1389              	Hollysys_CANopen_PV_setdec:
- 1390              	.LFB161:
+ 1420              		.cfi_endproc
+ 1421              	.LFE159:
+ 1423              		.section	.text.Hollysys_CANopen_PV_Init,"ax",%progbits
+ 1424              		.align	1
+ 1425              		.global	Hollysys_CANopen_PV_Init
+ 1426              		.syntax unified
+ 1427              		.thumb
+ 1428              		.thumb_func
+ 1430              	Hollysys_CANopen_PV_Init:
+ 1431              	.LFB160:
  209:User/Src/hollysys.c **** 
- 210:User/Src/hollysys.c **** void Hollysys_CANopen_PV_setdec(u8 can_id, u32 dec){
- 1391              		.loc 1 210 52
- 1392              		.cfi_startproc
- 1393              		@ args = 0, pretend = 0, frame = 8
- 1394              		@ frame_needed = 1, uses_anonymous_args = 0
- 1395 0000 80B5     		push	{r7, lr}
- 1396              	.LCFI88:
- 1397              		.cfi_def_cfa_offset 8
- 1398              		.cfi_offset 7, -8
- 1399              		.cfi_offset 14, -4
- 1400 0002 84B0     		sub	sp, sp, #16
- 1401              	.LCFI89:
- 1402              		.cfi_def_cfa_offset 24
- 1403 0004 02AF     		add	r7, sp, #8
- 1404              	.LCFI90:
- 1405              		.cfi_def_cfa 7, 16
- 1406 0006 0346     		mov	r3, r0
- 1407 0008 3960     		str	r1, [r7]
- 1408 000a FB71     		strb	r3, [r7, #7]
- 211:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x6084,0x00,dec);
- 1409              		.loc 1 211 2
- 1410 000c F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
- 1411 000e 3B68     		ldr	r3, [r7]
- 1412 0010 0093     		str	r3, [sp]
- 1413 0012 0023     		movs	r3, #0
- 1414 0014 46F28402 		movw	r2, #24708
- 1415 0018 2321     		movs	r1, #35
- 1416 001a FFF7FEFF 		bl	Hollysys_SDO_Write_OD
- 212:User/Src/hollysys.c **** }
- 1417              		.loc 1 212 1
- 1418 001e 00BF     		nop
- 1419 0020 0837     		adds	r7, r7, #8
- 1420              	.LCFI91:
- 1421              		.cfi_def_cfa_offset 8
- 1422 0022 BD46     		mov	sp, r7
- 1423              	.LCFI92:
- 1424              		.cfi_def_cfa_register 13
- 1425              		@ sp needed
- 1426 0024 80BD     		pop	{r7, pc}
- 1427              		.cfi_endproc
- 1428              	.LFE161:
- 1430              		.section	.text.Hollysys_CANopen_PV_setspd,"ax",%progbits
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 29
+ 210:User/Src/hollysys.c **** //PV canopen设置
+ 211:User/Src/hollysys.c **** void Hollysys_CANopen_PV_Init(u8 can_id){
+ 1432              		.loc 1 211 41
+ 1433              		.cfi_startproc
+ 1434              		@ args = 0, pretend = 0, frame = 8
+ 1435              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1436 0000 80B5     		push	{r7, lr}
+ 1437              	.LCFI84:
+ 1438              		.cfi_def_cfa_offset 8
+ 1439              		.cfi_offset 7, -8
+ 1440              		.cfi_offset 14, -4
+ 1441 0002 84B0     		sub	sp, sp, #16
+ 1442              	.LCFI85:
+ 1443              		.cfi_def_cfa_offset 24
+ 1444 0004 02AF     		add	r7, sp, #8
+ 1445              	.LCFI86:
+ 1446              		.cfi_def_cfa 7, 16
+ 1447 0006 0346     		mov	r3, r0
+ 1448 0008 FB71     		strb	r3, [r7, #7]
+ 212:User/Src/hollysys.c **** 	
+ 213:User/Src/hollysys.c ****   Hollysys_CANopen_Activate(can_id);
+ 1449              		.loc 1 213 3
+ 1450 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1451 000c 1846     		mov	r0, r3
+ 1452 000e FFF7FEFF 		bl	Hollysys_CANopen_Activate
+ 214:User/Src/hollysys.c **** 	 
+ 215:User/Src/hollysys.c **** 	Hollysys_Contol_Mode_SET(can_id,  PV_Mode );
+ 1453              		.loc 1 215 2
+ 1454 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1455 0014 0321     		movs	r1, #3
+ 1456 0016 1846     		mov	r0, r3
+ 1457 0018 FFF7FEFF 		bl	Hollysys_Contol_Mode_SET
+ 216:User/Src/hollysys.c **** 	 
+ 217:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x6083,0x00,hollysys_acc[can_id - 1]);
+ 1458              		.loc 1 217 72
+ 1459 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1460 001e 013B     		subs	r3, r3, #1
+ 1461              		.loc 1 217 2
+ 1462 0020 144A     		ldr	r2, .L54
+ 1463 0022 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 1464 0026 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 1465 0028 0093     		str	r3, [sp]
+ 1466 002a 0023     		movs	r3, #0
+ 1467 002c 46F28302 		movw	r2, #24707
+ 1468 0030 2321     		movs	r1, #35
+ 1469 0032 FFF7FEFF 		bl	Hollysys_SDO_Write_OD
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 30
 
 
- 1431              		.align	1
- 1432              		.global	Hollysys_CANopen_PV_setspd
- 1433              		.syntax unified
- 1434              		.thumb
- 1435              		.thumb_func
- 1437              	Hollysys_CANopen_PV_setspd:
- 1438              	.LFB162:
- 213:User/Src/hollysys.c **** void Hollysys_CANopen_PV_setspd(u8 can_id, s32 spd){
- 1439              		.loc 1 213 52
- 1440              		.cfi_startproc
- 1441              		@ args = 0, pretend = 0, frame = 8
- 1442              		@ frame_needed = 1, uses_anonymous_args = 0
- 1443 0000 80B5     		push	{r7, lr}
- 1444              	.LCFI93:
- 1445              		.cfi_def_cfa_offset 8
- 1446              		.cfi_offset 7, -8
- 1447              		.cfi_offset 14, -4
- 1448 0002 84B0     		sub	sp, sp, #16
- 1449              	.LCFI94:
- 1450              		.cfi_def_cfa_offset 24
- 1451 0004 02AF     		add	r7, sp, #8
- 1452              	.LCFI95:
- 1453              		.cfi_def_cfa 7, 16
- 1454 0006 0346     		mov	r3, r0
- 1455 0008 3960     		str	r1, [r7]
- 1456 000a FB71     		strb	r3, [r7, #7]
- 214:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x60FF,0x00,spd);
- 1457              		.loc 1 214 2
- 1458 000c 3B68     		ldr	r3, [r7]
- 1459 000e F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
- 1460 0010 0093     		str	r3, [sp]
- 1461 0012 0023     		movs	r3, #0
- 1462 0014 46F2FF02 		movw	r2, #24831
- 1463 0018 2321     		movs	r1, #35
- 1464 001a FFF7FEFF 		bl	Hollysys_SDO_Write_OD
- 215:User/Src/hollysys.c **** }
- 1465              		.loc 1 215 1
- 1466 001e 00BF     		nop
- 1467 0020 0837     		adds	r7, r7, #8
- 1468              	.LCFI96:
- 1469              		.cfi_def_cfa_offset 8
- 1470 0022 BD46     		mov	sp, r7
- 1471              	.LCFI97:
- 1472              		.cfi_def_cfa_register 13
- 1473              		@ sp needed
- 1474 0024 80BD     		pop	{r7, pc}
- 1475              		.cfi_endproc
- 1476              	.LFE162:
- 1478              		.section	.text.Hollysys_Setspdcmd,"ax",%progbits
- 1479              		.align	1
- 1480              		.global	Hollysys_Setspdcmd
- 1481              		.syntax unified
- 1482              		.thumb
- 1483              		.thumb_func
- 1485              	Hollysys_Setspdcmd:
- 1486              	.LFB163:
- 216:User/Src/hollysys.c **** 
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 30
+ 218:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x6084,0x00,hollysys_dec[can_id - 1]);
+ 1470              		.loc 1 218 72
+ 1471 0036 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1472 0038 013B     		subs	r3, r3, #1
+ 1473              		.loc 1 218 2
+ 1474 003a 0F4A     		ldr	r2, .L54+4
+ 1475 003c 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 1476 0040 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 1477 0042 0093     		str	r3, [sp]
+ 1478 0044 0023     		movs	r3, #0
+ 1479 0046 46F28402 		movw	r2, #24708
+ 1480 004a 2321     		movs	r1, #35
+ 1481 004c FFF7FEFF 		bl	Hollysys_SDO_Write_OD
+ 219:User/Src/hollysys.c **** 
+ 220:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x60FF,0x00,hollysys_spd_cmd[can_id - 1]);
+ 1482              		.loc 1 220 76
+ 1483 0050 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1484 0052 013B     		subs	r3, r3, #1
+ 1485              		.loc 1 220 68
+ 1486 0054 094A     		ldr	r2, .L54+8
+ 1487 0056 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 1488              		.loc 1 220 2
+ 1489 005a F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 1490 005c 0093     		str	r3, [sp]
+ 1491 005e 0023     		movs	r3, #0
+ 1492 0060 46F2FF02 		movw	r2, #24831
+ 1493 0064 2321     		movs	r1, #35
+ 1494 0066 FFF7FEFF 		bl	Hollysys_SDO_Write_OD
+ 221:User/Src/hollysys.c **** }
+ 1495              		.loc 1 221 1
+ 1496 006a 00BF     		nop
+ 1497 006c 0837     		adds	r7, r7, #8
+ 1498              	.LCFI87:
+ 1499              		.cfi_def_cfa_offset 8
+ 1500 006e BD46     		mov	sp, r7
+ 1501              	.LCFI88:
+ 1502              		.cfi_def_cfa_register 13
+ 1503              		@ sp needed
+ 1504 0070 80BD     		pop	{r7, pc}
+ 1505              	.L55:
+ 1506 0072 00BF     		.align	2
+ 1507              	.L54:
+ 1508 0074 00000000 		.word	hollysys_acc
+ 1509 0078 00000000 		.word	hollysys_dec
+ 1510 007c 00000000 		.word	hollysys_spd_cmd
+ 1511              		.cfi_endproc
+ 1512              	.LFE160:
+ 1514              		.section	.text.Hollysys_CANopen_PV_setacc,"ax",%progbits
+ 1515              		.align	1
+ 1516              		.global	Hollysys_CANopen_PV_setacc
+ 1517              		.syntax unified
+ 1518              		.thumb
+ 1519              		.thumb_func
+ 1521              	Hollysys_CANopen_PV_setacc:
+ 1522              	.LFB161:
+ 222:User/Src/hollysys.c **** 
+ 223:User/Src/hollysys.c **** void Hollysys_CANopen_PV_setacc(u8 can_id, u32 acc){
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 31
 
 
- 217:User/Src/hollysys.c **** void Hollysys_Setspdcmd(u8 can_id, s32 spd){
- 1487              		.loc 1 217 44
- 1488              		.cfi_startproc
- 1489              		@ args = 0, pretend = 0, frame = 8
- 1490              		@ frame_needed = 1, uses_anonymous_args = 0
- 1491              		@ link register save eliminated.
- 1492 0000 80B4     		push	{r7}
- 1493              	.LCFI98:
- 1494              		.cfi_def_cfa_offset 4
- 1495              		.cfi_offset 7, -4
- 1496 0002 83B0     		sub	sp, sp, #12
- 1497              	.LCFI99:
- 1498              		.cfi_def_cfa_offset 16
- 1499 0004 00AF     		add	r7, sp, #0
- 1500              	.LCFI100:
- 1501              		.cfi_def_cfa_register 7
- 1502 0006 0346     		mov	r3, r0
- 1503 0008 3960     		str	r1, [r7]
- 1504 000a FB71     		strb	r3, [r7, #7]
- 218:User/Src/hollysys.c **** 	hollysys_spd_cmd[can_id - 1] = spd;
- 1505              		.loc 1 218 26
- 1506 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1507 000e 013B     		subs	r3, r3, #1
- 1508              		.loc 1 218 31
- 1509 0010 0449     		ldr	r1, .L54
- 1510 0012 3A68     		ldr	r2, [r7]
- 1511 0014 41F82320 		str	r2, [r1, r3, lsl #2]
- 219:User/Src/hollysys.c **** }
- 1512              		.loc 1 219 1
- 1513 0018 00BF     		nop
- 1514 001a 0C37     		adds	r7, r7, #12
- 1515              	.LCFI101:
- 1516              		.cfi_def_cfa_offset 4
- 1517 001c BD46     		mov	sp, r7
- 1518              	.LCFI102:
- 1519              		.cfi_def_cfa_register 13
- 1520              		@ sp needed
- 1521 001e 5DF8047B 		ldr	r7, [sp], #4
- 1522              	.LCFI103:
- 1523              		.cfi_restore 7
- 1524              		.cfi_def_cfa_offset 0
- 1525 0022 7047     		bx	lr
- 1526              	.L55:
- 1527              		.align	2
- 1528              	.L54:
- 1529 0024 00000000 		.word	hollysys_spd_cmd
- 1530              		.cfi_endproc
- 1531              	.LFE163:
- 1533              		.section	.text.Hollysys_Update,"ax",%progbits
- 1534              		.align	1
- 1535              		.global	Hollysys_Update
- 1536              		.syntax unified
- 1537              		.thumb
- 1538              		.thumb_func
- 1540              	Hollysys_Update:
- 1541              	.LFB164:
- 220:User/Src/hollysys.c **** 
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 31
-
-
- 221:User/Src/hollysys.c **** void Hollysys_Update(void){
- 1542              		.loc 1 221 27
- 1543              		.cfi_startproc
- 1544              		@ args = 0, pretend = 0, frame = 8
- 1545              		@ frame_needed = 1, uses_anonymous_args = 0
- 1546 0000 80B5     		push	{r7, lr}
- 1547              	.LCFI104:
- 1548              		.cfi_def_cfa_offset 8
- 1549              		.cfi_offset 7, -8
- 1550              		.cfi_offset 14, -4
- 1551 0002 82B0     		sub	sp, sp, #8
- 1552              	.LCFI105:
- 1553              		.cfi_def_cfa_offset 16
- 1554 0004 00AF     		add	r7, sp, #0
- 1555              	.LCFI106:
- 1556              		.cfi_def_cfa_register 7
- 1557              	.LBB2:
- 222:User/Src/hollysys.c **** 	for(u8 i = 0; i < sizeof(hollysys_motor_id); i++){
- 1558              		.loc 1 222 9
- 1559 0006 0023     		movs	r3, #0
- 1560 0008 FB71     		strb	r3, [r7, #7]
- 1561              		.loc 1 222 2
- 1562 000a 0DE0     		b	.L57
- 1563              	.L58:
- 223:User/Src/hollysys.c **** 		Hollysys_CANopen_PV_setspd(hollysys_motor_id[i], hollysys_spd_cmd[i]);
- 1564              		.loc 1 223 3 discriminator 3
- 1565 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1566 000e 0A4A     		ldr	r2, .L59
- 1567 0010 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
- 1568 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1569 0014 0949     		ldr	r1, .L59+4
- 1570 0016 51F82330 		ldr	r3, [r1, r3, lsl #2]
- 1571 001a 1946     		mov	r1, r3
- 1572 001c 1046     		mov	r0, r2
- 1573 001e FFF7FEFF 		bl	Hollysys_CANopen_PV_setspd
- 222:User/Src/hollysys.c **** 	for(u8 i = 0; i < sizeof(hollysys_motor_id); i++){
- 1574              		.loc 1 222 48 discriminator 3
- 1575 0022 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1576 0024 0133     		adds	r3, r3, #1
- 1577 0026 FB71     		strb	r3, [r7, #7]
- 1578              	.L57:
- 222:User/Src/hollysys.c **** 	for(u8 i = 0; i < sizeof(hollysys_motor_id); i++){
- 1579              		.loc 1 222 2 discriminator 1
- 1580 0028 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1581 002a 032B     		cmp	r3, #3
- 1582 002c EED9     		bls	.L58
- 1583              	.LBE2:
- 224:User/Src/hollysys.c **** 	}
+ 1523              		.loc 1 223 52
+ 1524              		.cfi_startproc
+ 1525              		@ args = 0, pretend = 0, frame = 8
+ 1526              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1527 0000 80B5     		push	{r7, lr}
+ 1528              	.LCFI89:
+ 1529              		.cfi_def_cfa_offset 8
+ 1530              		.cfi_offset 7, -8
+ 1531              		.cfi_offset 14, -4
+ 1532 0002 84B0     		sub	sp, sp, #16
+ 1533              	.LCFI90:
+ 1534              		.cfi_def_cfa_offset 24
+ 1535 0004 02AF     		add	r7, sp, #8
+ 1536              	.LCFI91:
+ 1537              		.cfi_def_cfa 7, 16
+ 1538 0006 0346     		mov	r3, r0
+ 1539 0008 3960     		str	r1, [r7]
+ 1540 000a FB71     		strb	r3, [r7, #7]
+ 224:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x6083,0x00,acc);
+ 1541              		.loc 1 224 2
+ 1542 000c F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 1543 000e 3B68     		ldr	r3, [r7]
+ 1544 0010 0093     		str	r3, [sp]
+ 1545 0012 0023     		movs	r3, #0
+ 1546 0014 46F28302 		movw	r2, #24707
+ 1547 0018 2321     		movs	r1, #35
+ 1548 001a FFF7FEFF 		bl	Hollysys_SDO_Write_OD
  225:User/Src/hollysys.c **** }
- 1584              		.loc 1 225 1
- 1585 002e 00BF     		nop
- 1586 0030 00BF     		nop
- 1587 0032 0837     		adds	r7, r7, #8
- 1588              	.LCFI107:
- 1589              		.cfi_def_cfa_offset 8
- 1590 0034 BD46     		mov	sp, r7
- 1591              	.LCFI108:
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 32
-
-
- 1592              		.cfi_def_cfa_register 13
- 1593              		@ sp needed
- 1594 0036 80BD     		pop	{r7, pc}
- 1595              	.L60:
- 1596              		.align	2
- 1597              	.L59:
- 1598 0038 00000000 		.word	hollysys_motor_id
- 1599 003c 00000000 		.word	hollysys_spd_cmd
- 1600              		.cfi_endproc
- 1601              	.LFE164:
- 1603              		.section	.text.Hollysys_GetData,"ax",%progbits
- 1604              		.align	1
- 1605              		.global	Hollysys_GetData
- 1606              		.syntax unified
- 1607              		.thumb
- 1608              		.thumb_func
- 1610              	Hollysys_GetData:
- 1611              	.LFB165:
+ 1549              		.loc 1 225 1
+ 1550 001e 00BF     		nop
+ 1551 0020 0837     		adds	r7, r7, #8
+ 1552              	.LCFI92:
+ 1553              		.cfi_def_cfa_offset 8
+ 1554 0022 BD46     		mov	sp, r7
+ 1555              	.LCFI93:
+ 1556              		.cfi_def_cfa_register 13
+ 1557              		@ sp needed
+ 1558 0024 80BD     		pop	{r7, pc}
+ 1559              		.cfi_endproc
+ 1560              	.LFE161:
+ 1562              		.section	.text.Hollysys_CANopen_PV_setdec,"ax",%progbits
+ 1563              		.align	1
+ 1564              		.global	Hollysys_CANopen_PV_setdec
+ 1565              		.syntax unified
+ 1566              		.thumb
+ 1567              		.thumb_func
+ 1569              	Hollysys_CANopen_PV_setdec:
+ 1570              	.LFB162:
  226:User/Src/hollysys.c **** 
- 227:User/Src/hollysys.c **** void Hollysys_GetData(u8 can_id){
- 1612              		.loc 1 227 33
- 1613              		.cfi_startproc
- 1614              		@ args = 0, pretend = 0, frame = 8
- 1615              		@ frame_needed = 1, uses_anonymous_args = 0
- 1616 0000 80B5     		push	{r7, lr}
- 1617              	.LCFI109:
- 1618              		.cfi_def_cfa_offset 8
- 1619              		.cfi_offset 7, -8
- 1620              		.cfi_offset 14, -4
- 1621 0002 82B0     		sub	sp, sp, #8
- 1622              	.LCFI110:
- 1623              		.cfi_def_cfa_offset 16
- 1624 0004 00AF     		add	r7, sp, #0
- 1625              	.LCFI111:
- 1626              		.cfi_def_cfa_register 7
- 1627 0006 0346     		mov	r3, r0
- 1628 0008 FB71     		strb	r3, [r7, #7]
- 228:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x40;
- 1629              		.loc 1 228 16
- 1630 000a 144B     		ldr	r3, .L62
- 1631 000c 4022     		movs	r2, #64
- 1632 000e 1A70     		strb	r2, [r3]
- 229:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x69;
- 1633              		.loc 1 229 16
- 1634 0010 124B     		ldr	r3, .L62
- 1635 0012 6922     		movs	r2, #105
- 1636 0014 5A70     		strb	r2, [r3, #1]
- 230:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x60;
- 1637              		.loc 1 230 16
- 1638 0016 114B     		ldr	r3, .L62
- 1639 0018 6022     		movs	r2, #96
- 1640 001a 9A70     		strb	r2, [r3, #2]
- 231:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
- 1641              		.loc 1 231 16
- 1642 001c 0F4B     		ldr	r3, .L62
- 1643 001e 0022     		movs	r2, #0
- 1644 0020 DA70     		strb	r2, [r3, #3]
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 33
+ 227:User/Src/hollysys.c **** void Hollysys_CANopen_PV_setdec(u8 can_id, u32 dec){
+ 1571              		.loc 1 227 52
+ 1572              		.cfi_startproc
+ 1573              		@ args = 0, pretend = 0, frame = 8
+ 1574              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1575 0000 80B5     		push	{r7, lr}
+ 1576              	.LCFI94:
+ 1577              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 32
 
 
- 232:User/Src/hollysys.c **** 	memset(&CAN1Sedbuf[4], 0, 4);
- 1645              		.loc 1 232 2
- 1646 0022 0422     		movs	r2, #4
- 1647 0024 0021     		movs	r1, #0
- 1648 0026 0E48     		ldr	r0, .L62+4
- 1649 0028 FFF7FEFF 		bl	memset
- 233:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + can_id); // get speed
- 1650              		.loc 1 233 2
- 1651 002c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1652 002e 9BB2     		uxth	r3, r3
- 1653 0030 03F5C063 		add	r3, r3, #1536
- 1654 0034 9BB2     		uxth	r3, r3
- 1655 0036 1846     		mov	r0, r3
- 1656 0038 FFF7FEFF 		bl	Hollysys_CAN_Send
- 234:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x63;
- 1657              		.loc 1 234 16
- 1658 003c 074B     		ldr	r3, .L62
- 1659 003e 6322     		movs	r2, #99
- 1660 0040 5A70     		strb	r2, [r3, #1]
- 235:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + can_id); // get position
- 1661              		.loc 1 235 2
- 1662 0042 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 1663 0044 9BB2     		uxth	r3, r3
- 1664 0046 03F5C063 		add	r3, r3, #1536
- 1665 004a 9BB2     		uxth	r3, r3
- 1666 004c 1846     		mov	r0, r3
- 1667 004e FFF7FEFF 		bl	Hollysys_CAN_Send
+ 1578              		.cfi_offset 7, -8
+ 1579              		.cfi_offset 14, -4
+ 1580 0002 84B0     		sub	sp, sp, #16
+ 1581              	.LCFI95:
+ 1582              		.cfi_def_cfa_offset 24
+ 1583 0004 02AF     		add	r7, sp, #8
+ 1584              	.LCFI96:
+ 1585              		.cfi_def_cfa 7, 16
+ 1586 0006 0346     		mov	r3, r0
+ 1587 0008 3960     		str	r1, [r7]
+ 1588 000a FB71     		strb	r3, [r7, #7]
+ 228:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x6084,0x00,dec);
+ 1589              		.loc 1 228 2
+ 1590 000c F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 1591 000e 3B68     		ldr	r3, [r7]
+ 1592 0010 0093     		str	r3, [sp]
+ 1593 0012 0023     		movs	r3, #0
+ 1594 0014 46F28402 		movw	r2, #24708
+ 1595 0018 2321     		movs	r1, #35
+ 1596 001a FFF7FEFF 		bl	Hollysys_SDO_Write_OD
+ 229:User/Src/hollysys.c **** }
+ 1597              		.loc 1 229 1
+ 1598 001e 00BF     		nop
+ 1599 0020 0837     		adds	r7, r7, #8
+ 1600              	.LCFI97:
+ 1601              		.cfi_def_cfa_offset 8
+ 1602 0022 BD46     		mov	sp, r7
+ 1603              	.LCFI98:
+ 1604              		.cfi_def_cfa_register 13
+ 1605              		@ sp needed
+ 1606 0024 80BD     		pop	{r7, pc}
+ 1607              		.cfi_endproc
+ 1608              	.LFE162:
+ 1610              		.section	.text.Hollysys_CANopen_PV_setspd,"ax",%progbits
+ 1611              		.align	1
+ 1612              		.global	Hollysys_CANopen_PV_setspd
+ 1613              		.syntax unified
+ 1614              		.thumb
+ 1615              		.thumb_func
+ 1617              	Hollysys_CANopen_PV_setspd:
+ 1618              	.LFB163:
+ 230:User/Src/hollysys.c **** void Hollysys_CANopen_PV_setspd(u8 can_id, s32 spd){
+ 1619              		.loc 1 230 52
+ 1620              		.cfi_startproc
+ 1621              		@ args = 0, pretend = 0, frame = 8
+ 1622              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1623 0000 80B5     		push	{r7, lr}
+ 1624              	.LCFI99:
+ 1625              		.cfi_def_cfa_offset 8
+ 1626              		.cfi_offset 7, -8
+ 1627              		.cfi_offset 14, -4
+ 1628 0002 84B0     		sub	sp, sp, #16
+ 1629              	.LCFI100:
+ 1630              		.cfi_def_cfa_offset 24
+ 1631 0004 02AF     		add	r7, sp, #8
+ 1632              	.LCFI101:
+ 1633              		.cfi_def_cfa 7, 16
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 33
+
+
+ 1634 0006 0346     		mov	r3, r0
+ 1635 0008 3960     		str	r1, [r7]
+ 1636 000a FB71     		strb	r3, [r7, #7]
+ 231:User/Src/hollysys.c **** 	Hollysys_SDO_Write_OD(can_id, SDO_W4, 0x60FF,0x00,spd);
+ 1637              		.loc 1 231 2
+ 1638 000c 3B68     		ldr	r3, [r7]
+ 1639 000e F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 1640 0010 0093     		str	r3, [sp]
+ 1641 0012 0023     		movs	r3, #0
+ 1642 0014 46F2FF02 		movw	r2, #24831
+ 1643 0018 2321     		movs	r1, #35
+ 1644 001a FFF7FEFF 		bl	Hollysys_SDO_Write_OD
+ 232:User/Src/hollysys.c **** }
+ 1645              		.loc 1 232 1
+ 1646 001e 00BF     		nop
+ 1647 0020 0837     		adds	r7, r7, #8
+ 1648              	.LCFI102:
+ 1649              		.cfi_def_cfa_offset 8
+ 1650 0022 BD46     		mov	sp, r7
+ 1651              	.LCFI103:
+ 1652              		.cfi_def_cfa_register 13
+ 1653              		@ sp needed
+ 1654 0024 80BD     		pop	{r7, pc}
+ 1655              		.cfi_endproc
+ 1656              	.LFE163:
+ 1658              		.section	.text.Hollysys_Setspdcmd,"ax",%progbits
+ 1659              		.align	1
+ 1660              		.global	Hollysys_Setspdcmd
+ 1661              		.syntax unified
+ 1662              		.thumb
+ 1663              		.thumb_func
+ 1665              	Hollysys_Setspdcmd:
+ 1666              	.LFB164:
+ 233:User/Src/hollysys.c **** 
+ 234:User/Src/hollysys.c **** void Hollysys_Setspdcmd(u8 can_id, s32 spd){
+ 1667              		.loc 1 234 44
+ 1668              		.cfi_startproc
+ 1669              		@ args = 0, pretend = 0, frame = 8
+ 1670              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1671              		@ link register save eliminated.
+ 1672 0000 80B4     		push	{r7}
+ 1673              	.LCFI104:
+ 1674              		.cfi_def_cfa_offset 4
+ 1675              		.cfi_offset 7, -4
+ 1676 0002 83B0     		sub	sp, sp, #12
+ 1677              	.LCFI105:
+ 1678              		.cfi_def_cfa_offset 16
+ 1679 0004 00AF     		add	r7, sp, #0
+ 1680              	.LCFI106:
+ 1681              		.cfi_def_cfa_register 7
+ 1682 0006 0346     		mov	r3, r0
+ 1683 0008 3960     		str	r1, [r7]
+ 1684 000a FB71     		strb	r3, [r7, #7]
+ 235:User/Src/hollysys.c **** 	hollysys_spd_cmd[can_id - 1] = spd;
+ 1685              		.loc 1 235 26
+ 1686 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1687 000e 013B     		subs	r3, r3, #1
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 34
+
+
+ 1688              		.loc 1 235 31
+ 1689 0010 0449     		ldr	r1, .L60
+ 1690 0012 3A68     		ldr	r2, [r7]
+ 1691 0014 41F82320 		str	r2, [r1, r3, lsl #2]
  236:User/Src/hollysys.c **** }
- 1668              		.loc 1 236 1
- 1669 0052 00BF     		nop
- 1670 0054 0837     		adds	r7, r7, #8
- 1671              	.LCFI112:
- 1672              		.cfi_def_cfa_offset 8
- 1673 0056 BD46     		mov	sp, r7
- 1674              	.LCFI113:
- 1675              		.cfi_def_cfa_register 13
- 1676              		@ sp needed
- 1677 0058 80BD     		pop	{r7, pc}
- 1678              	.L63:
- 1679 005a 00BF     		.align	2
- 1680              	.L62:
- 1681 005c 00000000 		.word	CAN1Sedbuf
- 1682 0060 04000000 		.word	CAN1Sedbuf+4
- 1683              		.cfi_endproc
- 1684              	.LFE165:
- 1686              		.text
- 1687              	.Letext0:
- 1688              		.file 2 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\machine\\_default_types.h"
- 1689              		.file 3 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\sys\\_stdint.h"
- 1690              		.file 4 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h"
- 1691              		.file 5 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h"
- 1692              		.file 6 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
- 1693              		.file 7 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h"
- 1694              		.file 8 "Core/Inc/fdcan.h"
- 1695              		.file 9 "User/Inc/common.h"
- 1696              		.file 10 "User/Inc/hollysys.h"
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 34
+ 1692              		.loc 1 236 1
+ 1693 0018 00BF     		nop
+ 1694 001a 0C37     		adds	r7, r7, #12
+ 1695              	.LCFI107:
+ 1696              		.cfi_def_cfa_offset 4
+ 1697 001c BD46     		mov	sp, r7
+ 1698              	.LCFI108:
+ 1699              		.cfi_def_cfa_register 13
+ 1700              		@ sp needed
+ 1701 001e 5DF8047B 		ldr	r7, [sp], #4
+ 1702              	.LCFI109:
+ 1703              		.cfi_restore 7
+ 1704              		.cfi_def_cfa_offset 0
+ 1705 0022 7047     		bx	lr
+ 1706              	.L61:
+ 1707              		.align	2
+ 1708              	.L60:
+ 1709 0024 00000000 		.word	hollysys_spd_cmd
+ 1710              		.cfi_endproc
+ 1711              	.LFE164:
+ 1713              		.section	.text.Hollysys_Update,"ax",%progbits
+ 1714              		.align	1
+ 1715              		.global	Hollysys_Update
+ 1716              		.syntax unified
+ 1717              		.thumb
+ 1718              		.thumb_func
+ 1720              	Hollysys_Update:
+ 1721              	.LFB165:
+ 237:User/Src/hollysys.c **** 
+ 238:User/Src/hollysys.c **** void Hollysys_Update(void){
+ 1722              		.loc 1 238 27
+ 1723              		.cfi_startproc
+ 1724              		@ args = 0, pretend = 0, frame = 8
+ 1725              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1726 0000 80B5     		push	{r7, lr}
+ 1727              	.LCFI110:
+ 1728              		.cfi_def_cfa_offset 8
+ 1729              		.cfi_offset 7, -8
+ 1730              		.cfi_offset 14, -4
+ 1731 0002 82B0     		sub	sp, sp, #8
+ 1732              	.LCFI111:
+ 1733              		.cfi_def_cfa_offset 16
+ 1734 0004 00AF     		add	r7, sp, #0
+ 1735              	.LCFI112:
+ 1736              		.cfi_def_cfa_register 7
+ 1737              	.LBB3:
+ 239:User/Src/hollysys.c **** 	for(u8 i = 0; i < sizeof(hollysys_motor_id); i++){
+ 1738              		.loc 1 239 9
+ 1739 0006 0023     		movs	r3, #0
+ 1740 0008 FB71     		strb	r3, [r7, #7]
+ 1741              		.loc 1 239 2
+ 1742 000a 0DE0     		b	.L63
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 35
+
+
+ 1743              	.L64:
+ 240:User/Src/hollysys.c **** 		Hollysys_CANopen_PV_setspd(hollysys_motor_id[i], hollysys_spd_cmd[i]);
+ 1744              		.loc 1 240 3 discriminator 3
+ 1745 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1746 000e 0A4A     		ldr	r2, .L65
+ 1747 0010 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 1748 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1749 0014 0949     		ldr	r1, .L65+4
+ 1750 0016 51F82330 		ldr	r3, [r1, r3, lsl #2]
+ 1751 001a 1946     		mov	r1, r3
+ 1752 001c 1046     		mov	r0, r2
+ 1753 001e FFF7FEFF 		bl	Hollysys_CANopen_PV_setspd
+ 239:User/Src/hollysys.c **** 	for(u8 i = 0; i < sizeof(hollysys_motor_id); i++){
+ 1754              		.loc 1 239 48 discriminator 3
+ 1755 0022 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1756 0024 0133     		adds	r3, r3, #1
+ 1757 0026 FB71     		strb	r3, [r7, #7]
+ 1758              	.L63:
+ 239:User/Src/hollysys.c **** 	for(u8 i = 0; i < sizeof(hollysys_motor_id); i++){
+ 1759              		.loc 1 239 2 discriminator 1
+ 1760 0028 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1761 002a 032B     		cmp	r3, #3
+ 1762 002c EED9     		bls	.L64
+ 1763              	.LBE3:
+ 241:User/Src/hollysys.c **** 	}
+ 242:User/Src/hollysys.c **** }
+ 1764              		.loc 1 242 1
+ 1765 002e 00BF     		nop
+ 1766 0030 00BF     		nop
+ 1767 0032 0837     		adds	r7, r7, #8
+ 1768              	.LCFI113:
+ 1769              		.cfi_def_cfa_offset 8
+ 1770 0034 BD46     		mov	sp, r7
+ 1771              	.LCFI114:
+ 1772              		.cfi_def_cfa_register 13
+ 1773              		@ sp needed
+ 1774 0036 80BD     		pop	{r7, pc}
+ 1775              	.L66:
+ 1776              		.align	2
+ 1777              	.L65:
+ 1778 0038 00000000 		.word	hollysys_motor_id
+ 1779 003c 00000000 		.word	hollysys_spd_cmd
+ 1780              		.cfi_endproc
+ 1781              	.LFE165:
+ 1783              		.section	.text.Hollysys_GetData,"ax",%progbits
+ 1784              		.align	1
+ 1785              		.global	Hollysys_GetData
+ 1786              		.syntax unified
+ 1787              		.thumb
+ 1788              		.thumb_func
+ 1790              	Hollysys_GetData:
+ 1791              	.LFB166:
+ 243:User/Src/hollysys.c **** 
+ 244:User/Src/hollysys.c **** void Hollysys_GetData(u8 can_id){
+ 1792              		.loc 1 244 33
+ 1793              		.cfi_startproc
+ 1794              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 36
+
+
+ 1795              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1796 0000 80B5     		push	{r7, lr}
+ 1797              	.LCFI115:
+ 1798              		.cfi_def_cfa_offset 8
+ 1799              		.cfi_offset 7, -8
+ 1800              		.cfi_offset 14, -4
+ 1801 0002 82B0     		sub	sp, sp, #8
+ 1802              	.LCFI116:
+ 1803              		.cfi_def_cfa_offset 16
+ 1804 0004 00AF     		add	r7, sp, #0
+ 1805              	.LCFI117:
+ 1806              		.cfi_def_cfa_register 7
+ 1807 0006 0346     		mov	r3, r0
+ 1808 0008 FB71     		strb	r3, [r7, #7]
+ 245:User/Src/hollysys.c **** 	CAN1Sedbuf[0] = 0x40;
+ 1809              		.loc 1 245 16
+ 1810 000a 164B     		ldr	r3, .L70
+ 1811 000c 4022     		movs	r2, #64
+ 1812 000e 1A70     		strb	r2, [r3]
+ 246:User/Src/hollysys.c **** 	CAN1Sedbuf[1] = 0x69;
+ 1813              		.loc 1 246 16
+ 1814 0010 144B     		ldr	r3, .L70
+ 1815 0012 6922     		movs	r2, #105
+ 1816 0014 5A70     		strb	r2, [r3, #1]
+ 247:User/Src/hollysys.c **** 	CAN1Sedbuf[2] = 0x60;
+ 1817              		.loc 1 247 16
+ 1818 0016 134B     		ldr	r3, .L70
+ 1819 0018 6022     		movs	r2, #96
+ 1820 001a 9A70     		strb	r2, [r3, #2]
+ 248:User/Src/hollysys.c **** 	CAN1Sedbuf[3] = 0x00;
+ 1821              		.loc 1 248 16
+ 1822 001c 114B     		ldr	r3, .L70
+ 1823 001e 0022     		movs	r2, #0
+ 1824 0020 DA70     		strb	r2, [r3, #3]
+ 249:User/Src/hollysys.c **** 	memset(&CAN1Sedbuf[4], 0, 4);
+ 1825              		.loc 1 249 2
+ 1826 0022 0422     		movs	r2, #4
+ 1827 0024 0021     		movs	r1, #0
+ 1828 0026 1048     		ldr	r0, .L70+4
+ 1829 0028 FFF7FEFF 		bl	memset
+ 250:User/Src/hollysys.c **** 	Hollysys_CAN_Send(0x600 + can_id); // get speed
+ 1830              		.loc 1 250 2
+ 1831 002c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1832 002e 9BB2     		uxth	r3, r3
+ 1833 0030 03F5C063 		add	r3, r3, #1536
+ 1834 0034 9BB2     		uxth	r3, r3
+ 1835 0036 1846     		mov	r0, r3
+ 1836 0038 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 251:User/Src/hollysys.c **** 	if(need_pos){
+ 1837              		.loc 1 251 5
+ 1838 003c 0B4B     		ldr	r3, .L70+8
+ 1839 003e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1840              		.loc 1 251 4
+ 1841 0040 002B     		cmp	r3, #0
+ 1842 0042 0AD0     		beq	.L69
+ 252:User/Src/hollysys.c **** 		CAN1Sedbuf[1] = 0x63;
+ 1843              		.loc 1 252 17
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 37
+
+
+ 1844 0044 074B     		ldr	r3, .L70
+ 1845 0046 6322     		movs	r2, #99
+ 1846 0048 5A70     		strb	r2, [r3, #1]
+ 253:User/Src/hollysys.c **** 		Hollysys_CAN_Send(0x600 + can_id); // get position
+ 1847              		.loc 1 253 3
+ 1848 004a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1849 004c 9BB2     		uxth	r3, r3
+ 1850 004e 03F5C063 		add	r3, r3, #1536
+ 1851 0052 9BB2     		uxth	r3, r3
+ 1852 0054 1846     		mov	r0, r3
+ 1853 0056 FFF7FEFF 		bl	Hollysys_CAN_Send
+ 1854              	.L69:
+ 254:User/Src/hollysys.c **** 	}
+ 255:User/Src/hollysys.c **** }
+ 1855              		.loc 1 255 1
+ 1856 005a 00BF     		nop
+ 1857 005c 0837     		adds	r7, r7, #8
+ 1858              	.LCFI118:
+ 1859              		.cfi_def_cfa_offset 8
+ 1860 005e BD46     		mov	sp, r7
+ 1861              	.LCFI119:
+ 1862              		.cfi_def_cfa_register 13
+ 1863              		@ sp needed
+ 1864 0060 80BD     		pop	{r7, pc}
+ 1865              	.L71:
+ 1866 0062 00BF     		.align	2
+ 1867              	.L70:
+ 1868 0064 00000000 		.word	CAN1Sedbuf
+ 1869 0068 04000000 		.word	CAN1Sedbuf+4
+ 1870 006c 00000000 		.word	need_pos
+ 1871              		.cfi_endproc
+ 1872              	.LFE166:
+ 1874              		.text
+ 1875              	.Letext0:
+ 1876              		.file 2 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1877              		.file 3 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1878              		.file 4 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h"
+ 1879              		.file 5 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h"
+ 1880              		.file 6 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
+ 1881              		.file 7 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h"
+ 1882              		.file 8 "Core/Inc/fdcan.h"
+ 1883              		.file 9 "User/Inc/common.h"
+ 1884              		.file 10 "User/Inc/hollysys.h"
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 38
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 hollysys.c
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:23     .bss.PV_spd:00000000 PV_spd
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:20     .bss.PV_spd:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:30     .bss.PP_spd:00000000 PP_spd
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:27     .bss.PP_spd:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:37     .bss.PT_spd:00000000 PT_spd
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:34     .bss.PT_spd:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:44     .bss.CAN1Sedbuf:00000000 CAN1Sedbuf
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:41     .bss.CAN1Sedbuf:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:51     .data.hollysys_motor_id:00000000 hollysys_motor_id
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:48     .data.hollysys_motor_id:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:58     .data.hollysys_acc:00000000 hollysys_acc
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:55     .data.hollysys_acc:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:68     .data.hollysys_dec:00000000 hollysys_dec
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:65     .data.hollysys_dec:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:78     .bss.hollysys_spd_cmd:00000000 hollysys_spd_cmd
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:75     .bss.hollysys_spd_cmd:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:85     .bss.hollysys_spd:00000000 hollysys_spd
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:82     .bss.hollysys_spd:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:92     .bss.hollysys_pos:00000000 hollysys_pos
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:89     .bss.hollysys_pos:00000000 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:95     .text.Hollysys_CAN_Send:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:101    .text.Hollysys_CAN_Send:00000000 Hollysys_CAN_Send
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:144    .text.Hollysys_CAN_Send:00000024 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:151    .text.Hollysys_Cal_F_Index:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:157    .text.Hollysys_Cal_F_Index:00000000 Hollysys_Cal_F_Index
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:213    .text.Hollysys_Cal_P_Index:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:219    .text.Hollysys_Cal_P_Index:00000000 Hollysys_Cal_P_Index
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:270    .text.Hollysys_Cal_D_Index:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:276    .text.Hollysys_Cal_D_Index:00000000 Hollysys_Cal_D_Index
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:327    .text.Hollysys_startup:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:333    .text.Hollysys_startup:00000000 Hollysys_startup
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:426    .text.Hollysys_startup:00000080 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:431    .text.Hollysys_closedown:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:437    .text.Hollysys_closedown:00000000 Hollysys_closedown
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:508    .text.Hollysys_closedown:00000054 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:513    .text.Hollysys_enable_A:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:519    .text.Hollysys_enable_A:00000000 Hollysys_enable_A
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:590    .text.Hollysys_enable_A:00000054 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:595    .text.Hollysys_enable_B:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:601    .text.Hollysys_enable_B:00000000 Hollysys_enable_B
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:672    .text.Hollysys_enable_B:00000054 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:677    .text.Hollysys_disable_A:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:683    .text.Hollysys_disable_A:00000000 Hollysys_disable_A
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:754    .text.Hollysys_disable_A:00000054 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:759    .text.Hollysys_disable_B:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:765    .text.Hollysys_disable_B:00000000 Hollysys_disable_B
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:836    .text.Hollysys_disable_B:00000054 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:841    .text.Hollysys_Contol_Mode_SET:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:847    .text.Hollysys_Contol_Mode_SET:00000000 Hollysys_Contol_Mode_SET
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:923    .text.Hollysys_Contol_Mode_SET:0000005c $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:928    .text.Hollysys_CANopen_Activate:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:934    .text.Hollysys_CANopen_Activate:00000000 Hollysys_CANopen_Activate
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:979    .text.Hollysys_CANopen_Activate:00000028 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:984    .text.Hollysys_CAN_lifeguard:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:990    .text.Hollysys_CAN_lifeguard:00000000 Hollysys_CAN_lifeguard
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s 			page 35
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:23     .bss.PV_spd:00000000 PV_spd
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:20     .bss.PV_spd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:30     .bss.PP_spd:00000000 PP_spd
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:27     .bss.PP_spd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:37     .bss.PT_spd:00000000 PT_spd
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:34     .bss.PT_spd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:44     .bss.CAN1Sedbuf:00000000 CAN1Sedbuf
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:41     .bss.CAN1Sedbuf:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:51     .bss.hollysys_spd_rxbuf:00000000 hollysys_spd_rxbuf
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:48     .bss.hollysys_spd_rxbuf:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:58     .bss.hollysys_pos_rxbuf:00000000 hollysys_pos_rxbuf
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:55     .bss.hollysys_pos_rxbuf:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:65     .data.hollysys_motor_id:00000000 hollysys_motor_id
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:62     .data.hollysys_motor_id:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:72     .data.hollysys_acc:00000000 hollysys_acc
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:69     .data.hollysys_acc:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:82     .data.hollysys_dec:00000000 hollysys_dec
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:79     .data.hollysys_dec:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:92     .bss.hollysys_spd_cmd:00000000 hollysys_spd_cmd
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:89     .bss.hollysys_spd_cmd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:99     .bss.hollysys_spd:00000000 hollysys_spd
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:96     .bss.hollysys_spd:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:106    .bss.hollysys_pos:00000000 hollysys_pos
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:103    .bss.hollysys_pos:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:112    .bss.need_pos:00000000 need_pos
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:113    .bss.need_pos:00000000 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:115    .text.Hollysys_Update_State:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:121    .text.Hollysys_Update_State:00000000 Hollysys_Update_State
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:267    .text.Hollysys_Update_State:000000ac $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:276    .text.Hollysys_CAN_Send:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:282    .text.Hollysys_CAN_Send:00000000 Hollysys_CAN_Send
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:324    .text.Hollysys_CAN_Send:00000024 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:331    .text.Hollysys_Cal_F_Index:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:337    .text.Hollysys_Cal_F_Index:00000000 Hollysys_Cal_F_Index
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:393    .text.Hollysys_Cal_P_Index:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:399    .text.Hollysys_Cal_P_Index:00000000 Hollysys_Cal_P_Index
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:450    .text.Hollysys_Cal_D_Index:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:456    .text.Hollysys_Cal_D_Index:00000000 Hollysys_Cal_D_Index
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:507    .text.Hollysys_startup:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:513    .text.Hollysys_startup:00000000 Hollysys_startup
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:606    .text.Hollysys_startup:00000080 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:611    .text.Hollysys_closedown:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:617    .text.Hollysys_closedown:00000000 Hollysys_closedown
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:688    .text.Hollysys_closedown:00000054 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:693    .text.Hollysys_enable_A:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:699    .text.Hollysys_enable_A:00000000 Hollysys_enable_A
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:770    .text.Hollysys_enable_A:00000054 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:775    .text.Hollysys_enable_B:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:781    .text.Hollysys_enable_B:00000000 Hollysys_enable_B
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:852    .text.Hollysys_enable_B:00000054 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:857    .text.Hollysys_disable_A:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:863    .text.Hollysys_disable_A:00000000 Hollysys_disable_A
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:934    .text.Hollysys_disable_A:00000054 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:939    .text.Hollysys_disable_B:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:945    .text.Hollysys_disable_B:00000000 Hollysys_disable_B
+ARM GAS  C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s 			page 39
 
 
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1035   .text.Hollysys_CAN_lifeguard:00000030 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1040   .text.Hollysys_SDO_Write_OD:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1046   .text.Hollysys_SDO_Write_OD:00000000 Hollysys_SDO_Write_OD
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1150   .text.Hollysys_SDO_Write_OD:00000080 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1155   .text.Hollysys_SDO_Read_OD:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1161   .text.Hollysys_SDO_Read_OD:00000000 Hollysys_SDO_Read_OD
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1238   .text.Hollysys_SDO_Read_OD:00000064 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1244   .text.Hollysys_CANopen_PV_Init:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1250   .text.Hollysys_CANopen_PV_Init:00000000 Hollysys_CANopen_PV_Init
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1328   .text.Hollysys_CANopen_PV_Init:00000074 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1335   .text.Hollysys_CANopen_PV_setacc:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1341   .text.Hollysys_CANopen_PV_setacc:00000000 Hollysys_CANopen_PV_setacc
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1383   .text.Hollysys_CANopen_PV_setdec:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1389   .text.Hollysys_CANopen_PV_setdec:00000000 Hollysys_CANopen_PV_setdec
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1431   .text.Hollysys_CANopen_PV_setspd:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1437   .text.Hollysys_CANopen_PV_setspd:00000000 Hollysys_CANopen_PV_setspd
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1479   .text.Hollysys_Setspdcmd:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1485   .text.Hollysys_Setspdcmd:00000000 Hollysys_Setspdcmd
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1529   .text.Hollysys_Setspdcmd:00000024 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1534   .text.Hollysys_Update:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1540   .text.Hollysys_Update:00000000 Hollysys_Update
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1598   .text.Hollysys_Update:00000038 $d
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1604   .text.Hollysys_GetData:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1610   .text.Hollysys_GetData:00000000 Hollysys_GetData
-C:\Users\Su\AppData\Local\Temp\ccdTwmpk.s:1681   .text.Hollysys_GetData:0000005c $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1016   .text.Hollysys_disable_B:00000054 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1021   .text.Hollysys_Contol_Mode_SET:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1027   .text.Hollysys_Contol_Mode_SET:00000000 Hollysys_Contol_Mode_SET
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1103   .text.Hollysys_Contol_Mode_SET:0000005c $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1108   .text.Hollysys_CANopen_Activate:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1114   .text.Hollysys_CANopen_Activate:00000000 Hollysys_CANopen_Activate
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1159   .text.Hollysys_CANopen_Activate:00000028 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1164   .text.Hollysys_CAN_lifeguard:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1170   .text.Hollysys_CAN_lifeguard:00000000 Hollysys_CAN_lifeguard
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1215   .text.Hollysys_CAN_lifeguard:00000030 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1220   .text.Hollysys_SDO_Write_OD:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1226   .text.Hollysys_SDO_Write_OD:00000000 Hollysys_SDO_Write_OD
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1330   .text.Hollysys_SDO_Write_OD:00000080 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1335   .text.Hollysys_SDO_Read_OD:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1341   .text.Hollysys_SDO_Read_OD:00000000 Hollysys_SDO_Read_OD
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1418   .text.Hollysys_SDO_Read_OD:00000064 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1424   .text.Hollysys_CANopen_PV_Init:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1430   .text.Hollysys_CANopen_PV_Init:00000000 Hollysys_CANopen_PV_Init
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1508   .text.Hollysys_CANopen_PV_Init:00000074 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1515   .text.Hollysys_CANopen_PV_setacc:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1521   .text.Hollysys_CANopen_PV_setacc:00000000 Hollysys_CANopen_PV_setacc
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1563   .text.Hollysys_CANopen_PV_setdec:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1569   .text.Hollysys_CANopen_PV_setdec:00000000 Hollysys_CANopen_PV_setdec
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1611   .text.Hollysys_CANopen_PV_setspd:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1617   .text.Hollysys_CANopen_PV_setspd:00000000 Hollysys_CANopen_PV_setspd
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1659   .text.Hollysys_Setspdcmd:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1665   .text.Hollysys_Setspdcmd:00000000 Hollysys_Setspdcmd
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1709   .text.Hollysys_Setspdcmd:00000024 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1714   .text.Hollysys_Update:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1720   .text.Hollysys_Update:00000000 Hollysys_Update
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1778   .text.Hollysys_Update:00000038 $d
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1784   .text.Hollysys_GetData:00000000 $t
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1790   .text.Hollysys_GetData:00000000 Hollysys_GetData
+C:\Users\Su\AppData\Local\Temp\ccfmAEC8.s:1868   .text.Hollysys_GetData:00000064 $d
 
 UNDEFINED SYMBOLS
 HAL_FDCAN_AddMessageToTxFifoQ

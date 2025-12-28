@@ -18,25 +18,42 @@
 *********************************************************************************/ 
 
 #include "hollysys.h"
-
 #include "fdcan.h"
 
 //速度模式PV：
 u32 PV_spd;
 u32 PP_spd;
 u32 PT_spd;
+
+// CAN send buffer 
 u8 CAN1Sedbuf[8];
-
-u8 hollysys_motor_id[4] = {0x01, 0x02, 0x03, 0x04};
-
-u32 hollysys_acc[4] = {1000, 1000, 1000, 1000};
-u32 hollysys_dec[4] = {1000, 1000, 1000, 1000};
-s32 hollysys_spd_cmd[4] = {0, 0, 0, 0};
-
-s32 hollysys_spd[4];
-s32 hollysys_pos[4];
+// CAN receive buffer
+u8 hollysys_spd_rxbuf[HOLLYSYS_NUM][8];
+u8 hollysys_pos_rxbuf[HOLLYSYS_NUM][8];
 
 
+u8 hollysys_motor_id[HOLLYSYS_NUM] = {0x01, 0x02, 0x03, 0x04};
+
+u32 hollysys_acc[HOLLYSYS_NUM] = {1000, 1000, 1000, 1000};
+u32 hollysys_dec[HOLLYSYS_NUM] = {1000, 1000, 1000, 1000};
+s32 hollysys_spd_cmd[HOLLYSYS_NUM] = {0, 0, 0, 0};
+
+s32 hollysys_spd[HOLLYSYS_NUM];
+s32 hollysys_pos[HOLLYSYS_NUM];
+
+u8 need_pos = 0;
+
+void Hollysys_Update_State(){
+	for(u8 i = 0; i < HOLLYSYS_NUM; i++){
+		hollysys_spd[i] = ((s32)hollysys_spd_rxbuf[i][7] << 24) | ((s32)hollysys_spd_rxbuf[i][6] << 16) | 
+											((s32)hollysys_spd_rxbuf[i][5] << 8) | (s32)hollysys_spd_rxbuf[i][4];
+		if(need_pos){
+			hollysys_pos[i] = ((s32)hollysys_pos_rxbuf[i][7] << 24) | ((s32)hollysys_pos_rxbuf[i][6] << 16) | 
+												((s32)hollysys_pos_rxbuf[i][5] << 8) | (s32)hollysys_pos_rxbuf[i][4];
+		}
+		
+	}
+}
 u8 Hollysys_CAN_Send(u16 Id){
 	txHeader.Identifier = Id;
 	HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &txHeader, CAN1Sedbuf);
@@ -231,9 +248,54 @@ void Hollysys_GetData(u8 can_id){
 	CAN1Sedbuf[3] = 0x00;
 	memset(&CAN1Sedbuf[4], 0, 4);
 	Hollysys_CAN_Send(0x600 + can_id); // get speed
-	CAN1Sedbuf[1] = 0x63;
-	Hollysys_CAN_Send(0x600 + can_id); // get position
+	if(need_pos){
+		CAN1Sedbuf[1] = 0x63;
+		Hollysys_CAN_Send(0x600 + can_id); // get position
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // //PP canopen设置
 // void CANopen_PP_Init(void){

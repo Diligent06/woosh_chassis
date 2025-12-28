@@ -40,11 +40,15 @@
 #define  Position_factor               0x6093
 #define  Target_velocity               0x60FF
 
+#define  HOLLYSYS_NUM                  4
+#define  HOLLYSYS_START_ID             0x01
 
 extern FDCAN_RxHeaderTypeDef rxHeader_hollysys;
 
-extern s32 hollysys_spd[4];
-extern s32 hollysys_pos[4];
+extern s32 hollysys_spd[HOLLYSYS_NUM];
+extern s32 hollysys_pos[HOLLYSYS_NUM];
+extern u8 hollysys_spd_rxbuf[HOLLYSYS_NUM][8];
+extern u8 hollysys_pos_rxbuf[HOLLYSYS_NUM][8];
 
 
 void Hollysys_GetData(u8 can_id);
@@ -60,6 +64,7 @@ void Hollysys_enable_B(u8 CANopen_ID);
 void Hollysys_enable_A(u8 CANopen_ID);
 void Hollysys_closedown(u8 CANopen_ID);
 void Hollysys_startup(u8 CANopen_ID);
+void Hollysys_Update_State();
 
 
 #endif

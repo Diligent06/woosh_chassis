@@ -18,8 +18,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "fdcan.h"
 #include "iwdg.h"
+#include "tim.h"
+#include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
 
@@ -48,12 +51,13 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+u8 query_chassis_flag = 0;
+u8 update_chasis_flag = 0;
+u8 stop_flag = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MPU_Config(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -70,11 +74,8 @@ static void MPU_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  // SCB_DisableDCache();
   /* USER CODE END 1 */
-
-  /* MPU Configuration--------------------------------------------------------*/
-  MPU_Config();
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -97,20 +98,27 @@ int main(void)
   // MX_IWDG1_Init();
   MX_FDCAN1_Init();
   MX_USB_DEVICE_Init();
+  MX_TIM1_Init();
+  MX_DMA_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
-
+  /*          start can communication service          */
   uint8_t filter_init = FDCAN_filter_init(&hfdcan1);
   while(HAL_FDCAN_Start(&hfdcan1) != HAL_OK){}
   HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
 
+  /*          start timer service         */
+  HAL_TIM_Base_Start_IT(&htim1);
 
-  /* USER CODE END 2 */
+  /*          start usart service           */
+  // __HAL_UART_CLEAR_OREFLAG(&huart2);
+  // HAL_UART_AbortReceive(&huart2);
+  // int idle_state = HAL_UARTEx_ReceiveToIdle_DMA(&huart2, uart2_rx_buf, USART_RX_BUF_SIZE);
+  // __HAL_DMA_DISABLE_IT(huart2.hdmarx, DMA_IT_HT);
+  HAL_UART_Receive_IT(&huart2, uart2_rx_buf, 6); // 3byte represent spd_x, spd_y, spd_z
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-
-  // init for txHeader
+  /*         init for txHeader         */
   txHeader.Identifier = 0x101;
   txHeader.IdType = FDCAN_STANDARD_ID;
   txHeader.TxFrameType = FDCAN_DATA_FRAME;
@@ -118,126 +126,96 @@ int main(void)
   txHeader.BitRateSwitch = FDCAN_BRS_OFF;
   txHeader.FDFormat = FDCAN_CLASSIC_CAN;
   txHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
-  
-  
-  /*       Motorevo motors test        */
 
-  // Motorevo_init();
-  // Motorevo_Reset();
-  // Motorevo_Activate();
 
-  // float pos[4] = {0.0, 0.0, 0.0, 0.0};
-  // float vel[4] = {5.0, 5.0, 5.0, 5.0};
-  // float pos2[4] = {0.5, 0.5, 0.5, 0.5};
+  /* USER CODE END 2 */
 
-  // Motorevo_Set_pos_vel(pos, vel);
-  // HAL_Delay(1000);
-  // Motorevo_Set_pos_vel(pos2, vel);
-  // HAL_Delay(1000);
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
 
-  // Motorevo_Reset();
-
-  /*      Chassis drive motors test      */
   // Chassis_Init();
-  // uint32_t test_mailbox = HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan1);
 
-  // for(u8 i = 0; i < sizeof(drive_motor_id); i++)
-  //   drive_motor_spd_cmd[i] = 1000;
+  // Chassis_Tidybot(0, 500, 0);
+  // Chassis_Set_steer_pos();
   // Chassis_Set_drive_spd();
   // Chassis_Update();
+  
   // HAL_Delay(5000);
-  // for(u8 i = 0; i < sizeof(drive_motor_id); i++)
-  //   drive_motor_spd_cmd[i] = 0;
+
+  // Chassis_Tidybot(0, 0, 0);
+  // Chassis_Set_steer_pos();
   // Chassis_Set_drive_spd();
   // Chassis_Update();
 
-  // Chassis_Drive_Info_Update();
+  // HAL_Delay(2000);
 
   // Chassis_Deinit();
 
 
+  // HAL_Delay(1000);
+  // Chassis_Init();
 
+  // for(u8 i = 0; i < DRIVE_MOTOR_NUM; i++){
+  //   drive_motor_spd_cmd[i] = 200;
+  // }
+  // Chassis_Set_drive_spd();
+  // // for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
+  // //   steer_motor_pos_cmd[i] = steer_forward_pos[i];
+  // // }
+  // float test_angle[4] = {0, 0, 0, 0};
+  // Chassis_Set_steer_angle(test_angle);
+  // Chassis_Set_steer_pos();
+
+  // // Chassis_Update();
+  // Motorevo_Update();
+  // Motorevo_Update_State();
+
+  // HAL_Delay(5000);
+  // Chassis_Deinit();
+
+  // Motorevo_Activate(0x06);
+  // // Motorevo_SetPos(0x08, 1.8, 5.0);
+  // HAL_Delay(5000);
+  // Motorevo_Update_State();
+  // Motorevo_Reset(0x06);
+
+  // HAL_Delay(1000);
+
+  // uint8_t buf[10] = "abc\n";
+  // Chassis_Deinit();
   Chassis_Init();
-  HAL_Delay(50);
-  float test_steer_pos = 1.0;
-  float test_steer_vel = 10.0;
-  for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
-    Motorevo_SetPos_cmd(steer_motor_id[i], steer_forward_pos[i], test_steer_vel);
-  }
-  Motorevo_Update();
-  HAL_Delay(3000);
-  
-  for(u8 i = 0; i < sizeof(drive_motor_id); i++)
-    drive_motor_spd_cmd[i] = 2000;
-  Chassis_Set_drive_spd();
-  Chassis_Update();
-  HAL_Delay(3000);
-
-  for(u8 i = 0; i < sizeof(drive_motor_id); i++)
-    drive_motor_spd_cmd[i] = 0;
-  Chassis_Set_drive_spd();
-  Chassis_Update();
-
-  HAL_Delay(100);
-
-  test_steer_pos = 1.3;
-  for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
-    Motorevo_SetPos_cmd(steer_motor_id[i], test_steer_pos, test_steer_vel);
-  }
-  Motorevo_Update();
-  HAL_Delay(3000);
-
-  for(u8 i = 0; i < sizeof(drive_motor_id); i++)
-    drive_motor_spd_cmd[i] = 2000;
-  Chassis_Set_drive_spd();
-  Chassis_Update();
-  HAL_Delay(3000);
-
-  for(u8 i = 0; i < sizeof(drive_motor_id); i++)
-    drive_motor_spd_cmd[i] = 0;
-  Chassis_Set_drive_spd();
-  Chassis_Update();
-
-  HAL_Delay(100);
-
-  test_steer_pos = 2.3;
-  for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
-    Motorevo_SetPos_cmd(steer_motor_id[i], test_steer_pos, test_steer_vel);
-  }
-  Motorevo_Update();
-  HAL_Delay(3000);
-
-  for(u8 i = 0; i < sizeof(drive_motor_id); i++)
-    drive_motor_spd_cmd[i] = 2000;
-  Chassis_Set_drive_spd();
-  Chassis_Update();
-  HAL_Delay(2000);
-
-  for(u8 i = 0; i < sizeof(drive_motor_id); i++)
-    drive_motor_spd_cmd[i] = 0;
-  Chassis_Set_drive_spd();
-  Chassis_Update();
-  HAL_Delay(100);
-
-  // // HAL_Delay(10);
-  Chassis_Deinit();
-  // // HAL_Delay(10);
-  Motorevo_Update_State();
-
-  // HAL_Delay(100);
-  // Motorevo_Reset(0x05);
-
+  Chassis_Tidybot(0, 0, 0);
   while (1)
   {
-    // HAL_IWDG_Refresh(&hiwdg1);
+    // HAL_IWDG_Refresh(&hiwdg1);                    // watch dog
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    uint32_t valid_mailbox = HAL_FDCAN_GetTxFifoFreeLevel(&hfdcan1); // check free mailbox number 
-    int test = 0;
+    // if(query_chassis_flag){
+    //   Chassis_Info_Query();
+    //   query_chassis_flag = 0;
+    //   update_chasis_flag = 1;
+    // }
+    // if(update_chasis_flag){
+    //   Chassis_State_Update();
+    //   update_chasis_flag = 0;
+    //   Chassis_Update();
+    // } 
 
-    
+    // int state = HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), 100);
+
+    // HAL_Delay(2000);
+  Chassis_Info_Query();
+  Chassis_State_Update();
+  Chassis_Set_steer_pos();
+  Chassis_Set_drive_spd();
+  Chassis_Update();
+  HAL_Delay(5);
+  
+  if(stop_flag)
+    break;
   }
+  Chassis_Deinit();
   /* USER CODE END 3 */
 }
 
@@ -305,35 +283,6 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
-
-/* MPU Configuration */
-
-void MPU_Config(void)
-{
-  MPU_Region_InitTypeDef MPU_InitStruct = {0};
-
-  /* Disables the MPU */
-  HAL_MPU_Disable();
-
-  /** Initializes and configures the Region and the memory to be protected
-  */
-  MPU_InitStruct.Enable = MPU_REGION_ENABLE;
-  MPU_InitStruct.Number = MPU_REGION_NUMBER0;
-  MPU_InitStruct.BaseAddress = 0x0;
-  MPU_InitStruct.Size = MPU_REGION_SIZE_4GB;
-  MPU_InitStruct.SubRegionDisable = 0x87;
-  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
-  MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
-  MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
-  MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
-  MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
-  MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
-
-  HAL_MPU_ConfigRegion(&MPU_InitStruct);
-  /* Enables the MPU */
-  HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
-
-}
 
 /**
   * @brief  This function is executed in case of error occurrence.

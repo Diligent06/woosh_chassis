@@ -15,6 +15,8 @@
 #define Motor_tor      0x04
 #define Motor_tor4     0x05
 
+#define MOTOREVO_NUM   4
+#define MOTOREVO_START_ID 0x05
 
 struct Receive_servo
 {
@@ -37,8 +39,8 @@ struct Motor_state{
   u8 temp;
 };
 
-extern struct Receive_servo motorevo_rec[4];
-extern struct Motor_state motorevo_state[4];
+extern struct Receive_servo motorevo_rec[MOTOREVO_NUM];
+extern struct Motor_state motorevo_state[MOTOREVO_NUM];
 
 void Motorevo_SetPos_cmd(u8 can_id, float pose, float velo);
 void Motorevo_init();
@@ -48,6 +50,8 @@ void Motorevo_Reset(u8 can_id);
 void Motorevo_Activate(u8 can_id);
 void Motorevo_SetZero(u8 can_id);
 void Motorevo_Query(u8 can_id);
+void Motorevo_SetPos(u8 can_id, float pos, float vel);
+
 
 
 #endif
