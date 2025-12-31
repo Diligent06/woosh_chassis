@@ -377,7 +377,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
                       (float)sign_spd_y * 100.0 / 512.0, 
                       (float)sign_spd_w * 100.0 / 512.0
                     );
-      // CDC_Transmit_HS(uart2_rx_buf, 6);
+      CDC_Transmit_HS(uart2_rx_buf, 6);
       HAL_UART_Receive_IT(&huart2, uart2_rx_buf, 6);
     }
 }

@@ -156,13 +156,13 @@ int main(void)
   // Chassis_Init();
 
   // for(u8 i = 0; i < DRIVE_MOTOR_NUM; i++){
-  //   drive_motor_spd_cmd[i] = 200;
+  //   drive_motor_spd_cmd[i] = 0;
   // }
   // Chassis_Set_drive_spd();
-  // // for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
-  // //   steer_motor_pos_cmd[i] = steer_forward_pos[i];
-  // // }
-  // float test_angle[4] = {0, 0, 0, 0};
+  // for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
+  //   steer_motor_pos_cmd[i] = steer_forward_pos[i];
+  // }
+  // float test_angle[4] = {pi / 2, pi / 2, pi / 2, pi / 2};
   // Chassis_Set_steer_angle(test_angle);
   // Chassis_Set_steer_pos();
 
@@ -174,17 +174,31 @@ int main(void)
   // Chassis_Deinit();
 
   // Motorevo_Activate(0x06);
+  // Motorevo_Activate(0x05);
+  // Motorevo_Activate(0x07);
+  // Motorevo_Activate(0x08);
   // // Motorevo_SetPos(0x08, 1.8, 5.0);
   // HAL_Delay(5000);
   // Motorevo_Update_State();
   // Motorevo_Reset(0x06);
+  // Motorevo_Reset(0x05);
+  // Motorevo_Reset(0x07);
+  // Motorevo_Reset(0x08);
 
   // HAL_Delay(1000);
 
   // uint8_t buf[10] = "abc\n";
   // Chassis_Deinit();
+
+
   Chassis_Init();
   Chassis_Tidybot(0, 0, 0);
+  // HAL_Delay(1000);
+  // Chassis_Tidybot(0, 5, 0);
+  // HAL_Delay(1000);
+  // Chassis_Tidybot(0, 0, 0);
+  // Chassis_Deinit();
+
   while (1)
   {
     // HAL_IWDG_Refresh(&hiwdg1);                    // watch dog

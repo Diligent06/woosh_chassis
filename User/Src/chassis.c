@@ -15,12 +15,14 @@ float steer_motor_pos_max[STEER_MOTOR_NUM] = {0.0505455099, 0.0272755008, 0.0398
 // max -> min clock-wise
 float steer_motor_pos_min[STEER_MOTOR_NUM] = {3.87140465, 3.84622717, 3.85271239, 3.85004187};
 float steer_range_ = 3.8189516692;
-float steer_forward_pos[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
+// float steer_forward_pos[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
+float steer_forward_pos[STEER_MOTOR_NUM] = {0.0, 0.0, 0.0, 0.0};
 float steer_vel_limit = 5.0;
 float steer_clip_angle = pi / 2.0;
 float steer_front_angle = pi / 2.0;
 
-float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
+// float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
+float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {0.0, 0.0, 0.0, 0.0};
 float steer_motor_ang_cmd[STEER_MOTOR_NUM] = {pi / 2, pi / 2, pi / 2, pi / 2};
 
 u8 steer_decrease_flag = 0;
@@ -80,7 +82,7 @@ void Chassis_Set_drive_spd(){
   if(steer_decrease_flag){
     Hollysys_Setspdcmd(drive_motor_id[0], drive_motor_spd_cmd[0]*0.1);
     Hollysys_Setspdcmd(drive_motor_id[1], -drive_motor_spd_cmd[1]*0.1);
-    Hollysys_Setspdcmd(drive_motor_id[2], drive_motor_spd_cmd[2]*0.1);
+    Hollysys_Setspdcmd(drive_motor_id[2], drive_motor_spd_cmd[2]*0.1); 
     Hollysys_Setspdcmd(drive_motor_id[3], -drive_motor_spd_cmd[3]*0.1);
   }
   else{
