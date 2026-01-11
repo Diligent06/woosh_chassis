@@ -115,6 +115,18 @@ int main(void)
   // __HAL_UART_CLEAR_OREFLAG(&huart2);
   // HAL_UART_AbortReceive(&huart2);
   // int idle_state = HAL_UARTEx_ReceiveToIdle_DMA(&huart2, uart2_rx_buf, USART_RX_BUF_SIZE);
+  __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+  __HAL_UART_CLEAR_OREFLAG(&huart2);
+  while (__HAL_UART_GET_FLAG(&huart2, UART_FLAG_RXNE))
+  {
+      volatile uint8_t dummy = (uint8_t)huart2.Instance->RDR;
+      (void)dummy;
+  }
+
+  // 3️⃣ 清 HAL 状态
+  huart2.RxState = HAL_UART_STATE_READY;
+  huart2.RxXferCount = 0;
+  huart2.RxXferSize  = 0;
   HAL_UARTEx_ReceiveToIdle_IT(&huart2, uart2_rx_buf, USART_RX_BUF_SIZE);
   // __HAL_DMA_DISABLE_IT(huart2.hdmarx, DMA_IT_HT);
   // HAL_UART_Receive_IT(&huart2, uart2_rx_buf, 6); // 3byte represent spd_x, spd_y, spd_z
@@ -194,8 +206,8 @@ int main(void)
   // Chassis_Deinit();
 
 
-  // Chassis_Init();
-  // Chassis_Tidybot(0, 0, 0);
+  Chassis_Init();
+  Chassis_Tidybot(0, 0, 0);
 
   while (1)
   {
@@ -206,18 +218,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  Chassis_RC_Update();
-  if(chassis_start_flag){
+    Chassis_RC_Update();
     Chassis_Info_Query();
     Chassis_State_Update();
-    
-    // Chassis_drive_spd_decrease();
+  // Chassis_drive_spd_decrease();
     Chassis_Set_steer_pos();
     Chassis_Set_drive_spd();
     Chassis_Update();
-  }
-  
-  HAL_Delay(5);
+    HAL_Delay(5);
   
   // if(stop_flag)
   //   break;

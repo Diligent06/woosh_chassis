@@ -1,23 +1,24 @@
 {
- "version": "0.2.0",
- "configurations": [
-   {
-     "preLaunchTask": "build",
-     "name": "Debug STM32 with ST-Link",
-     "cwd": "${workspaceFolder}",
-     "executable": "${workspaceFolder}/build/Nucleo_h723zg.elf",
-     "request": "launch",
-     "type": "cortex-debug",
-     "servertype": "openocd",
-     "device": "NUCLEOH723ZG", 
-     "configFiles": [
-       "interface/stlink-v2.cfg",
-       "target/stm32h7x.cfg" 
-     ],
-     "runToMain": true,
-     "svdFile": "STM32H723.svd",  
-     "preLaunchTask": "build",
-     "gdbPath": "D:\\gcc-arm-none-eabi-10.3-2021.10-win32\\gcc-arm-none-eabi-10.3-2021.10\\bin\\arm-none-eabi-gdb.exe"
-   }
- ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "preLaunchTask": "build",
+      "name": "Debug STM32 with ST-Link",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/Nucleo_h723zg.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "device": "STM32F103C8",
+      "configFiles": [
+        "/opt/homebrew/opt/open-ocd/share/openocd/scripts/interface/stlink-v2.cfg",
+        // "/opt/homebrew/opt/open-ocd/share/openocd/scripts/interface/cmsis-dap.cfg",
+        "/opt/homebrew/opt/open-ocd/share/openocd/scripts/target/stm32h7x.cfg" 
+      ],
+      "runToMain": true,
+      "svdFile": "/Users/srp/Documents/BIGAI/woosh_chassis/STM32H723.svd", 
+      "preLaunchTask": "build",
+      "gdbPath": "/Applications/ARM/bin/arm-none-eabi-gdb"
+    }
+  ]
 }

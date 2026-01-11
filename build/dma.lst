@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s 			page 1
+ARM GAS  /var/folders/xf/tcndk8390ml5xdpfw93qkhpm0000gn/T//ccqD7pVf.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s 			page 1
   29:Core/Src/dma.c **** /* Configure DMA                                                              */
   30:Core/Src/dma.c **** /*----------------------------------------------------------------------------*/
   31:Core/Src/dma.c **** 
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s 			page 2
+ARM GAS  /var/folders/xf/tcndk8390ml5xdpfw93qkhpm0000gn/T//ccqD7pVf.s 			page 2
 
 
   32:Core/Src/dma.c **** /* USER CODE BEGIN 1 */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s 			page 1
   50:Core/Src/dma.c **** }
   64              		.loc 1 50 1
   65 0034 00BF     		nop
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s 			page 3
+ARM GAS  /var/folders/xf/tcndk8390ml5xdpfw93qkhpm0000gn/T//ccqD7pVf.s 			page 3
 
 
   66 0036 0837     		adds	r7, r7, #8
@@ -137,17 +137,17 @@ ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s 			page 1
   79              	.LFE144:
   81              		.text
   82              	.Letext0:
-  83              		.file 2 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\machine\\_default_types.h"
-  84              		.file 3 "e:\\user\\bigai\\gcc_arm_none_eabi\\arm-none-eabi\\include\\sys\\_stdint.h"
+  83              		.file 2 "/Applications/ARM/arm-none-eabi/include/machine/_default_types.h"
+  84              		.file 3 "/Applications/ARM/arm-none-eabi/include/sys/_stdint.h"
   85              		.file 4 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h"
-ARM GAS  C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s 			page 4
+ARM GAS  /var/folders/xf/tcndk8390ml5xdpfw93qkhpm0000gn/T//ccqD7pVf.s 			page 4
 
 
 DEFINED SYMBOLS
-                            *ABS*:00000000 dma.c
-C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s:19     .text.MX_DMA_Init:00000000 $t
-C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s:25     .text.MX_DMA_Init:00000000 MX_DMA_Init
-C:\Users\Su\AppData\Local\Temp\ccAu7k7B.s:77     .text.MX_DMA_Init:0000003c $d
+                            *ABS*:0000000000000000 dma.c
+/var/folders/xf/tcndk8390ml5xdpfw93qkhpm0000gn/T//ccqD7pVf.s:19     .text.MX_DMA_Init:0000000000000000 $t
+/var/folders/xf/tcndk8390ml5xdpfw93qkhpm0000gn/T//ccqD7pVf.s:25     .text.MX_DMA_Init:0000000000000000 MX_DMA_Init
+/var/folders/xf/tcndk8390ml5xdpfw93qkhpm0000gn/T//ccqD7pVf.s:77     .text.MX_DMA_Init:000000000000003c $d
 
 UNDEFINED SYMBOLS
 HAL_NVIC_SetPriority

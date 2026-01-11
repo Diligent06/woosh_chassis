@@ -45,13 +45,13 @@ u8 chassis_start_flag = 0;
 
 void Chassis_RC_Update(){
   last_chassis_start_flag = chassis_start_flag;
-  if(chassis_remote_control_buf[2] >> 6)
+  if(((uint8_t)chassis_remote_control_buf[2] >> 6) & 1U)
     spd_max = 300;
-  if(chassis_remote_control_buf[2] >> 7)
+  if(((uint8_t)chassis_remote_control_buf[2] >> 7) & 1U)
     spd_max = 100;
-  if(chassis_remote_control_buf[2] >> 5)
+  if(((uint8_t)chassis_remote_control_buf[2] >> 5) & 1U)
     chassis_start_flag = 1;
-  if(chassis_remote_control_buf[2] >> 4)
+  if(((uint8_t)chassis_remote_control_buf[2] >> 4) & 1U)
     chassis_start_flag = 0;
 
   if(last_chassis_start_flag != chassis_start_flag){
@@ -60,9 +60,10 @@ void Chassis_RC_Update(){
     else
       Chassis_Stop();
   }
-
+  if(chassis_start_flag == 0)
+    return;
   float spd_x = ((float)chassis_remote_control_buf[4] - 128) / 128.0 * spd_max;
-  float spd_y = (127 - (float)chassis_remote_control_buf[5]) / 128.0 * spd_max;
+  float spd_y = (128 - (float)chassis_remote_control_buf[5]) / 128.0 * spd_max;
   float spd_z = ((float)chassis_remote_control_buf[6] - 128) / 128.0 * spd_max;
   Chassis_Tidybot(spd_x, spd_y, spd_z);
 }

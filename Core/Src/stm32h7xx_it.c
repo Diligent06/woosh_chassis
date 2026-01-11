@@ -353,20 +353,19 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
       }
 
       __HAL_UART_CLEAR_IDLEFLAG(&huart2);
-        __HAL_UART_CLEAR_OREFLAG(&huart2);
-        while (__HAL_UART_GET_FLAG(&huart2, UART_FLAG_RXNE))
-        {
-            volatile uint8_t dummy = (uint8_t)huart2.Instance->RDR;
-            (void)dummy;
-        }
+      __HAL_UART_CLEAR_OREFLAG(&huart2);
+      while (__HAL_UART_GET_FLAG(&huart2, UART_FLAG_RXNE))
+      {
+          volatile uint8_t dummy = (uint8_t)huart2.Instance->RDR;
+          (void)dummy;
+      }
 
-        // 3️⃣ 清 HAL 状态
-        huart->RxState = HAL_UART_STATE_READY;
-        huart->RxXferCount = 0;
-        huart->RxXferSize  = 0;
+      // 3️⃣ 清 HAL 状态
+      huart->RxState = HAL_UART_STATE_READY;
+      huart->RxXferCount = 0;
+      huart->RxXferSize  = 0;
 
-      int start_flag = HAL_UARTEx_ReceiveToIdle_IT(&huart2, uart2_rx_buf, USART_RX_BUF_SIZE);
-      int test_flag = 0;
+      HAL_UARTEx_ReceiveToIdle_IT(&huart2, uart2_rx_buf, USART_RX_BUF_SIZE);
   }
 }
 
@@ -395,6 +394,25 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     }
 }
 
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+  if (huart->Instance == USART2)
+  {
+    __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+    __HAL_UART_CLEAR_OREFLAG(&huart2);
+    while (__HAL_UART_GET_FLAG(&huart2, UART_FLAG_RXNE))
+    {
+        volatile uint8_t dummy = (uint8_t)huart2.Instance->RDR;
+        (void)dummy;
+    }
 
+    // 3️⃣ 清 HAL 状态
+    huart->RxState = HAL_UART_STATE_READY;
+    huart->RxXferCount = 0;
+    huart->RxXferSize  = 0;
+
+    HAL_UARTEx_ReceiveToIdle_IT(&huart2, uart2_rx_buf, USART_RX_BUF_SIZE);
+  }
+}
 
 /* USER CODE END 1 */
