@@ -382,4 +382,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     }
 }
 
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+  int test_error = 0;
+  if (huart->Instance == USART2)
+  {
+      // ★★★ 错误处理 ★★★
+      HAL_UART_Receive_IT(&huart2, uart2_rx_buf, 6);
+  }
+}
+
 /* USER CODE END 1 */
