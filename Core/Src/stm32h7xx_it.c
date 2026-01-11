@@ -332,29 +332,42 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     }
   }
 }
-
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
-  int test_uart = 0;
-    if (huart->Instance == USART2) 
-    {
-        /* 1. 处理数据 */
-        // 将收到的数据原样发回去
-        HAL_UART_Transmit(&huart2, uart2_rx_buf, Size, 100);
+  if (huart->Instance == USART2) 
+  {
+      /*    
+      remote controller
+      0xfe 0xff 
+      l1 l2 r1 r2 button_select button_start 
+      button_l1 button_l2 button_l3 button_l4 button_r1 button_r2 button_r3 button_r4 0 0
+      above is 2 bytes
+      stick_left_x stick_left_y stick_right_x stick_right_y
+      stick_left_x 0x0000 - 0xffff
+      other's are one bit
+      */
+      // HAL_UART_AbortReceive(&huart2);
 
-        /* 2. 重启接收 (针对 Normal 模式) */
-        // 在 Normal 模式下，DMA 传输完成后会自动停止。
-        // 为了安全起见，在重新启动前可以调用 Abort (非阻塞中止) 确保状态机复位
-        HAL_UART_AbortReceive(&huart2); 
+      if(Size == 8 && uart2_rx_buf[0] == 0xfe && uart2_rx_buf[1] == 0xff){
+        memcpy(chassis_remote_control_buf, uart2_rx_buf, 8);
+      }
 
-        // 重新开启 DMA 接收及 IDLE 中断监听
-        // 注意：sizeof(uart2_rx_buf) 确保下一次接收依然使用整个缓冲区
-        HAL_UARTEx_ReceiveToIdle_DMA(&huart2, uart2_rx_buf, sizeof(uart2_rx_buf));
-        
-        /* 3. 针对 H7 的 Cache 一致性处理 (如果开启了 D-Cache) */
-        // 如果你发现发回的数据不对，请取消下面这行的注释
-        // SCB_CleanInvalidateDCache_by_Addr((uint32_t*)uart2_rx_buf, sizeof(uart2_rx_buf));
-    }
+      __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+        __HAL_UART_CLEAR_OREFLAG(&huart2);
+        while (__HAL_UART_GET_FLAG(&huart2, UART_FLAG_RXNE))
+        {
+            volatile uint8_t dummy = (uint8_t)huart2.Instance->RDR;
+            (void)dummy;
+        }
+
+        // 3️⃣ 清 HAL 状态
+        huart->RxState = HAL_UART_STATE_READY;
+        huart->RxXferCount = 0;
+        huart->RxXferSize  = 0;
+
+      int start_flag = HAL_UARTEx_ReceiveToIdle_IT(&huart2, uart2_rx_buf, USART_RX_BUF_SIZE);
+      int test_flag = 0;
+  }
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
@@ -373,13 +386,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
       s16 sign_spd_y = (s16)temp_spd_y - 512;
       s16 sign_spd_w = (s16)temp_spd_w - 512;
 
-      Chassis_Tidybot((float)sign_spd_x * 100.0 / 512.0, 
-                      (float)sign_spd_y * 100.0 / 512.0, 
-                      (float)sign_spd_w * 100.0 / 512.0
+      Chassis_Tidybot((float)sign_spd_x * 250.0 / 512.0, 
+                      (float)sign_spd_y * 250.0 / 512.0, 
+                      (float)sign_spd_w * 250.0 / 512.0
                     );
-      CDC_Transmit_HS(uart2_rx_buf, 6);
+      // CDC_Transmit_HS(uart2_rx_buf, 6);
       HAL_UART_Receive_IT(&huart2, uart2_rx_buf, 6);
     }
 }
+
+
 
 /* USER CODE END 1 */

@@ -115,8 +115,11 @@ int main(void)
   // __HAL_UART_CLEAR_OREFLAG(&huart2);
   // HAL_UART_AbortReceive(&huart2);
   // int idle_state = HAL_UARTEx_ReceiveToIdle_DMA(&huart2, uart2_rx_buf, USART_RX_BUF_SIZE);
+  HAL_UARTEx_ReceiveToIdle_IT(&huart2, uart2_rx_buf, USART_RX_BUF_SIZE);
   // __HAL_DMA_DISABLE_IT(huart2.hdmarx, DMA_IT_HT);
-  HAL_UART_Receive_IT(&huart2, uart2_rx_buf, 6); // 3byte represent spd_x, spd_y, spd_z
+  // HAL_UART_Receive_IT(&huart2, uart2_rx_buf, 6); // 3byte represent spd_x, spd_y, spd_z
+  // __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);
+  // HAL_UART_Receive_DMA(&huart2,(uint8_t *)uart2_rx_buf,USART_RX_BUF_SIZE);
 
   /*         init for txHeader         */
   txHeader.Identifier = 0x101;
@@ -191,33 +194,37 @@ int main(void)
   // Chassis_Deinit();
 
 
-  Chassis_Init();
-  Chassis_Tidybot(0, 0, 0);
-  // HAL_Delay(1000);
-  // Chassis_Tidybot(0, 5, 0);
-  // HAL_Delay(1000);
+  // Chassis_Init();
   // Chassis_Tidybot(0, 0, 0);
-  // Chassis_Deinit();
 
   while (1)
   {
+    // HAL_UART_Transmit(&huart2,(uint8_t *)buf,4,1000);
+    // HAL_Delay(2000);
+
     // HAL_IWDG_Refresh(&hiwdg1);                    // watch dog
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  Chassis_Info_Query();
-  Chassis_State_Update();
-  Chassis_drive_spd_decrease();
-  Chassis_Set_steer_pos();
-  Chassis_Set_drive_spd();
-  Chassis_Update();
+  Chassis_RC_Update();
+  if(chassis_start_flag){
+    Chassis_Info_Query();
+    Chassis_State_Update();
+    
+    // Chassis_drive_spd_decrease();
+    Chassis_Set_steer_pos();
+    Chassis_Set_drive_spd();
+    Chassis_Update();
+  }
+  
   HAL_Delay(5);
   
-  if(stop_flag)
-    break;
+  // if(stop_flag)
+  //   break;
   }
-  Chassis_Deinit();
-  /* USER CODE END 3 */
+  // Chassis_Deinit();
+
+    /* USER CODE END 3 */
 }
 
 /**

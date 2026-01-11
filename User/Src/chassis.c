@@ -1,7 +1,7 @@
 #include "chassis.h"
 #include <math.h>
 
-
+u8 chassis_remote_control_buf[8] = {0};
 
 // orient front direction
 // front left, front right, rear right, rear left
@@ -29,8 +29,8 @@ u8 steer_decrease_flag = 0;
 
 s32 drive_motor_spd_cmd[DRIVE_MOTOR_NUM] = {0};
 
-float hx = 0.3;    // width of chassis
-float hy = 0.5;    // lenght of chassis
+float hx = 0.43;    // width of chassis
+float hy = 0.506;    // lenght of chassis
 float bx = 0.0;    // offset of steer and motor center
 float by = 0.0;   // offset of steer and motor center
 
@@ -38,8 +38,40 @@ float sign_hx[STEER_MOTOR_NUM] = {-1, 1, 1, -1};
 float sign_hy[STEER_MOTOR_NUM] = {1, 1, -1, -1};
 
 u8 steer_to_drive[STEER_MOTOR_NUM] = {0, 1, 3, 2};
+float spd_max = 100;
 
+u8 last_chassis_start_flag = 0;
+u8 chassis_start_flag = 0;
 
+void Chassis_RC_Update(){
+  last_chassis_start_flag = chassis_start_flag;
+  if(chassis_remote_control_buf[2] >> 6)
+    spd_max = 300;
+  if(chassis_remote_control_buf[2] >> 7)
+    spd_max = 100;
+  if(chassis_remote_control_buf[2] >> 5)
+    chassis_start_flag = 1;
+  if(chassis_remote_control_buf[2] >> 4)
+    chassis_start_flag = 0;
+
+  if(last_chassis_start_flag != chassis_start_flag){
+    if(chassis_start_flag == 1)
+      Chassis_Start();
+    else
+      Chassis_Stop();
+  }
+
+  float spd_x = ((float)chassis_remote_control_buf[4] - 128) / 128.0 * spd_max;
+  float spd_y = (127 - (float)chassis_remote_control_buf[5]) / 128.0 * spd_max;
+  float spd_z = ((float)chassis_remote_control_buf[6] - 128) / 128.0 * spd_max;
+  Chassis_Tidybot(spd_x, spd_y, spd_z);
+}
+void Chassis_Start(){
+  Chassis_Init();
+}
+void Chassis_Stop(){
+  Chassis_Deinit();
+}
 void Chassis_Init(void){
   
   Hollysys_enable_A(0x03);
@@ -93,7 +125,6 @@ void Chassis_Set_drive_spd(){
   }
   steer_decrease_flag = 0;
 }
-
 float Chassis_Steer_Angle_Clip(float* angle, float* center_ang){
   if(*angle < *center_ang - steer_clip_angle){
     return *center_ang - steer_clip_angle;

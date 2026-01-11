@@ -26,7 +26,8 @@ extern u8 drive_motor_id[DRIVE_MOTOR_NUM];
 extern u8 steer_motor_id[STEER_MOTOR_NUM];
 extern float steer_forward_pos[STEER_MOTOR_NUM];
 extern float steer_motor_pos_cmd[STEER_MOTOR_NUM];
-
+extern u8 chassis_remote_control_buf[8];
+extern u8 chassis_start_flag;
 
 
 void Chassis_Init(void);
@@ -41,6 +42,9 @@ void Chassis_State_Update();
 void Chassis_Set_steer_pos();
 void Chassis_Set_steer_angle(float* angle);
 void Chassis_Tidybot(float spd_x, float spd_y, float spd_w);
+void Chassis_RC_Update();
+void Chassis_Start();
+void Chassis_Stop();
 
 
 
