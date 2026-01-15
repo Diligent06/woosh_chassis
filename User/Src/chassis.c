@@ -16,13 +16,15 @@ float steer_motor_pos_max[STEER_MOTOR_NUM] = {0.0505455099, 0.0272755008, 0.0398
 float steer_motor_pos_min[STEER_MOTOR_NUM] = {3.87140465, 3.84622717, 3.85271239, 3.85004187};
 float steer_range_ = 3.8189516692;
 // float steer_forward_pos[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
-float steer_forward_pos[STEER_MOTOR_NUM] = {0.0, 0.0, 0.0, 0.0};
+// float steer_forward_pos[STEER_MOTOR_NUM] = {0.0, 0.0, 0.0, 0.0};
+float steer_forward_pos[STEER_MOTOR_NUM] = {4.58743429, 0.292782485, 2.81548023, -10.4877167};
 float steer_vel_limit = 5.0;
 float steer_clip_angle = pi / 2.0;
 float steer_front_angle = pi / 2.0;
 
 // float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
-float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {0.0, 0.0, 0.0, 0.0};
+// float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {0.0, 0.0, 0.0, 0.0};
+float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {4.58743429, 0.292782485, 2.81548023, -10.4877167};
 float steer_motor_ang_cmd[STEER_MOTOR_NUM] = {pi / 2, pi / 2, pi / 2, pi / 2};
 
 u8 steer_decrease_flag = 0;
