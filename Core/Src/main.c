@@ -218,14 +218,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    // Chassis_RC_Update();
+    Chassis_RC_Update();
     Chassis_Info_Query();
     Chassis_State_Update();
   // Chassis_drive_spd_decrease();
     Chassis_Set_steer_pos();
     Chassis_Set_drive_spd();
     Chassis_Update();
-    HAL_Delay(5);
+    HAL_Delay(5);                      // 200 Hz for control loop
   
   // if(stop_flag)
   //   break;

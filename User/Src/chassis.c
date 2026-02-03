@@ -10,18 +10,14 @@ u8 steer_motor_id[STEER_MOTOR_NUM] = {0x05, 0x06, 0x07, 0x08};
 u8 drive_motor_id[DRIVE_MOTOR_NUM] = {0x01, 0x02, 0x03, 0x04};
 
 
-
-float steer_motor_pos_max[STEER_MOTOR_NUM] = {0.0505455099, 0.0272755008, 0.0398641936, 0.0329976343};
-// max -> min clock-wise
-float steer_motor_pos_min[STEER_MOTOR_NUM] = {3.87140465, 3.84622717, 3.85271239, 3.85004187};
-float steer_range_ = 3.8189516692;
-// float steer_forward_pos[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
-// float steer_forward_pos[STEER_MOTOR_NUM] = {0.0, 0.0, 0.0, 0.0};
-float steer_forward_pos[STEER_MOTOR_NUM] = {4.58743429, 0.292782485, 2.81548023, -10.4877167};
 float steer_vel_limit = 5.0;
 float steer_clip_angle = pi / 2.0;
 float steer_front_angle = pi / 2.0;
 
+
+// float steer_forward_pos[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
+// float steer_forward_pos[STEER_MOTOR_NUM] = {0.0, 0.0, 0.0, 0.0};
+float steer_forward_pos[STEER_MOTOR_NUM] = {4.58743429, 0.292782485, 2.81548023, -10.4877167};
 // float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
 // float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {0.0, 0.0, 0.0, 0.0};
 float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {4.58743429, 0.292782485, 2.81548023, -10.4877167};
@@ -35,15 +31,17 @@ float hx = 0.43;    // width of chassis
 float hy = 0.506;    // lenght of chassis
 float bx = 0.0;    // offset of steer and motor center
 float by = 0.0;   // offset of steer and motor center
+float wheel_radius = 0.05; // wheel radius
 
-float sign_hx[STEER_MOTOR_NUM] = {-1, 1, 1, -1};
-float sign_hy[STEER_MOTOR_NUM] = {1, 1, -1, -1};
+float sign_hx[STEER_MOTOR_NUM] = {-1, 1, 1, -1};    // sign of steer motor position in chassis center coordinate
+float sign_hy[STEER_MOTOR_NUM] = {1, 1, -1, -1};    // sign of steer motor position in chassis center coordinate
 
-u8 steer_to_drive[STEER_MOTOR_NUM] = {0, 1, 3, 2};
-float spd_max = 100;
+u8 steer_to_drive[STEER_MOTOR_NUM] = {0, 1, 3, 2};  // steer motor to drive motor mapping
+float spd_max = 100;         // unit is 0.1rpm
 
-u8 last_chassis_start_flag = 0;
-u8 chassis_start_flag = 0;
+u8 last_chassis_start_flag = 0;                     // chassis start or not flag on time t-1
+u8 chassis_start_flag = 0;                          // chassis start or not flag on time t
+float chassis_init_angle = pi / 2;                     // chassis init angle to world coordinate (when speed is 0)
 
 void Chassis_RC_Update(){
   last_chassis_start_flag = chassis_start_flag;
@@ -186,7 +184,6 @@ void Chassis_Drive_Info_Query(){
 
 // Chassis motor output update
 void Chassis_Update(void){
-
   Hollysys_Update();
   Motorevo_Update();
 }
@@ -215,6 +212,18 @@ void Chassis_Deinit(void){
 
 // spd_w inverse clock-wise direction is positive
 void Chassis_Tidybot(float spd_x, float spd_y, float spd_w){
+  // if speed is small enough, stop all motors and set steer to init angle
+  if(fabs(spd_x) < 2 && fabs(spd_y) < 2 && fabs(spd_w) < 2){
+    for(u8 i = 0; i < DRIVE_MOTOR_NUM; i++){
+      drive_motor_spd_cmd[i] = 0;
+    }
+    for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
+      steer_motor_ang_cmd[i] = chassis_init_angle;
+    }
+    Chassis_steer_pos_from_angle();
+    return;
+  }
+
   for(u8 i = 0; i < sizeof(STEER_MOTOR_NUM); i++){
     float steer_angle = Chassis_Convert_steer_pos_to_angle(i, motorevo_state[i].pos); 
     float angle_sin = (float)sin(steer_angle);
