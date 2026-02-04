@@ -21,6 +21,13 @@
 
 #define pi 3.1415926535897932384626433832795
 
+
+struct Chassis_state{
+    float coordinate_x;
+    float coordinate_y;
+    float yaw_angle;
+};
+
 extern s32 drive_motor_spd_cmd[DRIVE_MOTOR_NUM];
 extern u8 drive_motor_id[DRIVE_MOTOR_NUM];
 extern u8 steer_motor_id[STEER_MOTOR_NUM];
@@ -28,7 +35,6 @@ extern float steer_forward_pos[STEER_MOTOR_NUM];
 extern float steer_motor_pos_cmd[STEER_MOTOR_NUM];
 extern u8 chassis_remote_control_buf[8];
 extern u8 chassis_start_flag;
-
 
 void Chassis_Init(void);
 void Chassis_Set_drive_spd();

@@ -10,9 +10,9 @@ u8 steer_motor_id[STEER_MOTOR_NUM] = {0x05, 0x06, 0x07, 0x08};
 u8 drive_motor_id[DRIVE_MOTOR_NUM] = {0x01, 0x02, 0x03, 0x04};
 
 
-float steer_vel_limit = 5.0;
-float steer_clip_angle = pi / 2.0;
-float steer_front_angle = pi / 2.0;
+float steer_vel_limit = 5.0;                  // steer motor velocity limit (rad/s)
+float steer_clip_angle = pi / 2.0;            // steer motor angle clipping limit (rad)
+float steer_front_angle = pi / 2.0;           // steer motor front angle (rad)
 
 
 // float steer_forward_pos[STEER_MOTOR_NUM] = {1.8694208890999, -1.88467991, 1.8587395727999, -0.648317695};
@@ -23,7 +23,7 @@ float steer_forward_pos[STEER_MOTOR_NUM] = {4.58743429, 0.292782485, 2.81548023,
 float steer_motor_pos_cmd[STEER_MOTOR_NUM] = {4.58743429, 0.292782485, 2.81548023, -10.4877167};
 float steer_motor_ang_cmd[STEER_MOTOR_NUM] = {pi / 2, pi / 2, pi / 2, pi / 2};
 
-u8 steer_decrease_flag = 0;
+u8 steer_decrease_flag = 0;         // steer motor decrease flag, if steer motor is rotating, decrease drive motor speed
 
 s32 drive_motor_spd_cmd[DRIVE_MOTOR_NUM] = {0};
 
@@ -43,6 +43,12 @@ u8 last_chassis_start_flag = 0;                     // chassis start or not flag
 u8 chassis_start_flag = 0;                          // chassis start or not flag on time t
 float chassis_init_angle = pi / 2;                     // chassis init angle to world coordinate (when speed is 0)
 
+
+float control_period = 1 / 200.0;               // control period 200 Hz
+
+
+
+// update chassis speed and start/stop state from remote controller
 void Chassis_RC_Update(){
   last_chassis_start_flag = chassis_start_flag;
   if(((uint8_t)chassis_remote_control_buf[2] >> 6) & 1U)
@@ -67,12 +73,18 @@ void Chassis_RC_Update(){
   float spd_z = ((float)chassis_remote_control_buf[6] - 128) / 128.0 * spd_max;
   Chassis_Tidybot(spd_x, spd_y, spd_z);
 }
+
+// start chassis motors
 void Chassis_Start(){
   Chassis_Init();
 }
+
+// stop chassis motors
 void Chassis_Stop(){
   Chassis_Deinit();
 }
+
+// initialize chassis motors
 void Chassis_Init(void){
   
   Hollysys_enable_A(0x03);
@@ -103,6 +115,7 @@ void Chassis_Init(void){
   HAL_Delay(50);
 }
 
+// decrease drive motor speed when steer motor is rotating
 void Chassis_drive_spd_decrease(){
   for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
     if(fabs(motorevo_state[i].pos - steer_motor_pos_cmd[i]) > 0.5){
@@ -111,6 +124,8 @@ void Chassis_drive_spd_decrease(){
     }
   }
 }
+
+// set chassis drive motor speed
 void Chassis_Set_drive_spd(){
   if(steer_decrease_flag){
     Hollysys_Setspdcmd(drive_motor_id[0], drive_motor_spd_cmd[0]*0.1);
@@ -126,6 +141,8 @@ void Chassis_Set_drive_spd(){
   }
   steer_decrease_flag = 0;
 }
+
+// clip steer angle to avoid over rotate
 float Chassis_Steer_Angle_Clip(float* angle, float* center_ang){
   if(*angle < *center_ang - steer_clip_angle){
     return *center_ang - steer_clip_angle;
@@ -155,28 +172,37 @@ void Chassis_Set_steer_pos(){
   Motorevo_SetPos_cmd(steer_motor_id[3], steer_motor_pos_cmd[3], steer_vel_limit);
 }
 
+// update steer motor's pos command from chassis coordinate angle command
 void Chassis_steer_pos_from_angle(){
   for(u8 i = 0; i < STEER_MOTOR_NUM; i++){
     steer_motor_pos_cmd[i] = -(steer_motor_ang_cmd[i] - steer_front_angle) + steer_forward_pos[i];
   }
 }
 
+void Chassis_Position_Update(){
+
+}
+
+// update chassis motors' state (in interrupt handler, it will not update chassis motor state but only )
 void Chassis_State_Update(){
   Hollysys_Update_State();
   Motorevo_Update_State();
 }
 
-
+// get chassis motors' information data (only need to get hollysys data actively)
 void Chassis_Info_Query(){
   Chassis_Drive_Info_Query();
   // Chassis_Steer_Info_Query();
 }
+
+// get steer motors' information data (but when we send control command to steer motor, it will send back it's data automatically)
 void Chassis_Steer_Info_Query(){
   for(u8 i = 0; i < sizeof(steer_motor_id); i++)
     Motorevo_Query(steer_motor_id[i]);
 
 }
 
+// get hollysys motors' information data (hollysys motor will not send it's data automatically)
 void Chassis_Drive_Info_Query(){
   for(u8 i = 0; i < sizeof(drive_motor_id); i++)
     Hollysys_GetData(drive_motor_id[i]);
@@ -187,12 +213,12 @@ void Chassis_Update(void){
   Hollysys_Update();
   Motorevo_Update();
 }
-
+// update steer motor's pos to chassis coordinate angle
 float Chassis_Convert_steer_pos_to_angle(u8 motor_no, float pos){
   return -(pos - steer_forward_pos[motor_no]) + steer_front_angle;
 }
 
-
+// De-initialize chassis motors
 void Chassis_Deinit(void){
   HAL_Delay(50);
   for(u8 i = 0; i < sizeof(drive_motor_id); i++){
