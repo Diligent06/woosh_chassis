@@ -1,4 +1,4 @@
-build/main.o: Core/Src/main.c Core/Inc/main.h \
+build/lift.o: User/Src/lift.c User/Inc/lift.h Core/Inc/main.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  Core/Inc/stm32h7xx_hal_conf.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
@@ -33,14 +33,8 @@ build/main.o: Core/Src/main.c Core/Inc/main.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h \
  Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h \
- Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h Core/Inc/dma.h \
- Core/Inc/main.h Core/Inc/fdcan.h Core/Inc/iwdg.h Core/Inc/tim.h \
- Core/Inc/usart.h User/Inc/common.h USB_DEVICE/App/usb_device.h \
- Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- USB_DEVICE/Target/usbd_conf.h Core/Inc/gpio.h User/Inc/fdcan_filter.h \
- User/Inc/hollysys.h User/Inc/common.h User/Inc/chassis.h \
- User/Inc/hollysys.h User/Inc/motorevo.h User/Inc/motorevo.h \
- User/Inc/lift.h
+ Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h
+User/Inc/lift.h:
 Core/Inc/main.h:
 Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 Core/Inc/stm32h7xx_hal_conf.h:
@@ -79,22 +73,3 @@ Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h:
 Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h:
 Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h:
-Core/Inc/dma.h:
-Core/Inc/main.h:
-Core/Inc/fdcan.h:
-Core/Inc/iwdg.h:
-Core/Inc/tim.h:
-Core/Inc/usart.h:
-User/Inc/common.h:
-USB_DEVICE/App/usb_device.h:
-Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
-USB_DEVICE/Target/usbd_conf.h:
-Core/Inc/gpio.h:
-User/Inc/fdcan_filter.h:
-User/Inc/hollysys.h:
-User/Inc/common.h:
-User/Inc/chassis.h:
-User/Inc/hollysys.h:
-User/Inc/motorevo.h:
-User/Inc/motorevo.h:
-User/Inc/lift.h:

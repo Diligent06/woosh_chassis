@@ -68,6 +68,7 @@ User/Src/syscalls.c \
 User/Src/hollysys.c \
 User/Src/motorevo.c \
 User/Src/chassis.c \
+User/Src/lift.c \
 USB_DEVICE/App/usb_device.c \
 USB_DEVICE/App/usbd_desc.c \
 USB_DEVICE/App/usbd_cdc_if.c \

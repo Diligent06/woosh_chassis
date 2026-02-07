@@ -32,6 +32,7 @@
 #include "hollysys.h"
 #include "chassis.h"
 #include "motorevo.h"
+#include "lift.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,6 +55,7 @@
 u8 query_chassis_flag = 0;
 u8 update_chasis_flag = 0;
 u8 stop_flag = 0;
+u8 usb_rx_buf[100] = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -102,6 +104,9 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  /*                 start usb receive          */
+  // USBD_CDC_SetRxBuffer(&hUsbDeviceHS, usb_rx_buf);
+  // USBD_CDC_ReceivePacket(&hUsbDeviceHS);
 
   /*          start can communication service          */
   uint8_t filter_init = FDCAN_filter_init(&hfdcan1);
@@ -198,7 +203,7 @@ int main(void)
   // HAL_Delay(1000);
   // Chassis_Tidybot(0, 0, 0);
   // Chassis_Deinit();
-
+  char test_buf[10] = "abc\n";
   while (1)
   {
     // HAL_IWDG_Refresh(&hiwdg1);                    // watch dog
@@ -212,7 +217,8 @@ int main(void)
   // Chassis_Set_drive_spd();
   // Chassis_Update();
   // HAL_Delay(5);
-  
+  CDC_Transmit_HS((uint8_t*)test_buf, 4);
+  HAL_Delay(2000);
   if(stop_flag)
     break;
   }

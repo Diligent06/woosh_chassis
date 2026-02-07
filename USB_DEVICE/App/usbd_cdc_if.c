@@ -22,7 +22,8 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-
+#include "lift.h"
+#include "chassis.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -265,6 +266,16 @@ static int8_t CDC_Receive_HS(uint8_t* Buf, uint32_t *Len)
 {
   /* USER CODE BEGIN 11 */
   CDC_Transmit_HS(Buf, *Len);
+  
+  if(Buf[0] == 0xfe){
+    if(Buf[1] == 0x00){
+      Lift_Down();
+    }
+    else if(Buf[1] == 0x01){
+      Lift_Up();
+    }
+    
+  }
 
   USBD_CDC_SetRxBuffer(&hUsbDeviceHS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceHS);
