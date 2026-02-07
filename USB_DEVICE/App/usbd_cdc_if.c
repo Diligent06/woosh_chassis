@@ -274,7 +274,18 @@ static int8_t CDC_Receive_HS(uint8_t* Buf, uint32_t *Len)
     else if(Buf[1] == 0x01){
       Lift_Up();
     }
-    
+    u16 temp_spd_x = (u16)Buf[2] << 8 | Buf[3];
+    u16 temp_spd_y = (u16)Buf[4] << 8 | Buf[5];
+    u16 temp_spd_w = (u16)Buf[6] << 8 | Buf[7];
+
+    s16 sign_spd_x = (s16)temp_spd_x - 512;
+    s16 sign_spd_y = (s16)temp_spd_y - 512;
+    s16 sign_spd_w = (s16)temp_spd_w - 512;
+
+    Chassis_Tidybot((float)sign_spd_x * 100.0 / 512.0, 
+                    (float)sign_spd_y * 100.0 / 512.0, 
+                    (float)sign_spd_w * 100.0 / 512.0
+                  );
   }
 
   USBD_CDC_SetRxBuffer(&hUsbDeviceHS, &Buf[0]);
