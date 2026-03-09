@@ -203,7 +203,7 @@ int main(void)
   // HAL_Delay(1000);
   // Chassis_Tidybot(0, 0, 0);
   // Chassis_Deinit();
-  char test_buf[10] = "abc\n";
+  // char test_buf[10] = "abc\n";
   while (1)
   {
     // HAL_IWDG_Refresh(&hiwdg1);                    // watch dog
@@ -217,7 +217,7 @@ int main(void)
   // Chassis_Set_drive_spd();
   // Chassis_Update();
   // HAL_Delay(5);
-  CDC_Transmit_HS((uint8_t*)test_buf, 4);
+  // CDC_Transmit_HS((uint8_t*)test_buf, 4);
   HAL_Delay(2000);
   if(stop_flag)
     break;
